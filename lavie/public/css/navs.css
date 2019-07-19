@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 14em;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 1em;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: #6cb2eb;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+.breadcrumb .btn-add {
+	left: 80%;	
+}
+
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+/*edit product file*/
+
+.add-to-agency {
+  color: white !important;
+  background-color: #212529;
+  padding: 10px;
+}
+
+.add-to-agency:hover {
+  background-color: #f3742a;
+}
+
+.delete-agency {
+  color: red !important;
+  padding: 0.1rem;
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+.delete-agency:hover {
+  color: blue !important;
+}
+
+.gallery {
+  overflow: hidden;
+  height: 100%;
+}
+
+.gallery img {
+  overflow: hidden;
+  height: 8rem;
+  width: auto;
+  margin: 5px;
+}
+
+.img-content {
+  overflow: hidden;
+  height: 10rem !important;
+  width: auto;
+}
