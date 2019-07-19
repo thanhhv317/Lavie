@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AgencyRequest;
 use App\Agency;
 use App\AgencyImage;
+use app\AgencyProduct;
 use Auth;
 use File;
 
@@ -78,19 +79,26 @@ class AgencyController extends Controller
         return redirect()->route('seller.agency');
     }
 
-    public function delImgAgency($id)
+    public function delImgAgency(Request $request)
     {
-        $agency_img = AgencyImage::find($id);
-        $image_path = public_path('/uploads/agency/') . $agency_img->image;
-        $agency_img->delete();
-        if(File::exists($image_path)) {
-            File::delete($image_path);
+        if ($request->ajax()) {
+            $id = $request->id;
+            $agency_img = AgencyImage::find($id);
+            $image_path = public_path('/uploads/agency/') . $agency_img->image;
+            $agency_img->delete();
+            if(File::exists($image_path)) {
+                File::delete($image_path);
+            }
+            return 1;
         }
-        return 1;
+        else {
+            return "not found";
+        }
     }
 
     public function delAgency($id)
     {
+        //delete agency image
         $agency_img = AgencyImage::select('*')->where('agency_id', $id)->get();
         foreach ($agency_img as $key => $value) {
             $image_path = public_path('/uploads/agency/') . $value->image;
@@ -99,6 +107,10 @@ class AgencyController extends Controller
                 File::delete($image_path);
             }
         }
+
+        //delete agency product
+        AgencyProduct::where('agency_id', $id)->delete();
+
         $agency = Agency::find($id);
         $agency->delete();
 
