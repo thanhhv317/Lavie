@@ -30,7 +30,7 @@ class AgencyController extends Controller
         return view('admin.agency.add');
     }
 
-    public function postAddAgency(Request $request)
+    public function postAddAgency(AgencyRequest $request)
     {
         $agency = new Agency;
         $agency->name = $request->name;
@@ -59,7 +59,7 @@ class AgencyController extends Controller
         return view('admin.agency.edit')->with(['agency' => $agency, 'agency_img' => $agency_img]);
     }
 
-    public function postEditAgency($id, Request $request)
+    public function postEditAgency($id, AgencyRequest $request)
     {
         $agency = Agency::find($id);
         $agency->name    = $request->name;
@@ -107,7 +107,6 @@ class AgencyController extends Controller
                 File::delete($image_path);
             }
         }
-
         //delete agency product
         AgencyProduct::where('agency_id', $id)->delete();
 

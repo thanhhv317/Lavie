@@ -10,6 +10,8 @@
     </ol>
 </nav>
 
+@include('admin.blocks.error')
+
 <div class="container">
 <form  action="{{ route('seller.product.postNew') }}" method="post" enctype="multipart/form-data">
 	@csrf
@@ -17,11 +19,11 @@
 		<div class="col">
 			<div class="form-group">
 			    <label for="formGroupExampleInput">Product name:</label>
-			    <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="Name" required="">
+			    <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="Name" required="" value="{{ old('name') }}">
 			</div>
 			<div class="form-group">
 			    <label for="formGroupExampleInput2">Base price:</label>
-			    <input type="text" class="form-control" id="formGroupExampleInput2" name="basePrice" placeholder="base Price" required="">
+			    <input type="text" class="form-control" id="formGroupExampleInput2" name="base_price" placeholder="base Price" required="" value="{{ old('basePrice') }}">
 			</div>
 
 			<div class="form-group">

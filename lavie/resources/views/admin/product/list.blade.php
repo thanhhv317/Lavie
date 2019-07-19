@@ -37,4 +37,27 @@
 	</div>
 </div>
 
+<div class="container row justify-content-center">
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination">
+	  	@if($product->onFirstPage())
+	    <li class="page-item disabled"><a class="page-link" href="{{ $product->previousPageUrl() }}">Previous</a></li>
+	    @else
+	    <li class="page-item"><a class="page-link" href="{{ $product->previousPageUrl() }}">Previous</a></li>
+	    @endif
+
+	    <li class="page-item"><a class="page-link" href="#">1</a></li>
+	    <li class="page-item"><a class="page-link" href="#">2</a></li>
+	    <li class="page-item"><a class="page-link" href="{{ $product->url(3) }}">3</a></li>
+	    @if($product->lastPage() == $product->currentPage())
+	    <li class="page-item disabled"><a class="page-link" href="{{ $product->nextPageUrl() }}">Next</a></li>
+	    @else
+	    <li class="page-item"><a class="page-link" href="{{ $product->nextPageUrl() }}">Next</a></li>
+	    @endif
+	  </ul>
+	</nav>
+</div>
+
+<?php  ?>
+
 @endsection()

@@ -12,12 +12,13 @@ use App\AgencyProduct;
 use DB;
 use Auth;
 use File;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
     public function index()
     {
-    	$product = Product::all()->toArray();
+    	$product = Product::paginate(3);
     	$size = count($product);
 
     	for ($i=0; $i < $size; $i++) { 
@@ -36,11 +37,11 @@ class ProductController extends Controller
     	return view('admin.product.add')->with(['category' => $category, 'agency' => $agency]);
     }
 
-    public function postAddProduct(Request $request)
+    public function postAddProduct(ProductRequest $request)
     {
     	$product = new Product;
     	$product->name 		 = $request->name;
-    	$product->base_price = $request->basePrice;
+    	$product->base_price = $request->base_price;
     	$product->save();
 
     	$product_id = $product->id;
@@ -94,7 +95,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function postEditProduct($id, Request $request)
+    public function postEditProduct($id, ProductRequest $request)
     {
         DB::beginTransaction();
         try {

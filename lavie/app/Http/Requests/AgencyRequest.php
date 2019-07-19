@@ -26,7 +26,7 @@ class AgencyRequest extends FormRequest
         return [
             'name' => 'required',
             'address' => 'required',
-            'fImage' => 'required|image',
+            'fImage.*' => 'required|image',
         ];
     }
 
@@ -34,9 +34,9 @@ class AgencyRequest extends FormRequest
     {
         return [
             'name.required' => 'Name not null',
-            'address.request' => 'Address not null',
-            'fImage.required' => 'Image not null',
-            'fImage.image' => 'Please choose Image',
+            'address.required' => 'Address not null',
+            'fImage.*.required' => 'Image not null',
+            'fImage.*.image' => 'Please choose Image',
         ];
     }
 }

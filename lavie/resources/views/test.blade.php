@@ -96,7 +96,7 @@
 		</div>
 		<div class="product-group">
 			<div class="row">
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -110,7 +110,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -124,7 +124,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -138,7 +138,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -156,7 +156,7 @@
 		</div>
 		<div class="product-group">
 			<div class="row">
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -170,7 +170,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -184,7 +184,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -198,7 +198,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -216,7 +216,7 @@
 		</div>
 		<div class="product-group">
 			<div class="row">
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -230,7 +230,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -244,7 +244,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -258,7 +258,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -301,7 +301,7 @@
 		</div>
 		<div class="product-group">
 			<div class="row">
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -315,7 +315,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -329,7 +329,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -343,7 +343,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -361,7 +361,7 @@
 		</div>
 		<div class="product-group">
 			<div class="row">
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -375,7 +375,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -389,7 +389,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -403,7 +403,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -421,7 +421,7 @@
 		</div>
 		<div class="product-group">
 			<div class="row">
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -435,7 +435,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -449,7 +449,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">
@@ -463,7 +463,7 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
 					  <div class="card-body">

@@ -10,6 +10,8 @@
     </ol>
 </nav>
 
+@include('admin.blocks.error')
+
 <div class="container">
 <form  action="{{ route('seller.product.postEdit',$product['id']) }}" method="post" enctype="multipart/form-data">
 	@csrf

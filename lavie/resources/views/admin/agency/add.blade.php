@@ -9,6 +9,7 @@
     	</div>
     </ol>
 </nav>
+@include('admin.blocks.error')
 
 <div class="container">
 <form  action="{{ route('seller.agency.postNew') }}" method="post" enctype="multipart/form-data">
@@ -17,11 +18,11 @@
 		<div class="col">
 	  <div class="form-group">
 	    <label for="formGroupExampleInput">Agency name:</label>
-	    <input type="text" class="form-control" id="formGroupExampleInput" required="" name="name" placeholder="Name">
+	    <input type="text" class="form-control" id="formGroupExampleInput" required="" name="name" placeholder="Name" value="{{ old('name') }}">
 	  </div>
 	  <div class="form-group">
 	    <label for="formGroupExampleInput2">Address:</label>
-	    <input type="text" class="form-control" id="formGroupExampleInput2" required="" name="address" placeholder="Address">
+	    <input type="text" class="form-control" id="formGroupExampleInput2" required="" name="address" placeholder="Address" value="{{ old('address') }}">
 	  </div>
 	  
 	  <div class="form-group">
