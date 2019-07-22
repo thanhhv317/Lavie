@@ -45,10 +45,12 @@
 
 .product-title {
   margin-bottom: 0.25rem;
+  text-align: center;
 }
 
 .price {
   color: #f90;
+  text-align: center;
 }
 
 .btn-add-to-card {
@@ -69,3 +71,6 @@
   color: white;
   text-align: center;
 }
+
+/*price range slider*/
+

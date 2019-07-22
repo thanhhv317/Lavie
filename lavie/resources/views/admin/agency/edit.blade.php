@@ -37,10 +37,8 @@
 					<hr>
 				</div>
 				@endforeach
-				<input type="file" class="form-control" name="fImage[]" accept="image/*" multiple="">
-				<hr>
-				<!-- <button id="add-image" type="button" class="btn btn-primary" onclick="addImage()">Add Image</button>
-				<hr> -->
+				<input id="gallery-photo-add" type="file" class="form-control" name="fImage[]" accept="image/*" multiple="">
+				<div class="gallery"></div>
 			</div>
 		</div>
 	</div>

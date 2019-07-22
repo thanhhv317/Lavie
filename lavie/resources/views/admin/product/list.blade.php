@@ -24,7 +24,14 @@
 			        <h5 class="card-title">{{ $value['pname'] }}</h5>
 			        </div>
 			    <ul class="list-group list-group-flush">
-			        <li class="list-group-item">Base price: <b>{{ $value['base_price'] }}</b> USD</li>
+			        <li class="list-group-item">Real price: <b>
+	        			<?php $max = 0; ?>
+			        	@foreach($value['agen_pro'] as $item)
+			        		<?php 
+			        			if($max < $item['discount_rate']) $max = $item['discount_rate'];
+			        		?>
+			        	@endforeach
+			        </b>{{ $value['base_price'] - ($value['base_price'] * $max) / 100 }} USD</li>
 			    </ul>
 			    <div class="card-body">
 			        <a href="{{ url('seller/product/edit',$value['product_id']) }}" class="card-link btn btn-success">Edit</a>

@@ -13,15 +13,23 @@ use DB;
 
 class AgencyController extends Controller
 {
+
+    public function getUserId()
+    {
+        return Auth::user()->id;
+    }
+
     public function index()
     {
-        $idAgency = Auth::user()->id;
-    	$agency = Agency::where('user_id', $idAgency)->get()->toArray();
+        $id = $this->getUserId();
+    	$agency = new Agency;
+        $agency = $agency->getAllDataById($id)->toArray();
     	$size = count($agency);
 
     	for ($i=0; $i < $size; $i++) { 
     		$id = $agency[$i]['id'];
-    		$agency_img = AgencyImage::select('*')->where('agency_id', $id)->get()->toArray();
+    		$agency_img = new AgencyImage;
+            $agency_img = $agency_img->getDataByAgencyId($id, true);
     		$agency[$i]['image'] = $agency_img;
     	}
 
@@ -37,22 +45,16 @@ class AgencyController extends Controller
     {
         DB::beginTransaction();
         try {
+            $id = $this->getUserId();
             $agency = new Agency;
-            $agency->name = $request->name;
-            $agency->address = $request->address;
-            $agency->user_id = Auth::user()->id;
-            $agency->save();
+            $agency = $agency->addData($id, $request); // result is id - new item
 
-            $agency_id = $agency->id;
+            $agency_id = $agency;
             $file = $request->file('fImage');
        
             foreach ($file as $key => $value) {
                 $file_name = $value->getClientOriginalName();
-                $agency_img = new AgencyImage;
-                $agency_img->agency_id = $agency_id;
-                $value->move(public_path('/uploads/agency'), $file_name);
-                $agency_img->image = $file_name;
-                $agency_img->save();
+                $this->addImage($agency_id, $file_name, $value);
             }
             DB::commit();
             return redirect()->route('seller.agency');
@@ -64,8 +66,12 @@ class AgencyController extends Controller
 
     public function getEditAgency($id)
     {
-        $agency = Agency::find($id)->toArray();
-        $agency_img = AgencyImage::select('id', 'image')->where('agency_id',$id)->get()->toArray();
+        $agency = new Agency;
+        $agency = $agency->getDataById($id, true);
+
+        $agency_img = new AgencyImage;
+        $agency_img = $agency_img->getDataByAgencyId($id);
+        
         return view('admin.agency.edit')->with(['agency' => $agency, 'agency_img' => $agency_img]);
     }
 
@@ -73,19 +79,13 @@ class AgencyController extends Controller
     {
         DB::beginTransaction();
         try {
-            $agency = Agency::find($id);
-            $agency->name    = $request->name;
-            $agency->address = $request->address;
-            $agency->save();
+            $agency = new Agency;
+            $agency->updateDataById($id, $request);
             
             if ($files = $request->file('fImage')) {
                 foreach ($files as $key => $value) {
-                    $file_name = $value->getClientOriginalName();
-                    $agency_img = new AgencyImage;
-                    $agency_img->agency_id = $id;
-                    $value->move(public_path('/uploads/agency'), $file_name);
-                    $agency_img->image = $file_name;
-                    $agency_img->save();
+                    $file_name  = $value->getClientOriginalName();
+                    $this->addImage($id, $file_name, $value);
                 }
             }
             DB::commit();
@@ -97,13 +97,22 @@ class AgencyController extends Controller
         }
     }
 
+    public function addImage($id, $file_name, $value)
+    {
+        $agency_img = new AgencyImage;
+        $value->move(public_path('/uploads/agency'), $file_name);
+        $agency_img = $agency_img->addData($id, $file_name);
+    }
+
     public function delImgAgency(Request $request)
     {
         if ($request->ajax()) {
             $id = $request->id;
-            $agency_img = AgencyImage::find($id);
-            $image_path = public_path('/uploads/agency/') . $agency_img->image;
-            $agency_img->delete();
+            $agency_img = new AgencyImage;
+            $agency_img = $agency_img->deleteDataById($id); // result is Image
+
+            $img = $agency_img;
+            $image_path = public_path('/uploads/agency/') . $img;
             if(File::exists($image_path)) {
                 File::delete($image_path);
             }
@@ -119,19 +128,22 @@ class AgencyController extends Controller
         DB::beginTransaction();
         try {
             //delete agency image
-            $agency_img = AgencyImage::select('*')->where('agency_id', $id)->get();
+            $agency_img = new AgencyImage;
+            $agency_img = $agency_img->getDataByAgencyId($id, false);
+
             foreach ($agency_img as $key => $value) {
                 $image_path = public_path('/uploads/agency/') . $value->image;
-                $value->delete();
+                $value->deleteDataById($id, false);
                 if(File::exists($image_path)) {
                     File::delete($image_path);
                 }
             }
             //delete agency product
-            AgencyProduct::where('agency_id', $id)->delete();
+            $agency_product = new AgencyProduct;
+            $agency_product = $agency_product->deleteDataByAttrId($id, 'agency_id');
             
-            $agency = Agency::find($id);
-            $agency->delete();
+            $agency = new Agency;
+            $agency = $agency->deleteDataById($id);
 
             DB::commit();
             return redirect()->route('seller.agency');

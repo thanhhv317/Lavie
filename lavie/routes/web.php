@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomePageController@index')->name('homePage');
+Route::post('/', 'HomePageController@searchByNameProduct')->name('searchByNameProduct');
 
 Route::group(['prefix' => 'seller', 'middleware'=>'auth'], function() {
 	Route::group(['prefix' => 'product'], function() {
@@ -37,10 +38,6 @@ Route::group(['prefix' => 'seller', 'middleware'=>'auth'], function() {
 	});
 });
 
-Route::get('test', function (){
-	return view('test');
-});
-
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
@@ -50,3 +47,5 @@ Route::post('signin', 'Auth\LoginController@login');
 
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('signup', 'Auth\RegisterController@register');
+
+Route::get('search/{min}/{max}', 'HomePageController@searchByPriceSlide')->name('searchPrice');

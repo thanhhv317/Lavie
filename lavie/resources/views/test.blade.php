@@ -19,6 +19,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
 </head>
 <body>
 <!-- menu navbar -->
@@ -38,8 +40,9 @@
 		        <a class="nav-link" href="#">Agency</a>
 		      </li>
 		    </ul>
-		    <form class="form-inline my-2 my-lg-0">
-		      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+		    <form class="form-inline my-2 my-lg-0" action="#" method="post">
+		    	@csrf
+		      <input class="form-control mr-sm-2" name="name" type="search" placeholder="Search" aria-label="Search">
 		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		    </form>
 		    <li class="nav-item dropdown">
@@ -93,17 +96,26 @@
   </a>
 </div>
 <!-- end slide -->
-<?php 
-echo "<pre>";
-        print_r($product);
-        echo "</pre>";
-         ?>
+
 <!-- list product -->
 <div class="container">
 	<div class="row mt-5">
 		<h2 class="list-product-title">New Product</h2>
-		<div class="list-product-subtitle">
-			<p>List proc descrip</p>
+		<div class="list-product-subtitle d-flex justify-content-end mb-3">
+			<!-- <p>List proc descrip</p> -->
+			<form class="form-inline my-2 my-lg-0">
+		      <input class="form-control mr-sm-2" type="search" placeholder="Search by name seller" aria-label="Search">
+		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		    </form>
+		    <div class="price-range">
+	    	<form action="#" method="post" id="priceRange">
+			    <label for="customRange1">100</label>
+				<input type="range" class="custom-range slider"  min="100" max="250" id="priceFrom">
+				<input type="range" class="custom-range slider"  min="250" max="500" id="priceTo">
+			    <label for="customRange1">500</label>
+			    <a onclick="searchByPrice()" id="demo" class="btn btn-outline-success">Ok</a>
+		    </form>
+		    </div>
 		</div>
 		<div class="product-group">
 			<?php $i=0; ?>
@@ -114,14 +126,30 @@ echo "<pre>";
 			@endif
 				<div class="col-12 col-md-6 col-lg-4 col-xl-3 ">
 					<div class="card card-product mb-3">
-					  <img class="card-img-top img-content" src="{{ asset('uploads/products'). '/' . $item->image }}" alt="Card image cap">
+					  <img class="card-img-top img-content" src="{{ asset('uploads/products'). '/' . $item['image'][0]['image']  }}" alt="Card image cap">
 					  <div class="card-body">
-					    <h5 class="card-title product-title">{{ $item->name }}</h5>
+					    <h5 class="card-title product-title">{{ $item['pname'] }}</h5>
 					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
+					   <?php $rmax = 0; $qmax = 0; ?>
+			        	@foreach($item['agen_pro'] as $value)
+			        		<?php 
+			        			if($qmax < $value['quantity']) $qmax = $value['quantity'];
+			        			if($rmax < $value['discount_rate']) $rmax = $value['discount_rate'];
+			        		?>
+			        	@endforeach
+			        	@if($rmax == 0 && $qmax != 0) 
+			        	<!-- haven't discount rate -->
+			        		<span class="discount-rate"></span>
+					    	<span class="price">{{ $item['base_price'] }} USD</span>
+			        	@elseif($rmax != 0 && $qmax != 0)
+			        	<!-- have discount rate -->
+					    	<span class="discount-rate"> - {{ $rmax }} %</span>
+					    	<span class="price">{{ $item['base_price'] - ($item['base_price'] * $rmax) / 100 }} USD</span>
+					    @else
+					    	<span class="price">Out of store</span>
+			        	@endif
 					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
+				    	<a class="btn btn-info btn-add-to-card{{ ($qmax == 0) ? 'active' : '' }}"><i class="fas fa-shopping-cart"></i></a>
 				    	<a class="btn btn-outline-info">View detail</a>
 					  </div>
 					</div>
@@ -130,157 +158,15 @@ echo "<pre>";
 				</div>
 			@endif
 			@endforeach
-				
-				<!-- <div class="col-12 col-md-6 col-lg-4 col-xl-3 ">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div> -->
 			</div>
 		</div>
-		<!-- <div class="product-group">
-			<div class="row">
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>	
-			</div>
-		</div>
-		<div class="product-group">
-			<div class="row">
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>	
-			</div>
-		</div> -->
 	</div>
 </div>
 
+
 <div class="container">
 	<div class="row justify-content-center">
-		<nav aria-label="Page navigation example">
-		  <ul class="pagination">
-		    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-		  </ul>
-		</nav>
+		{{ $product->render('vendor.pagination.bootstrap-4') }}
 	</div>
 </div>
 <!-- end list product -->

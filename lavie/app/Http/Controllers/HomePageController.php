@@ -14,28 +14,62 @@ class HomePageController extends Controller
 {
     public function index()
     {
-        $product = Product::join('agency_products', 'products.id', '=', 'agency_products.product_id')
-                   ->join('product_images', 'product_images.product_id', '=', 'products.id')
-                   ->get()->toArray();
-                   // ->paginate(12);
+        $product = new Product;
+        $product = $product->getAllData();
 
-    	// $product = ProductImage::distinct('product_id', 'image')->select( 'product_id', 'image')->get()->toArray();
+     	$size = count($product);
 
-        echo "<pre>";
-        print_r($product);
-        echo "</pre>";
+    	for ($i=0; $i < $size; $i++) { 
+    		$id = $product[$i]['product_id'];
+    		$product_img = new ProductImage;
+            $product_img = $product_img->getAllDataById($id);
+    		$product[$i]['image'] = $product_img;
+    	}
 
-        $size = count($product);
-
-        for ($i=0; $i < $size-1; $i++) { 
-        	if($product[$size]['product_id'] == $product[$size+1]['product_id'])
-        	{
-        		unset(var)
-        		// xoa thang do ra di
-        	}
+    	for ($i=0; $i < $size; $i++) { 
+            $id = $product[$i]['product_id'];
+            $agency_product = new AgencyProduct;
+            $agency_product = $agency_product->getDataByProductId($id);
+            $product[$i]['agen_pro'] = $agency_product;
         }
 
-        // return view('test')->with(['product' => $product]);
+    	// echo "<pre>";
+    	// print_r($product);
+    	// echo "</pre>";
 
+        return view('test')->with(['product' => $product]);
+    }
+
+    public function searchByPriceSlide($min, $max)
+    {
+    	echo $min . " - " . $max;
+    }
+
+    public function searchByNameProduct(Request $request)
+    {
+    	$product = new Product;
+        $product = $product->getAllDataByName($request->name);
+
+     	$size = count($product);
+
+    	for ($i=0; $i < $size; $i++) { 
+    		$id = $product[$i]['product_id'];
+    		$product_img = new ProductImage;
+            $product_img = $product_img->getAllDataById($id);
+    		$product[$i]['image'] = $product_img;
+    	}
+
+    	for ($i=0; $i < $size; $i++) { 
+            $id = $product[$i]['product_id'];
+            $agency_product = new AgencyProduct;
+            $agency_product = $agency_product->getDataByProductId($id);
+            $product[$i]['agen_pro'] = $agency_product;
+        }
+
+    	// echo "<pre>";
+    	// print_r($product->toArray());
+    	// echo "</pre>";
+
+        return view('test')->with(['product' => $product]);
     }
 }

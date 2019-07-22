@@ -13,4 +13,10 @@ class Category extends Model
     {
     	return $this->belongsToMany('App\Product');
     }
+
+    public function getAllData()
+    {
+    	return $this->all();
+    }
+    
 }
