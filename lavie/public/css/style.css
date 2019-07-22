@@ -55,6 +55,12 @@
   color: white !important;
 }
 
+.img-content {
+  overflow: hidden;
+  height: 12rem !important;
+  width: auto;
+}
+
 /*footer page*/
 .footer {
   bottom: 0;

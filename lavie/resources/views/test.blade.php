@@ -24,35 +24,42 @@
 <!-- menu navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
 	<div class="container">
-		<a class="navbar-brand" href="#">Navbar</a>
+		<a class="navbar-brand" href="#">Home</a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
 
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item active">
-		        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+		      <li class="nav-item">
+		        <a class="nav-link" href="#">Product <span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">Link</a>
-		      </li>
-		      <li class="nav-item dropdown">
-		        <a class="nav-link" href="#" id="navbarDropdown">
-		          Dropdown
-		        </a>
-		        <div class="dropdown-content">
-		          <a class="dropdown-item" href="#">Action</a>
-		          <a class="dropdown-item" href="#">Another action</a>
-		          <div class="dropdown-divider"></div>
-		          <a class="dropdown-item" href="#">Something else here</a>
-		        </div>
+		        <a class="nav-link" href="#">Agency</a>
 		      </li>
 		    </ul>
 		    <form class="form-inline my-2 my-lg-0">
 		      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		    </form>
+		    <li class="nav-item dropdown">
+		    	@guest
+		    	<a class="nav-link" href="{{ route('login') }}" id="navbarDropdown">
+		          Login
+		        </a>
+		      	@else
+		    	<a class="nav-link" href="#" id="navbarDropdown">
+		          {{ Auth::user()->name }}
+		        </a>
+		        <div class="dropdown-content">
+		          <a class="dropdown-item" href="{{ route('seller.product') }}">View</a>
+		          	<form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+		            <input type="submit" class="dropdown-item" value="Logout"/>
+                    </form>
+		      </li>
+
+		      @endguest
 		  </div>
 	</div>
 </nav>
@@ -86,7 +93,11 @@
   </a>
 </div>
 <!-- end slide -->
-
+<?php 
+echo "<pre>";
+        print_r($product);
+        echo "</pre>";
+         ?>
 <!-- list product -->
 <div class="container">
 	<div class="row mt-5">
@@ -95,6 +106,48 @@
 			<p>List proc descrip</p>
 		</div>
 		<div class="product-group">
+			<?php $i=0; ?>
+			@foreach ($product as $item)
+			<?php $i++; ?>
+			@if($i % 4 == 1)
+			<div class="row">
+			@endif
+				<div class="col-12 col-md-6 col-lg-4 col-xl-3 ">
+					<div class="card card-product mb-3">
+					  <img class="card-img-top img-content" src="{{ asset('uploads/products'). '/' . $item->image }}" alt="Card image cap">
+					  <div class="card-body">
+					    <h5 class="card-title product-title">{{ $item->name }}</h5>
+					    <div class="card-text">
+					    	<span class="discount-rate">123</span>
+					    	<span class="price">1000 USD</span>
+					    </div>
+				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
+				    	<a class="btn btn-outline-info">View detail</a>
+					  </div>
+					</div>
+				</div>
+			@if( $i % 4 == 0)
+				</div>
+			@endif
+			@endforeach
+				
+				<!-- <div class="col-12 col-md-6 col-lg-4 col-xl-3 ">
+					<div class="card card-product mb-3">
+					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
+					  <div class="card-body">
+					    <h5 class="card-title product-title">Product</h5>
+					    <div class="card-text">
+					    	<span class="discount-rate">123</span>
+					    	<span class="price">1000 USD</span>
+					    </div>
+				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
+				    	<a class="btn btn-outline-info">View detail</a>
+					  </div>
+					</div>
+				</div> -->
+			</div>
+		</div>
+		<!-- <div class="product-group">
 			<div class="row">
 				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="card card-product mb-3">
@@ -213,67 +266,7 @@
 					</div>
 				</div>	
 			</div>
-		</div>
-		<div class="product-group">
-			<div class="row">
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="card card-product mb-3">
-					  <img class="card-img-top" src="https://via.placeholder.com/280x280" alt="Card image cap">
-					  <div class="card-body">
-					    <h5 class="card-title product-title">Product</h5>
-					    <div class="card-text">
-					    	<span class="discount-rate">123</span>
-					    	<span class="price">1000 USD</span>
-					    </div>
-				    	<a class="btn btn-info btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
-					  </div>
-					</div>
-				</div>	
-			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 

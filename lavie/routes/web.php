@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomePageController@index')->name('homePage');
 
 Route::group(['prefix' => 'seller', 'middleware'=>'auth'], function() {
 	Route::group(['prefix' => 'product'], function() {
@@ -45,7 +43,7 @@ Route::get('test', function (){
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('signin', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('signin', 'Auth\LoginController@login');

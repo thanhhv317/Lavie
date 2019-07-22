@@ -18,15 +18,30 @@ class ProductController extends Controller
 {
     public function index()
     {
-    	$product = Product::paginate(3);
+        $id = Auth::user()->id;
+    	// $product = Product::paginate(7)->toArray();
+        $product =
+            Product::join('agency_products', 'products.id', '=', 'agency_products.product_id')
+                   ->join('agencies', 'agencies.id', '=', 'agency_products.agency_id')
+                   ->join('users', 'agencies.user_id', '=', 'users.id')
+                   ->where('users.id', $id)
+                   ->select('*','products.name as pname')
+                   ->paginate(5);
+
     	$size = count($product);
 
+       
     	for ($i=0; $i < $size; $i++) { 
-    		$id = $product[$i]['id'];
+    		$id = $product[$i]['product_id'];
     		$product_img = ProductImage::select('*')->where('product_id', $id)->get()->toArray();
     		$product[$i]['image'] = $product_img;
     	}
-  
+
+        // echo "<pre>";
+        // print_r($product);
+        // echo "</pre>";
+
+
     	return view('admin.product.list')->with('product', $product);
     }
 
@@ -39,42 +54,48 @@ class ProductController extends Controller
 
     public function postAddProduct(ProductRequest $request)
     {
-    	$product = new Product;
-    	$product->name 		 = $request->name;
-    	$product->base_price = $request->base_price;
-    	$product->save();
+        DB::beginTransaction();
+        try {
+        	$product = new Product;
+        	$product->name 		 = $request->name;
+        	$product->base_price = $request->base_price;
+        	$product->save();
 
-    	$product_id = $product->id;
-        $file = $request->file('fImage');
-   
-        foreach ($file as $key => $value) {
-            $file_name = $value->getClientOriginalName();
-            $product_img = new ProductImage;
-            $product_img->product_id = $product_id;
-            $value->move(public_path('/uploads/products'), $file_name);
-            $product_img->image = $file_name;
-            $product_img->save();
+        	$product_id = $product->id;
+            $file = $request->file('fImage');
+       
+            foreach ($file as $key => $value) {
+                $file_name = $value->getClientOriginalName();
+                $product_img = new ProductImage;
+                $product_img->product_id = $product_id;
+                $value->move(public_path('/uploads/products'), $file_name);
+                $product_img->image = $file_name;
+                $product_img->save();
+            }
+
+            $cate = $request->cate;  //array
+            foreach ($cate as $key => $value) {
+    	        $product_cate = new ProductCategory;
+    	        $product_cate->product_id  = $product_id;
+    	        $product_cate->category_id = $value;
+            	$product_cate->save();
+            }
+
+            $agency = $request->agency; // array
+            foreach ($agency as $key => $value) {
+                $agency_product = new AgencyProduct;
+                $agency_product->agency_id      = $value;
+                $agency_product->product_id     = $product_id;
+                $agency_product->quantity       = 0;
+                $agency_product->discount_rate  = 0;
+                $agency_product->save();
+            }
+            DB::commit();
+            return redirect()->route('seller.product');
         }
-
-        $cate = $request->cate;  //array
-        foreach ($cate as $key => $value) {
-	        $product_cate = new ProductCategory;
-	        $product_cate->product_id  = $product_id;
-	        $product_cate->category_id = $value;
-        	$product_cate->save();
+        catch (Exception $e) {
+            DB::rollBack();
         }
-
-        $agency = $request->agency; // array
-        foreach ($agency as $key => $value) {
-            $agency_product = new AgencyProduct;
-            $agency_product->agency_id      = $value;
-            $agency_product->product_id     = $product_id;
-            $agency_product->quantity       = 0;
-            $agency_product->discount_rate  = 0;
-            $agency_product->save();
-        }
-
-        return redirect()->route('seller.product');
     }
 
     public function getEditProduct($id)
@@ -171,7 +192,7 @@ class ProductController extends Controller
             // echo "</pre>";
         }
         catch (Exception $e) {
-            DB::roolback();
+            DB::rollBack();
         }
     }
 
@@ -235,7 +256,7 @@ class ProductController extends Controller
             return redirect()->back();
         }
         catch (Exception $e) {
-            DB::roolback();
+            DB::rollBack();
         }
     }
 }

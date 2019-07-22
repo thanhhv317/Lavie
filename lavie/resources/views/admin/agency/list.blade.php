@@ -11,6 +11,9 @@
 
 <div class="container">
 	<div class="row">
+		@if (count($agency) == 0)
+			<h2>You do not have any agency</h2>
+		@endif
 		@foreach( $agency as $value)
 		<div class="col-4 mt-3">
 			<form method="POST" action="{{ url('seller/agency/delete',$value['id']) }}">

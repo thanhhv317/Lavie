@@ -99,7 +99,7 @@
     			<div class="sidebar">
 				  <a href="{{ route('seller.product') }}">Product</a>
 				  <a href="{{ route('seller.agency') }}">Agency</a>
-				  <a href="#">About</a>
+				  <a href="{{ url('/') }}">Home Page</a>
 				</div>
     		</div>
         		<div class="col-10"> 
