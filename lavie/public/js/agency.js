@@ -1,6 +1,4 @@
-if (tmp == 1) {
-	$('.delete-me').hide();
-}
+
 function deleteMe(id, url) {
 	var _token = $('input[name="_token"]').val();
 	Swal.fire({
@@ -87,6 +85,10 @@ function deleteAgency(id) {
 				    'success'
 				);
 				$(".agency-content-"+id).hide(1000);
+				agen_tmp--;
+				if (agen_tmp <= 1){
+					$('.delete-agency').hide();
+				}
 			}
 		}
 	});

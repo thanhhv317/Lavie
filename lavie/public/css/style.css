@@ -119,6 +119,14 @@
   color: #6c757d;
 }
 
+#top {
+  width: 50px; height: 50px; 
+  position: fixed; bottom: 10px; right: 10px;
+  text-indent: -99999px; 
+  cursor: pointer; 
+  background-color: #cccccc;
+}
+
 /*footer page*/
 .footer {
   bottom: 0;

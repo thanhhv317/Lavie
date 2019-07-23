@@ -108,6 +108,8 @@
 </div>
 <!-- end slide -->
 
+<div id="top">Back to Top</div>
+
 <!-- list product -->
 <div class="container">
 	<div class="row mt-5">
@@ -156,7 +158,7 @@
 					<div class="card card-product mb-3">
 					  <img class="card-img-top img-content" src="{{ asset('uploads/products'). '/' . $item['image'][0]['image']  }}" alt="Card image cap">
 					  <div class="card-body">
-					    <h5 class="card-title product-title">{{ $item['pname'] }}</h5>
+					    <h5 class="card-title product-title">{{ $item['name'] }}</h5>
 					    <div class="card-text">
 					   <?php $rmax = 0; $qmax = 0; ?>
 			        	@foreach($item['agen_pro'] as $value)

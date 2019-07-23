@@ -45,13 +45,14 @@
 			    @endforeach
 		  	</select>
 		</div>
-
 	  @foreach ($agency_product as $value)
   	<div class="agency-content-{{ $value['id'] }}">
 	  <hr>
   	  <div class="form-group">
 	  	<div class="row container">
+	  		@if (count($agency_product) >1 )
 		  	<a class="delete-agency" onclick="deleteAgency( {{ $value['id'] }} )" ><i class='fas fa-trash'></i> delete</a>
+		  	@endif
 		    <label for="formGroupExampleInput2"><b>Agency:</b></label>
 	  	</div>
 		    <select class="form-control" name="agency[]">
@@ -91,7 +92,9 @@
 				@foreach ($product_img as $value)
 				<div id="{{ $value['id'] }}" class="row">
 					<img src="{{ asset('uploads/products/').'/'.$value['image'] }}" class="img-thumbnail">
+					@if (count($product_img) > 1)
 					<a class="btn btn-danger delete-me" style="cursor: pointer;" onclick="deleteMe({{ $value['id'] }}, '/seller/product/delImg' )">delete</a>
+					@endif
 					<hr>
 				</div>
 				@endforeach
@@ -106,6 +109,7 @@
 	
 <script type="text/javascript">
 	var tmp = {{ count($product_img) }};
+	var agen_tmp = {{ count($agency_product) }};
 </script>
 
 @endsection()

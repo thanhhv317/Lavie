@@ -28,6 +28,9 @@ class HomePageController extends Controller
     	$topsales = new Product;
     	$topsales = $this->getTopSale();
 
+        // echo "<pre>";
+        // print_r($product);
+        // echo "</pre>";
 
         return view('test')->with(['product' => $product, 'topsales' => $topsales]);
     }

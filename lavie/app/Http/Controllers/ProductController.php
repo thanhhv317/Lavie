@@ -36,7 +36,7 @@ class ProductController extends Controller
         // print_r($product->toArray());
         // echo "<pre>";
 
-    	return view('admin.product.list')->with('product', $product);
+       	return view('admin.product.list')->with('product', $product);
     }
 
     public function getAddProduct()
@@ -55,8 +55,9 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
+            $id = $this->getUserId();
         	$product = new Product;
-            $product->addData($request);
+            $product->addData($id, $request);
 
         	$product_id = $product->id;
             $file = $request->file('fImage');
@@ -148,9 +149,10 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
+            $uid = $this->getUserId();
             $product = new Product;
             $product = $product->getDataById($id, false);
-            $product = $product->addData($request);
+            $product = $product->addData($uid, $request);
 
             // store product_image
             $file = $request->file('fImage');
