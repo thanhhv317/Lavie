@@ -20,6 +20,10 @@
   display: block;
 }
 
+.btn-search-price {
+  margin-top: auto;
+}
+
 /*list product*/
 .list-product-title {
   width: 100%;
@@ -41,16 +45,26 @@
   margin-left: 5px;
   margin-right: 5px;
   overflow: hidden;
+  position: relative;
 }
 
 .product-title {
   margin-bottom: 0.25rem;
   text-align: center;
+  color: rgba(0,0,0,.8);
+  font-weight: bold;
 }
 
 .price {
   color: #f90;
+  display: block;
   text-align: center;
+  font-weight: bold;
+}
+
+.price:hover {
+  color: red;
+  cursor: pointer;
 }
 
 .btn-add-to-card {
@@ -61,6 +75,48 @@
   overflow: hidden;
   height: 12rem !important;
   width: auto;
+}
+
+.sale-sticky {
+  color: white;
+  background-color: #f90;
+  display: block;
+  text-align: center;
+  width: 7rem;
+  position: absolute;
+  top: 15px;
+  right: -36px;
+  transform: rotate(45deg);
+}
+
+.sale-sticky-best-sales{
+  color: white;
+  background-color: #63cc7a;
+  display: block;
+  text-align: center;
+  width: 7rem;
+  position: absolute;
+  top: 14%;
+  left: -39px;
+  transform: rotate(90deg);
+}
+
+.detail-product {
+  text-align: center;
+  color: blue;
+  cursor: pointer;
+}
+
+.detail-product:hover {
+  color: #f90;
+}
+
+.box-button {
+  justify-content: center;
+}
+
+.filter-price {
+  color: #6c757d;
 }
 
 /*footer page*/

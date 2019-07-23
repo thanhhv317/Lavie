@@ -20,29 +20,73 @@ class HomePageController extends Controller
      	$size = count($product);
 
     	for ($i=0; $i < $size; $i++) { 
-    		$id = $product[$i]['product_id'];
-    		$product_img = new ProductImage;
-            $product_img = $product_img->getAllDataById($id);
-    		$product[$i]['image'] = $product_img;
+    		$this->groupImg($product, $i);
+   			$this->groupAgency($product, $i);
     	}
 
-    	for ($i=0; $i < $size; $i++) { 
-            $id = $product[$i]['product_id'];
-            $agency_product = new AgencyProduct;
-            $agency_product = $agency_product->getDataByProductId($id);
-            $product[$i]['agen_pro'] = $agency_product;
-        }
+    	// top sales
+    	$topsales = new Product;
+    	$topsales = $this->getTopSale();
 
-    	// echo "<pre>";
-    	// print_r($product);
-    	// echo "</pre>";
 
-        return view('test')->with(['product' => $product]);
+        return view('test')->with(['product' => $product, 'topsales' => $topsales]);
+    }
+
+    public function getRealPrice($base_price, $rate)
+    {
+    	return $base_price - ($base_price * $rate)/100;
+    }
+
+    public function groupImg($product, $i)
+    {
+    	$id = $product[$i]['product_id'];
+		$product_img = new ProductImage;
+        $product_img = $product_img->getAllDataById($id);
+		$product[$i]['image'] = $product_img;
+    }
+
+    public function groupAgency($product, $i)
+    {
+    	$id = $product[$i]['product_id'];
+        $agency_product = new AgencyProduct;
+        $agency_product = $agency_product->getDataByProductId($id);
+        $product[$i]['agen_pro'] = $agency_product;
     }
 
     public function searchByPriceSlide($min, $max)
     {
-    	echo $min . " - " . $max;
+    	$product = new Product;
+    	$product = $product->getDataByPrice($min, $max);
+
+    	$size = count($product);
+
+    	for ($i=0; $i < $size; $i++) 
+    	{ 
+    		$this->groupImg($product, $i);
+   			$this->groupAgency($product, $i);
+    	}
+
+    	$topsales = new Product;
+    	$topsales = $this->getTopSale();
+
+        return view('test')->with([
+        	'product'  => $product, 
+        	'topsales' => $topsales, 
+        	'minPrice' => $min, 
+        	'maxPrice' => $max
+        ]);
+    }
+
+    public function getTopSale()
+    {
+    	$topsales = new Product;
+    	$topsales = $topsales->get12BestSale();
+    	$size = count($topsales);
+
+    	for ($i=0; $i < $size; $i++) { 
+    		$this->groupImg($topsales, $i);    	
+    	}
+    	return $topsales;
     }
 
     public function searchByNameProduct(Request $request)
@@ -51,25 +95,15 @@ class HomePageController extends Controller
         $product = $product->getAllDataByName($request->name);
 
      	$size = count($product);
-
-    	for ($i=0; $i < $size; $i++) { 
-    		$id = $product[$i]['product_id'];
-    		$product_img = new ProductImage;
-            $product_img = $product_img->getAllDataById($id);
-    		$product[$i]['image'] = $product_img;
+    	for ($i=0; $i < $size; $i++) 
+    	{ 
+    		$this->groupImg($product, $i);
+   			$this->groupAgency($product, $i);
     	}
 
-    	for ($i=0; $i < $size; $i++) { 
-            $id = $product[$i]['product_id'];
-            $agency_product = new AgencyProduct;
-            $agency_product = $agency_product->getDataByProductId($id);
-            $product[$i]['agen_pro'] = $agency_product;
-        }
+        $topsales = new Product;
+    	$topsales = $this->getTopSale();
 
-    	// echo "<pre>";
-    	// print_r($product->toArray());
-    	// echo "</pre>";
-
-        return view('test')->with(['product' => $product]);
+        return view('test')->with(['product' => $product, 'topsales' => $topsales]);
     }
 }

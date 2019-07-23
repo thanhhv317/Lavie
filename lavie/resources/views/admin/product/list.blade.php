@@ -14,7 +14,11 @@
 		@if (count($product) == 0)
 			<h2>You do not have any products</h2>
 		@endif
+		<?php $check = []; ?>
 		@foreach ($product as $value)
+		@if (in_array($value['product_id'],$check))
+		@else
+		<?php $check[] = $value['product_id']; ?>
 		<div class="col-4 mt-2 mb-3">
 			<form method="POST" action="{{ url('seller/product/delProduct', $value['product_id']) }}">
 			@csrf
@@ -40,6 +44,7 @@
 			</div>
 			</form>
 		</div>
+		@endif
 		@endforeach
 	</div>
 </div>

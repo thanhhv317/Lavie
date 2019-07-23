@@ -29,19 +29,8 @@ class ProductController extends Controller
 
     	$size = count($product);
 
-    	for ($i=0; $i < $size; $i++) { 
-    		$id = $product[$i]['product_id'];
-    		$product_img = new ProductImage;
-            $product_img = $product_img->getAllDataById($id);
-    		$product[$i]['image'] = $product_img;
-    	}
-
-        for ($i=0; $i < $size; $i++) { 
-            $id = $product[$i]['product_id'];
-            $agency_product = new AgencyProduct;
-            $agency_product = $agency_product->getDataByProductId($id);
-            $product[$i]['agen_pro'] = $agency_product;
-        }
+        $this->groupImg($product, $size);
+        $this->groupAgency($product, $size);
 
         // echo "<pre>";
         // print_r($product->toArray());
@@ -71,13 +60,8 @@ class ProductController extends Controller
 
         	$product_id = $product->id;
             $file = $request->file('fImage');
-       
-            foreach ($file as $key => $value) {
-                $file_name = $value->getClientOriginalName();
-                $product_img = new ProductImage;
-                $value->move(public_path('/uploads/products'), $file_name);
-                $product_img = $product_img->addData($product_id, $file_name);
-            }
+
+            $this->uploadFile($file, $product_id);
 
             $cate = $request->cate;  //array
             foreach ($cate as $key => $value) {
@@ -95,6 +79,26 @@ class ProductController extends Controller
         }
         catch (Exception $e) {
             DB::rollBack();
+        }
+    }
+
+    public function groupImg($product, $size)
+    {
+        for ($i=0; $i < $size; $i++) { 
+            $id = $product[$i]['product_id'];
+            $product_img = new ProductImage;
+            $product_img = $product_img->getAllDataById($id);
+            $product[$i]['image'] = $product_img;
+        }
+    }
+
+    public function groupAgency($product, $size)
+    {
+        for ($i=0; $i < $size; $i++) { 
+            $id = $product[$i]['product_id'];
+            $agency_product = new AgencyProduct;
+            $agency_product = $agency_product->getDataByProductId($id);
+            $product[$i]['agen_pro'] = $agency_product;
         }
     }
 
@@ -130,6 +134,16 @@ class ProductController extends Controller
         ]);
     }
 
+    public function uploadFile($file, $product_id)
+    {
+        foreach ($file as $key => $value) {
+            $file_name = $value->getClientOriginalName();
+            $product_img = new ProductImage;
+            $value->move(public_path('/uploads/products'), $file_name);
+            $product_img = $product_img->addData($product_id, $file_name);
+        }
+    }
+
     public function postEditProduct($id, ProductRequest $request)
     {
         DB::beginTransaction();
@@ -141,25 +155,26 @@ class ProductController extends Controller
             // store product_image
             $file = $request->file('fImage');
             if (isset($file)){
-                foreach ($file as $key => $value) {
-                    $file_name = $value->getClientOriginalName();
-                    $product_image = new ProductImage;
-                    $product_image = $product_image->addData($id, $file_name);
-                    $value->move(public_path('/uploads/products'), $file_name);
-                }
+                $this->uploadFile($file, $id);
             }
 
             //store agency
             $agency = $request->agency;
-            $quantity = $request->quantity;
-            $discount_rate = $request->discount_rate;
-            $size = count($agency);
+            print_r($agency);
+            if(!isset($agency)){
 
-            for ($i=0; $i < $size; $i++) { 
-                $agency_product = new AgencyProduct;
-                $agency_product = $agency_product->getDataByIdAndProductId($agency[$i], $id);
+            }
+            else {
+                $quantity = $request->quantity;
+                $discount_rate = $request->discount_rate;
+                $size = count($agency);
 
-                $agency_product = $agency_product->updateQuantityAndDiscoundtRate($quantity[$i], $discount_rate[$i]);
+                for ($i=0; $i < $size; $i++) { 
+                    $agency_product = new AgencyProduct;
+                    $agency_product = $agency_product->getDataByIdAndProductId($agency[$i], $id);
+
+                    $agency_product = $agency_product->updateQuantityAndDiscoundtRate($quantity[$i], $discount_rate[$i]);
+                }
             }
 
             //store product category
