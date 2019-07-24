@@ -34,7 +34,6 @@ Route::group(['prefix' => 'seller', 'middleware'=>'auth'], function() {
 		Route::get('/edit/{id}', ['as' => 'seller.agency.edit', 'uses' => 'AgencyController@getEditAgency']);
 		Route::post('edit/{id}', ['as' => 'seller.agency.postEdit', 'uses' => 'AgencyController@postEditAgency']);
 		Route::post('/delImg', ['as' => 'seller.agency.delImg', 'uses' => 'AgencyController@delImgAgency']);
-		
 	});
 });
 
