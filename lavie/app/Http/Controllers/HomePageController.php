@@ -32,7 +32,7 @@ class HomePageController extends Controller
         // print_r($product);
         // echo "</pre>";
 
-        return view('test')->with(['product' => $product, 'topsales' => $topsales]);
+        return view('homepage.home')->with(['product' => $product, 'topsales' => $topsales]);
     }
 
     public function getRealPrice($base_price, $rate)
@@ -107,6 +107,6 @@ class HomePageController extends Controller
         $topsales = new Product;
     	$topsales = $this->getTopSale();
 
-        return view('test')->with(['product' => $product, 'topsales' => $topsales]);
+        return view('homepage.home')->with(['product' => $product, 'topsales' => $topsales]);
     }
 }

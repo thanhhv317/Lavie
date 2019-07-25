@@ -4,15 +4,19 @@
 	<title>Lavie</title>
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
+	<!-- register css -->
+	<link type="text/css" href="{{ asset('css/register.css') }}" rel="stylesheet">
+	<link type="text/css" href="{{ asset('css/login.css') }}" rel="stylesheet">
+
+	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+	<!-- jquery validate -->
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
 	<!-- validate form register jquery -->
 	<script src="{{ asset('js/register.js') }}"></script>
 
-	<!-- register css -->
-	<link type="text/css" href="{{ asset('css/register.css') }}" rel="stylesheet">
 
 </head>
 <body>
