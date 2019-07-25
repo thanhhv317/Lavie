@@ -94,39 +94,20 @@
                 </div>
             </div>
         </nav>
-    	<div class="row container-fluid">
-    		<div class="col-2 nav flex-column nav-pills" >
-    			<div class="sidebar">
-				  <a href="{{ route('seller.product') }}">Product</a>
-				  <a href="{{ route('seller.agency') }}">Agency</a>
-				  <a href="{{ url('/') }}">Home Page</a>
+    	<div class="row container-fluid text-left">
+    		<div class="col-lg-2 col-md-3 col-12 nav flex-column nav-pills slidebar-box fixed " >
+    			<div class="sidebar sidenav">
+				  <a href="{{ route('seller.product') }}"><i class="fa fa-fw fa-database"></i>Product</a>
+				  <a href="{{ route('seller.agency') }}"><i class="fa fa-fw fa-user"></i>Agency</a>
+				  <a href="{{ url('/') }}"><i class="fa fa-fw fa-home"></i>Home Page</a>
 				</div>
-               <!--  <nav id="navbar-example3" class="navbar navbar-light bg-light">
-                  <a class="navbar-brand" href="#">Navbar</a>
-                  <nav class="nav nav-pills flex-column">
-                    <a class="nav-link" href="#item-1">Item 1</a>
-                    <nav class="nav nav-pills flex-column">
-                      <a class="nav-link ml-3 my-1" href="#item-1-1">Item 1-1</a>
-                      <a class="nav-link ml-3 my-1" href="#item-1-2">Item 1-2</a>
-                    </nav>
-                    <a class="nav-link" href="#item-2">Item2</a>
-                    <a class="nav-link" href="#item-3">Item3</a>
-                    <nav class="nav nav-pills flex-column">
-                      <a class="nav-link ml-3 my-1" href="#item-3-1">Item 3-1</a>
-                      <a class="nav-link ml-3 my-1" href="#item-3-2">Item 3-2</a>
-                    </nav>
-                  </nav>
-                </nav> -->
     		</div>
-    		<div class="col-10"> 
+    		<div class="col-lg-10 col-md-9 col-12"> 
     			<div class="container">
-        		@yield('content')
+	                @yield('content')
     			</div>
     		</div>
     	</div>
-        <script type="text/javascript">
-        $(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
-});
+    </div>
 </body>
 </html>

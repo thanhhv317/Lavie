@@ -76,7 +76,7 @@ class Product extends Model
 
         return $this->joinSub($calculate_rate, 'calculate_rate', function ($join){
                 $join->on('calculate_rate.product_id', '=', 'products.id');
-        })->paginate(12);
+        })->select('*', 'products.name as pname')->paginate(12);
         
     }
 

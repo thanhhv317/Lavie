@@ -1,3 +1,5 @@
+/*dashboard*/
+
 body {
   margin: 0;
   font-family: "Lato", sans-serif;
@@ -6,11 +8,11 @@ body {
 .sidebar {
   margin: 0;
   padding: 0;
-  width: 14em;
+  width: 14rem;
   background-color: #f1f1f1;
-  position: fixed;
   height: 100%;
   overflow: auto;
+  position: fixed;
 }
 
 .sidebar a {
@@ -35,17 +37,17 @@ body {
 }
 
 
-@media screen and (max-width: 700px) {
-  .sidebar {
+@media only screen and (max-width: 765px) {
+  .sidebar {;
     width: 100%;
     height: auto;
-    position: relative;
+    position: relative ;
   }
   .sidebar a {float: left;}
   div.content {margin-left: 0;}
 }
 
-@media screen and (max-width: 400px) {
+@media only screen and (max-width: 435px) {
   .sidebar a {
     text-align: center;
     float: none;

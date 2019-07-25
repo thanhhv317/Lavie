@@ -21,16 +21,16 @@ $( function() {
   });
 
 
-  $(document).ready(function() {
-     $('#wrapper').append('<div id="top">Back to Top</div>');
-     $(window).scroll(function() { 
-        if($(window).scrollTop() != 0) { 
-          $('#top').fadeIn();
-        } else {
-          $('#top').fadeOut();
-        }
-     });
-   $('#top').click(function() {
-     $('html, body').animate({scrollTop:0},500);
+// back to top button
+$(document).ready(function() {
+   $(window).scroll(function() { 
+      if($(window).scrollTop() != 0) { 
+        $('#top').fadeIn();
+      } else {
+        $('#top').fadeOut();
+      }
    });
+ $('#top').click(function() {
+   $('html, body').animate({scrollTop:0},500);
  });
+});

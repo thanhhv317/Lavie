@@ -1,13 +1,11 @@
 @extends('admin.master')
 
 @section('content')
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+<div class="breadcrumb">
     	<div class="col-auto btn-add">
     		<a href="{{ route('seller.product.new') }}" class="btn btn-primary">Add Product</a>
     	</div>
-    </ol>
-</nav>
+</div>
 
 <div class="container">
 	<div class="row">

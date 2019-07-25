@@ -34,14 +34,27 @@
 <!-- menu navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
 	<div class="container">
-		<a class="navbar-brand" href="{{ url('/') }}">Home</a>
+		<div class="text-center logo">
+			<a class="navbar-brand" href="{{ url('/') }}">
+			  <img class="rounded" src="{{ asset('uploads/logo/logo.png') }}"  alt="...">
+		  	</a>
+		</div>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
 
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    <ul class="navbar-nav mr-auto">
-		  	@guest
+		  	  <li class="nav-item nav-text-menu">
+		        <a class="nav-link" href="#">Blog <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item nav-text-menu">
+		        <a class="nav-link" href="#">About</a>
+		      </li>
+		       <li class="nav-item nav-text-menu">
+		        <a class="nav-link" href="#">Contact</a>
+		      </li>
+	      	@guest
 		  	@else
 		      <li class="nav-item">
 		        <a class="nav-link" href="{{ route('seller.product') }}">Product <span class="sr-only">(current)</span></a>
@@ -66,7 +79,7 @@
 		          {{ Auth::user()->name }}
 		        </a>
 		        <div class="dropdown-content">
-		          <a class="dropdown-item" href="{{ route('seller.product') }}">View</a>
+		          <a class="dropdown-item" href="{{ route('seller.product') }}">View dashboard</a>
 		          	<form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
 		            <input type="submit" class="dropdown-item" value="Logout"/>
@@ -108,7 +121,7 @@
 </div>
 <!-- end slide -->
 
-<div id="top">Back to Top</div>
+<div id="top" title="Back to top"><i class="fas fa-angle-up icon-back-to-top"></i></div>
 
 <!-- list product -->
 <div class="container">
@@ -154,11 +167,11 @@
 			@if($i % 4 == 1)
 			<div class="row">
 			@endif
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12 ">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12 product-boder">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top img-content" src="{{ asset('uploads/products'). '/' . $item['image'][0]['image']  }}" alt="Card image cap">
 					  <div class="card-body">
-					    <h5 class="card-title product-title">{{ $item['name'] }}</h5>
+					    <h5 class="card-title product-title">{{ $item['pname'] }}</h5>
 					    <div class="card-text">
 					   <?php $rmax = 0; $qmax = 0; ?>
 			        	@foreach($item['agen_pro'] as $value)
@@ -178,9 +191,10 @@
 					    	<span class="price">Out of store</span>
 			        	@endif
 					    </div>
+					    <div class="box-null"></div>
 					    <div class="box-button">
-				    	<a class="btn btn-info ml-4 mr-2 btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<a class="btn btn-outline-info">View detail</a>
+					    	<a class="btn btn-info ml-4 mr-2 btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
+					    	<a class="btn btn-outline-info">View detail</a>
 				    	</div>
 					  </div>
 					  {!! isset($item['aname']) ? ('<p class="detail-product">Agency: '.$item['aname']."</p>") : "" !!}
@@ -228,7 +242,7 @@
 			@if ($j %4==1)
 			<div class="row">
 			@endif
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+				<div class="col-xl-3 col-lg-4 col-md-6 col-12 product-boder">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top img-content" src="{{ asset('uploads/products/'). '/' . $value->image[0]['image'] }}" alt="Card image cap">
 					  <div class="card-body">
@@ -238,6 +252,7 @@
 					    	<h4 class="sale-sticky-best-sales">Best sale</h4>
 					    	<span class="price">{{ $value['base_price'] - ($value['base_price'] * $value['discount_rate']) / 100 }} USD </span>
 					    </div>
+					    <div class="box-null"></div>
 					    <div class="box-button">
 				    	<a class="btn btn-info ml-4 mr-2 btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
 				    	<a class="btn btn-outline-info">View detail</a>
