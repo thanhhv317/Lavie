@@ -33,8 +33,10 @@
 				@foreach ($agency_img as $value)
 				<div id="{{ $value['id'] }}" class="row">
 					<img src="{{ asset('uploads/agency/').'/'.$value['image'] }}" class="img-thumbnail">
+					@if (count($agency_img) > 1)
 					<a class="btn btn-danger delete-me" style="cursor: pointer;" onclick="deleteMe({{ $value['id'] }}, '/seller/agency/delImg' )">delete</a>
 					<hr>
+					@endif
 				</div>
 				@endforeach
 				<input id="gallery-photo-add" type="file" class="form-control" name="fImage[]" accept="image/*" multiple="">

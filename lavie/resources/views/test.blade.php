@@ -88,13 +88,13 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="https://via.placeholder.com/1920x530" alt="First slide">
+      <img class="d-block w-100" src="{{ asset('uploads/banners/banner4.jpg') }}" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="https://via.placeholder.com/1920x530" alt="Second slide">
+      <img class="d-block w-100" src="{{ asset('uploads/banners/banner2.jpg') }}" alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="https://via.placeholder.com/1920x530" alt="Third slide">
+      <img class="d-block w-100" src="{{ asset('uploads/banners/banner5.jpg') }}" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -179,7 +179,7 @@
 			        	@endif
 					    </div>
 					    <div class="box-button">
-				    	<a class="btn btn-info ml-4 mr-2 btn-add-to-card{{ ($qmax == 0) ? 'active' : '' }}"><i class="fas fa-shopping-cart"></i></a>
+				    	<a class="btn btn-info ml-4 mr-2 btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
 				    	<a class="btn btn-outline-info">View detail</a>
 				    	</div>
 					  </div>
@@ -258,7 +258,7 @@
 <div class="mt-5">
 	<div class="footer">
 		<h1>Lavie</h1>
-		<p>Contact: + 123123123</p>
+		<p>Contact: + 0123456789</p>
 		<i class="fas fa-circle-notch fa-spin"></i>
 	</div>
 </div>

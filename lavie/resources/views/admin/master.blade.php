@@ -95,18 +95,34 @@
             </div>
         </nav>
     	<div class="row container-fluid">
-    		<div class="col-2">
+    		<div class="col-2 nav flex-column nav-pills" >
     			<div class="sidebar">
 				  <a href="{{ route('seller.product') }}">Product</a>
 				  <a href="{{ route('seller.agency') }}">Agency</a>
 				  <a href="{{ url('/') }}">Home Page</a>
 				</div>
+               <!--  <nav id="navbar-example3" class="navbar navbar-light bg-light">
+                  <a class="navbar-brand" href="#">Navbar</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-1">Item 1</a>
+                    <nav class="nav nav-pills flex-column">
+                      <a class="nav-link ml-3 my-1" href="#item-1-1">Item 1-1</a>
+                      <a class="nav-link ml-3 my-1" href="#item-1-2">Item 1-2</a>
+                    </nav>
+                    <a class="nav-link" href="#item-2">Item2</a>
+                    <a class="nav-link" href="#item-3">Item3</a>
+                    <nav class="nav nav-pills flex-column">
+                      <a class="nav-link ml-3 my-1" href="#item-3-1">Item 3-1</a>
+                      <a class="nav-link ml-3 my-1" href="#item-3-2">Item 3-2</a>
+                    </nav>
+                  </nav>
+                </nav> -->
     		</div>
-        		<div class="col-10"> 
-        			<div class="container">
-            		@yield('content')
-        			</div>
-        		</div>
+    		<div class="col-10"> 
+    			<div class="container">
+        		@yield('content')
+    			</div>
+    		</div>
     	</div>
         <script type="text/javascript">
         $(document).ready(function() {

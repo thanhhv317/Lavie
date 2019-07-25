@@ -19,7 +19,7 @@
 		@if (in_array($value['product_id'],$check))
 		@else
 		<?php $check[] = $value['product_id']; ?>
-		<div class="col-4 mt-2 mb-3">
+		<div class="col-lg-4 col-md-6 col-12  mt-2 mb-3">
 			<form method="POST" action="{{ url('seller/product/delProduct', $value['product_id']) }}">
 			@csrf
 			<div class="card" style="width: 18rem;">
