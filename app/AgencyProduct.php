@@ -21,8 +21,8 @@ class AgencyProduct extends Model
     public function getDataByProductId($id, $flag = true)
     {
         if ($flag == true)
-            return $this->select('*')->where('product_id', $id)->get()->toArray();
-        return $this->select('*')->where('product_id', $id)->get();
+            return $this->select('*')->where('product_id', $id)->orderby('discount_rate', 'DESC')->get()->toArray();
+        return $this->select('*')->where('product_id', $id)->orderby('discount_rate', 'DESC')->get();
     }
 
     public function getDataByIdAndProductId($id, $product_id)

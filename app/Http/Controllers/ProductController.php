@@ -25,7 +25,7 @@ class ProductController extends Controller
     {
         $id = $this->getUserId();
         $product = new Product;
-        $product = $product->getAllDataById($id);
+        $product = $product->getAllDataByUserId($id);
 
     	$size = count($product);
 

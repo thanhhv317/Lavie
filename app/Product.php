@@ -14,7 +14,7 @@ use DB;
 class Product extends Model
 {
     protected $table = 'products';
-    protected $fillable = ['id', 'name', 'base_price', 'user_id'];
+    protected $fillable = ['id', 'name', 'base_price', 'user_id', 'description'];
 
     public function productImage()
     {
@@ -31,27 +31,42 @@ class Product extends Model
     	return $this->belongsToMany('App\Category');
     }
 
-    public function getAllDataById($id)
+    public function getAllDataByUserId($id, $stt = 0)
     {
         $calculate_rate = 
             $this->join('agency_products', 'products.id', '=', 'agency_products.product_id')
                  ->select('product_id', DB::raw('MAX(user_id) as user_id'), DB::raw('SUM(quantity) as sum_quantity'), DB::raw('MAX(agency_products.discount_rate) as discount_rate'))
                  ->groupBy('product_id');
 
-        return $this->joinSub($calculate_rate, 'calculate_rate', function ($join){
+        if($stt == 0)
+        {
+            return $this->joinSub($calculate_rate, 'calculate_rate', function ($join){
                 $join->on('calculate_rate.product_id', '=', 'products.id');
-        })
-        ->join('users', 'users.id', '=', 'products.user_id')
-        ->where('users.id', $id)
-        ->select('*','products.name as pname')
-        ->paginate(12);
+                })
+                ->join('users', 'users.id', '=', 'products.user_id')
+                ->where('users.id', $id)
+                ->select('*','products.name as pname')
+                ->paginate(12);
+        }
+        else {
+            return $this->joinSub($calculate_rate, 'calculate_rate', function ($join){
+                $join->on('calculate_rate.product_id', '=', 'products.id');
+                })
+                ->join('users', 'users.id', '=', 'products.user_id')
+                ->where([['users.id', $id], ['products.id', '<>', $stt]])
+                // in the case: stt - product-id
+                ->select('*','products.name as pname')
+                ->skip(0)->take(20)->get();
+        }
+        
     }
 
     public function addData($id, $data)
     {
-        $this->name       = $data->name;
-        $this->base_price = $data->base_price;
-        $this->user_id = $id;
+        $this->name        = $data->name;
+        $this->description = $data->description;
+        $this->base_price  = $data->base_price;
+        $this->user_id     = $id;
         $this->save();
     }
 
@@ -121,5 +136,51 @@ class Product extends Model
         return $this->joinSub($calculate_rate, 'calculate_rate', function ($join){
                 $join->on('calculate_rate.product_id', '=', 'products.id');
         })->orderBy('discount_rate', 'DESC')->skip(0)->take(12)->get();
+    }
+
+    public function getAllDataById($id)
+    {
+        $calculate_rate = 
+            $this->join('agency_products', 'products.id', '=', 'agency_products.product_id')
+                 ->select('product_id', DB::raw('MAX(user_id) as user_id'), DB::raw('SUM(quantity) as sum_quantity'), DB::raw('MAX(agency_products.discount_rate) as discount_rate'))
+                 ->groupBy('product_id');
+
+        return $this->joinSub($calculate_rate, 'calculate_rate', function ($join){
+                $join->on('calculate_rate.product_id', '=', 'products.id');
+        })
+        ->join('users', 'users.id', '=', 'products.user_id')
+        ->where('products.id', $id)
+        ->select('*','products.name as pname')
+        ->get();
+    }
+
+    public function getCateById($id)
+    {
+
+        //return an array
+        return $this->join('product_categories', 'product_categories.product_id', '=', 'products.id')->where('product_categories.product_id', $id)->select('category_id')->get()->toArray();
+    }
+
+    public function getDataSameCate($cate_id_arr)
+    {
+        return $this->join('product_categories', 'product_categories.product_id', '=', 'products.id')->whereIn('product_categories.category_id', $cate_id_arr)->select('product_id')->get()->toArray();
+    }
+
+    public function getAllDataInArrayProductId($product_id_arr)
+    {
+        $calculate_rate = 
+            $this->join('agency_products', 'products.id', '=', 'agency_products.product_id')
+                ->whereIn('products.id', $product_id_arr)
+                 ->select('product_id', DB::raw('SUM(quantity) as sum_quantity'), DB::raw('MAX(agency_products.discount_rate) as discount_rate'))
+                 ->groupBy('product_id');
+
+        return $this->joinSub($calculate_rate, 'calculate_rate', function ($join){
+                $join->on('calculate_rate.product_id', '=', 'products.id');
+        })->select('*', 'products.name as pname')->skip(0)->take(20)->get();
+    }
+
+    public function getUserId($product_id)
+    {
+        return $this->select('user_id')->where('id', $product_id)->get();
     }
 }

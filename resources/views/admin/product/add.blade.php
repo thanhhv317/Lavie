@@ -34,6 +34,10 @@
 				    @endforeach
 			  	</select>
 			</div>
+			<div class="form-group">
+				<label>Description:</label>
+				<textarea class="form-control" name="description"></textarea>
+			</div>
 			  
 			<div class="form-group">
 			  	<button class="btn btn-success">OKE</button>

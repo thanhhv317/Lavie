@@ -167,7 +167,7 @@
 /*footer page*/
 .footer {
   bottom: 0;
-  width: 100%;
+  width: 100% !important;
   background-color: #9cb0c3;
   color: white;
   text-align: center;

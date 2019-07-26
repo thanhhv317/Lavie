@@ -45,6 +45,12 @@
 			    @endforeach
 		  	</select>
 		</div>
+
+		<div class="form-group">
+			<label>Description:</label>
+			<textarea class="form-control" name="description">{{ $product['description'] }}</textarea>
+		</div>
+
 	  @foreach ($agency_product as $value)
   	<div class="agency-content-{{ $value['id'] }}">
 	  <hr>

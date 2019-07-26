@@ -35,3 +35,22 @@ $(document).ready(function() {
    $('html, body').animate({scrollTop:0},500);
  });
 });
+
+//zoom image 
+$(document).ready(function(){
+   $('.zoom').hover(function() {
+      $(this).addClass('transition');
+   }, function() {
+      $(this).removeClass('transition');
+   });
+});
+
+$(function() {
+  $('.zoom-image').each(function(){
+    var originalImagePath = $(this).find('img').data('original-image');
+    $(this).zoom({
+      url: originalImagePath,
+      magnify: 1
+    });
+  });
+}); 

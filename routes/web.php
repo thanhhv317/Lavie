@@ -38,6 +38,8 @@ Route::group(['prefix' => 'seller', 'middleware'=>'auth'], function() {
 	});
 });
 
+Route::get('/products/{slug}/{productId}', 'SingleProductController@getData')->name('singleProductList');
+
 Route::get('/hi', function (){
 	return view('admin.dashboard');
 });
