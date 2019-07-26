@@ -18,8 +18,7 @@ $('#formRegister').validate({
         phone : {
             required : true,
             minlength : 9,
-            maxlength : 16,
-            // matches: "[0-9]+",
+            maxlength : 16
         }
     },
     messages: {
@@ -42,8 +41,7 @@ $('#formRegister').validate({
         phone : {
             required : "Please fill out this field",
             minlength : "Your phone must be at least 9 characters long",
-            maxlength : "Max is 16 characters long",
-            // matches : "Must is number",
+            maxlength : "Max is 16 characters long"
         }
     }
 });

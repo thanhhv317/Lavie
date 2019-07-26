@@ -94,3 +94,11 @@ body {
   height: 10rem !important;
   width: auto;
 }
+
+
+/*list product*/
+
+.product-boder {
+  display: flex;
+  align-items: stretch;
+}

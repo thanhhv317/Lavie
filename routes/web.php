@@ -37,6 +37,10 @@ Route::group(['prefix' => 'seller', 'middleware'=>'auth'], function() {
 	});
 });
 
+Route::get('/hi', function (){
+	return view('admin.dashboard');
+});
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
