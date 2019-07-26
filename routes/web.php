@@ -24,6 +24,7 @@ Route::group(['prefix' => 'seller', 'middleware'=>'auth'], function() {
 		Route::post('delImg', ['as' => 'seller.product.delImg', 'uses' => 'ProductController@delImgProduct']);
 		Route::post('delAgencyProduct', ['as' => 'seller.product.dellAgencyProduct', 'uses' => 'ProductController@delAgencyProduct']);
 		Route::post('delProduct/{id}', ['as' => 'seller.product.delProduct', 'uses' => 'ProductController@delProduct']);
+		Route::post('setDefaultImg', ['as' => 'seller.product.setDefaultImg', 'uses' => 'ProductController@setDefaultImg']);
 		
 	});
 	Route::group(['prefix' =>'agency'], function() {

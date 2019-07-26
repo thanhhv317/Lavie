@@ -93,7 +93,10 @@
 				<div id="{{ $value['id'] }}" class="row">
 					<img src="{{ asset('uploads/products/').'/'.$value['image'] }}" class="img-thumbnail">
 					@if (count($product_img) > 1)
-					<a class="btn btn-danger delete-me" style="cursor: pointer;" onclick="deleteMe({{ $value['id'] }}, '/seller/product/delImg' )">delete</a>
+					<div class="container row">
+					<a class="btn btn-danger mr-3 delete-me" style="cursor: pointer;" onclick="ajaxFunction({{ $value['id'] }}, '/seller/product/delImg', 0, {{ $product['id'] }} )">delete</a>
+					<a class="btn btn-outline-success delete-me" style="cursor: pointer;" onclick="ajaxFunction({{ $value['id'] }}, '/seller/product/setDefaultImg', 1, {{ $product['id'] }} )">Set Default</a>
+					</div>
 					@endif
 					<hr>
 				</div>

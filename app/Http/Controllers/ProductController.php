@@ -248,6 +248,21 @@ class ProductController extends Controller
         }
     }
 
+    public function setDefaultImg(Request $request)
+    {
+        if($request->ajax())
+        {
+            $id         = $request->id;
+            $product_id = $request->product_id;
+            $product_img = new ProductImage;
+            $product_img = $product_img->setDefaultImg($id, $product_id);
+            return 1;
+        }
+        else {
+            return "not found";
+        }
+    }
+
     public function delAgencyProduct(Request $request)
     {
         if($request->ajax())

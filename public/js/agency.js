@@ -1,31 +1,52 @@
 
-function deleteMe(id, url) {
+function ajaxFunction(id, url, action = 0, product_id) {
 	var _token = $('input[name="_token"]').val();
+	var confirmButtonText, text, confirmButtonColor;
+	if(action == 0) {
+		confirmButtonColor = '#3085d6';
+		confirmButtonText  = 'Yes, delete it!';
+		text 			   = '';
+	} else {
+		confirmButtonColor = '#17a2b8';
+		confirmButtonText  = 'Yes, change it it!';
+		text 			   = '';
+	}
 	Swal.fire({
 		title: 'Are you sure?',
-		text: "You won't be able to revert this!",
+		text: "",
 		type: 'warning',
 		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
+		confirmButtonColor: confirmButtonColor,
 		cancelButtonColor: '#d33',
-		confirmButtonText: 'Yes, delete it!'
+		confirmButtonText: confirmButtonText
 	}).then((result) => {
 	if (result.value) {
 		$.ajax({
 			url : '' + url,
 			type : 'POST',
-			data : {id : id, _token : _token},
+			data : {id : id, _token : _token, product_id: product_id},
 			success : function(data) {
-				tmp--;
-				Swal.fire(
-				    'Deleted!',
-				    'Your file has been deleted.',
-				    'success'
-				);
-				$('#'+id).hide();
-				if(tmp == 1){
-					$('.delete-me').hide(1000);
+				if(action == 0){
+					tmp--;
+					Swal.fire(
+					    'Deleted!',
+					    'Your file has been deleted.',
+					    'success'
+					);
+					$('#'+id).hide();
+					if(tmp == 1){
+						$('.delete-me').hide(1000);
+					}
 				}
+				else {
+					Swal.fire(
+					    'Complete!',
+					    'Your file has been set default.',
+					    'success'
+					);
+				}
+				
+				
 			}
 		});
 	}

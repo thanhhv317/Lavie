@@ -34,7 +34,7 @@
 				<div id="{{ $value['id'] }}" class="row">
 					<img src="{{ asset('uploads/agency/').'/'.$value['image'] }}" class="img-thumbnail">
 					@if (count($agency_img) > 1)
-					<a class="btn btn-danger delete-me" style="cursor: pointer;" onclick="deleteMe({{ $value['id'] }}, '/seller/agency/delImg' )">delete</a>
+					<a class="btn btn-danger delete-me" style="cursor: pointer;" onclick="ajaxFunction({{ $value['id'] }}, '/seller/agency/delImg' )">delete</a>
 					<hr>
 					@endif
 				</div>
