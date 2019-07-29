@@ -41,7 +41,7 @@
 		    <div class="price-range">
 		    	<p>
 				  <label for="amount">Price range:</label>
-				  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+				  <input type="text" id="amount" readonly >
 				  <div id="slider-range"></div>
 				</p>
 		    </div>
@@ -66,16 +66,13 @@
 		<div class="product-group">
 			
 			<?php $check = []; ?>
-			<?php $i=0; ?>
+			<div class="row">
 			@foreach ($product as $item)
 			@if (in_array($item['product_id'],$check))
 			@else
 			<?php $check[] = $item['product_id']; ?>
-			<?php $i++; ?>
-			@if($i % 4 == 1)
-			<div class="row">
-			@endif
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12 product-boder">
+			
+				<div class="col-lg-3 col-md-4 col-sm-6 col-12 product-boder">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top img-content" src="{{ asset('uploads/products'). '/' . $item['image'][0]['image']  }}" alt="Card image cap">
 					  <div class="card-body">
@@ -94,7 +91,8 @@
 			        	@elseif($rmax != 0 && $qmax != 0)
 			        	<!-- have discount rate -->
 					    	<h4 class="sale-sticky">{{ $rmax }}%</h4>
-					    	<span class="price">{{ $item['base_price'] - ($item['base_price'] * $rmax) / 100 }} USD</span>
+					    	<?php $price = $item['base_price'] - (($item['base_price'] * $rmax) / 100); ?>
+					    	<span class="price">{{ $price }} USD</span>
 					    @else
 					    	<span class="price">Out of store</span>
 			        	@endif
@@ -104,19 +102,16 @@
 					  {!! isset($item['uname']) ? ('<p class="detail-product">Seller: '.$item['uname']."</p>") : "" !!}
 					    <div class="box-null"></div>
 					    <div class="box-button">
-					    	<a class="btn btn-info ml-4 mr-2 btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-					    	<?php $slug = str_slug($item['pname']); ?>
-					    	<a class="btn btn-outline-info" href="{{ url('products/'.$slug.'/'.$item['product_id']) }}">View detail</a>
+					    	<a class="btn btn-info mr-2 btn-add-to-card" onclick='addToCart( {{ $item["id"] }}, "{{ $item["pname"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $item["image"][0]["image"] }}` )'><i class="fas fa-shopping-cart"></i></a>
+					    	<a class="btn btn-outline-info" href="{{ url('products/'.$item['slug'].'/'.$item['product_id']) }}"><i class="fas fa-search"></i> View </a>
 				    	</div>
 					  </div>
 					  
 					</div>
 				</div>
-			@if( $i % 4 == 0)
-			</div>
-			@endif
 			@endif
 			@endforeach
+			</div>
 		</div>
 	</div>
 </div>
@@ -145,13 +140,9 @@
 <div class="container">
 	<div class="row-mt-5">
 		<div class="product-group">
-			<?php $j = 0; ?>
-			@foreach($topsales as $value)
-			<?php $j++; ?>
-			@if ($j %4==1)
 			<div class="row">
-			@endif
-				<div class="col-xl-3 col-lg-4 col-md-6 col-12 product-boder">
+			@foreach($topsales as $value)
+				<div class="col-lg-3 col-md-4 col-sm-6 col-12 product-boder">
 					<div class="card card-product mb-3">
 					  <img class="card-img-top img-content" src="{{ asset('uploads/products/'). '/' . $value->image[0]['image'] }}" alt="Card image cap">
 					  <div class="card-body">
@@ -163,17 +154,15 @@
 					    </div>
 					    <div class="box-null"></div>
 					    <div class="box-button">
-				    	<a class="btn btn-info ml-4 mr-2 btn-add-to-card"><i class="fas fa-shopping-cart"></i></a>
-				    	<?php $slug = str_slug($value->name ); ?>
-				    	<a class="btn btn-outline-info" href="{{ url('products/'.$slug.'/'.$value->product_id) }}">View detail</a>
+				    	<a class="btn btn-info mr-2 btn-add-to-card" onclick='addToCart( {{ $value["id"] }}, "{{ $value["pname"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $value["image"][0]["image"] }}` )'><i class="fas fa-shopping-cart"></i></a>
+				    	<a class="btn btn-outline-info" href="{{ url('products/'.$value['slug'].'/'.$value->product_id) }}"><i class="fas fa-search"></i> View</a>
 				    	</div>
 					  </div>
 					</div>
 				</div>
-			@if($j%4==0 )	
-			</div>
-			@endif
+			
 			@endforeach
+			</div>
 		</div>
 	</div>
 </div>

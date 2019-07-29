@@ -1,14 +1,12 @@
-@extends('admin.master')
+@extends('admin.dashboard')
 
 
 @section('content')
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+<div class="breadcrumb container">
     	<div class="col-auto">
     		<h1>ADD NEW PRODUCT</h1>
     	</div>
-    </ol>
-</nav>
+</div>
 
 @include('admin.blocks.error')
 
@@ -16,7 +14,7 @@
 <form  action="{{ route('seller.product.postNew') }}" method="post" enctype="multipart/form-data">
 	@csrf
 	<div class="row">
-		<div class="col">
+		<div class="col-12 col-md-6">
 			<div class="form-group">
 			    <label for="formGroupExampleInput">Product name:</label>
 			    <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="Name" required="" value="{{ old('name') }}">
@@ -38,13 +36,10 @@
 				<label>Description:</label>
 				<textarea class="form-control" name="description"></textarea>
 			</div>
-			  
-			<div class="form-group">
-			  	<button class="btn btn-success">OKE</button>
-			</div>
+			
 		</div>
 
-		<div class="col">
+		<div class="col-12 col-md-6">
 			<div class="form-group">
 		    <label>Agency</label>
 			<select class="form-control" id="sel2" name="agency[]" multiple required="">
@@ -55,10 +50,14 @@
 		    </div>
 			<div id="item" class="form-group item">
 				<label for="formGroupExampleInput">Image:</label>
-				<input type="file" class="form-control" name="fImage[]" required="" accept="image/*" multiple="">
+				<input id="gallery-photo-add" type="file" class="form-control" name="fImage[]" required="" accept="image/*" multiple="">
+				<div class="gallery"></div>
 				<hr>
 			</div>
 		</div>
+	</div>
+	<div class="form-group">
+	  	<button class="btn btn-success">OKE</button>
 	</div>
 </form>
 </div>

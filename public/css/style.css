@@ -157,6 +157,7 @@
   position: fixed; bottom: 10px; right: 10px;
   cursor: pointer; 
   background-color: #cccccc;
+  z-index: 10;
 }
 
 .icon-back-to-top {
@@ -173,4 +174,16 @@
   text-align: center;
 }
 
-/*price range slider*/
+/*buyer login*/
+
+.buyer-login {
+  font-size: 2em !important;
+  padding: 10px;
+}
+
+/*price slider*/
+#anount {
+  border:0;
+  color:#f6931f;
+  font-weight:bold;"
+}

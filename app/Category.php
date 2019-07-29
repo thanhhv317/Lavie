@@ -18,5 +18,10 @@ class Category extends Model
     {
     	return $this->all();
     }
+
+    public function getDataById($arr_id)
+    {
+        return $this->whereIn('id', $arr_id)->get();
+    }
     
 }

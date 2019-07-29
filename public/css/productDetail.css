@@ -3,33 +3,59 @@
   color: #f5f5f5 !important;
 }
 
-.scrollbar-deep-purple::-webkit-scrollbar-track {
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #F5F5F5;
-border-radius: 10px; }
+a.thumb-link {
+  cursor: pointer;
+}
 
-.scrollbar-deep-purple::-webkit-scrollbar {
-width: 12px;
-background-color: #F5F5F5; }
+.product-show {
+  width: 100%;
+  height: 400px !important;
+}
 
-.scrollbar-deep-purple::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #512da8; }
+.box-content {
+  display: flex;
+  align-items: center;
+}
 
-.scrollbar-cyan::-webkit-scrollbar-track {
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #F5F5F5;
-border-radius: 10px; }
+.img-item {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #f90;
+  border-radius: 4%;
+}
 
-.scrollbar-cyan::-webkit-scrollbar {
-width: 12px;
-background-color: #F5F5F5; }
+.product-name {
+  text-align: center;
+  font-weight: bold;
+  color: #17a2b8;
+}
 
-.scrollbar-cyan::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #00bcd4; }
+.product-price > strong{
+  color: blue;
+}
+
+.box-cate {
+  border: 1px solid #ced4da;
+  padding: 2px;
+  color: #6c757d;
+}
+
+.box-quantity {
+  width: 30%;
+  height: 37px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.box-error {
+  border-radius: 5px;
+  border: 1px solid #f90;
+  text-align: center;
+  font-weight: bold;
+  padding: 5px;
+}
+
+/*scrollable product related*/
 
 .scrollbar-dusty-grass::-webkit-scrollbar-track {
 -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
@@ -46,35 +72,6 @@ border-radius: 10px;
 background-image: -webkit-linear-gradient(330deg, #d4fc79 0%, #96e6a1 100%);
 background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%); }
 
-.scrollbar-ripe-malinka::-webkit-scrollbar-track {
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-color: #F5F5F5;
-border-radius: 10px; }
-
-.scrollbar-ripe-malinka::-webkit-scrollbar {
-width: 12px;
-background-color: #F5F5F5; }
-
-.scrollbar-ripe-malinka::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-background-image: -webkit-linear-gradient(330deg, #f093fb 0%, #f5576c 100%);
-background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%); }
-
-.bordered-deep-purple::-webkit-scrollbar-track {
--webkit-box-shadow: none;
-border: 1px solid #512da8; }
-
-.bordered-deep-purple::-webkit-scrollbar-thumb {
--webkit-box-shadow: none; }
-
-.bordered-cyan::-webkit-scrollbar-track {
--webkit-box-shadow: none;
-border: 1px solid #00bcd4; }
-
-.bordered-cyan::-webkit-scrollbar-thumb {
--webkit-box-shadow: none; }
-
 .square::-webkit-scrollbar-track {
 border-radius: 0 !important; }
 
@@ -89,51 +86,23 @@ position: relative;
 overflow-y: scroll;
 height: 450px; }
 
+h4#section1 {
+  text-align: center;
+  border: 1px solid #f5f5f5;
+  background-color: #6c757d;
+  border-radius: 10px;
+}
+
 
 /*zooming image*/
-img.zoom {
-   width: 350px;
-   height: 200px;
-   -webkit-transition: all .2s ease-in-out;
-   -moz-transition: all .2s ease-in-out;
-   -o-transition: all .2s ease-in-out;
-   -ms-transition: all .2s ease-in-out;
-}
-.transition {
-   -webkit-transform: scale(1.8); 
-   -moz-transform: scale(1.8);
-   -o-transform: scale(1.8);
-   transform: scale(1.8);
-}
-
-/*test*/
 .product-wrapper {
   width: 400px;
   height: 400px;
   margin: 0 auto;
 }
 
-.instructions {
-  width: 90%;
-  max-width: 600px;
-  margin: 0 auto;
-}
 
-code {
-  color: dodgerblue;
-}
-
-@import url('https://fonts.googleapis.com/css?family=Lora|Quicksand');
-
-body {
-  font-family: 'Lora';
-  line-height: 1.8;
-}
-
-h1 {
-  font-family: 'Quicksand';
-}
-
+/*cart icon*/
 .cart-box {
   list-style-type: none;
 }
@@ -143,10 +112,30 @@ h1 {
 }
 
 .cart-icon {
-  font-size: 2em;
+  font-size: 1.3em;
 }
 
 .cart-icon .quantity-product {
-  font-size: 13px;
+  font-size: 10px;
   margin-left: -3px;
+}
+
+/*cart page*/
+tr, th {
+  text-align: center;
+}
+
+.cart-product-image {
+  width: 150px%;
+  height: auto;
+  max-height: 150px;
+}
+
+.del-product {
+  cursor: pointer;
+  color: red !important;
+}
+
+.del-product:hover {
+  color: blue !important;
 }

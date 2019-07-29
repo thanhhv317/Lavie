@@ -14,7 +14,7 @@ use DB;
 class Product extends Model
 {
     protected $table = 'products';
-    protected $fillable = ['id', 'name', 'base_price', 'user_id', 'description'];
+    protected $fillable = ['id', 'name', 'slug', 'base_price', 'user_id', 'description'];
 
     public function productImage()
     {
@@ -64,6 +64,7 @@ class Product extends Model
     public function addData($id, $data)
     {
         $this->name        = $data->name;
+        $this->slug        = str_slug($data->name);
         $this->description = $data->description;
         $this->base_price  = $data->base_price;
         $this->user_id     = $id;

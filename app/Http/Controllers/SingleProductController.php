@@ -8,6 +8,7 @@ use App\ProductImage;
 use App\Agency;
 use App\AgencyProduct;
 use App\ProductCategory;
+use App\Category;
 
 class SingleProductController extends Controller
 {
@@ -20,6 +21,19 @@ class SingleProductController extends Controller
 
         $this->groupImg($product, $size);
         $this->groupAgency($product, $size);
+
+        $p_cate = new ProductCategory;
+        $p_cate = $p_cate->getDataByProductId($product_id);
+
+        $arr_id = [];
+        foreach ($p_cate as $key => $value) {
+            $arr_id[] = $value['category_id'];
+        }
+
+        $cate = new Category;
+        $cate = $cate->getDataById($arr_id)->toArray();
+        $product[0]['categories'] = $cate;
+
         $product = $product[0]->toArray();
 
         // 20 product same categories
@@ -73,8 +87,9 @@ class SingleProductController extends Controller
     	$seller_product = $seller_product->toArray();
 
 
+
     	// echo "<pre>";
-    	// print_r($seller_product);
+    	// print_r($product);
     	// echo "</pre>";
 
     	return view('homepage.productDetail')->with([

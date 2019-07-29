@@ -77,4 +77,5 @@ class RegisterController extends Controller
     {
         return view('form.register');
     }
+
 }

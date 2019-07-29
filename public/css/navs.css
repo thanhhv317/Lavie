@@ -49,6 +49,7 @@ body {
 
 @media only screen and (max-width: 435px) {
   .sidebar a {
+    width: 100%;
     text-align: center;
     float: none;
   }
@@ -101,4 +102,13 @@ body {
 .product-boder {
   display: flex;
   align-items: stretch;
+}
+
+.card-title {
+  text-align: center;
+  height: 30px;
+}
+
+.box-address {
+  height: 70px;
 }

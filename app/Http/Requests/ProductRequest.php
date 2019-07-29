@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'base_price' => 'required|digits_between:2,8',
+            'base_price' => 'required|digits_between:1,4',
             'cate.*' => 'required',
             'agency.*' => 'required',
             'fImage.*' => 'required|image',

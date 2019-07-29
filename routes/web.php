@@ -38,11 +38,18 @@ Route::group(['prefix' => 'seller', 'middleware'=>'auth'], function() {
 	});
 });
 
-Route::get('/products/{slug}/{productId}', 'SingleProductController@getData')->name('singleProductList');
-
-Route::get('/hi', function (){
-	return view('admin.dashboard');
+Route::group(['prefix' => 'buyer'], function() {
+	Route::get('signin', ['as' => 'buyer.signin', 'uses' => 'BuyerController@getLogin']);
+	Route::get('payment', ['as' => 'buyer.payment', 'uses' => 'BuyerController@getPayment']);
 });
+
+
+Route::get('auth/{provider}', 'BuyerController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'BuyerController@handleProviderCallback');
+
+
+Route::get('/products/{slug}/{productId}', 'SingleProductController@getData')->name('singleProductList');
+Route::get('/cart', 'CartController@index')->name('cart');
 
 Auth::routes();
 

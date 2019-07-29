@@ -23,6 +23,9 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.js"></script>
 
+     <!-- sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
 
 	<!-- bootstrap -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -31,7 +34,9 @@
 	<!-- end bootstrap -->
 
 	<script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/cart.js') }}"></script>
 
+	
 </head>
 <body>
 <!-- menu navbar -->
@@ -57,15 +62,6 @@
 		       <li class="nav-item nav-text-menu">
 		        <a class="nav-link" href="#">Contact</a>
 		      </li>
-	      	@guest
-		  	@else
-		      <li class="nav-item">
-		        <a class="nav-link" href="{{ route('seller.product') }}">Product <span class="sr-only">(current)</span></a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="{{ route('seller.agency') }}">Agency</a>
-		      </li>
-		    @endguest
 		    </ul>
 		    <form class="form-inline my-2 my-lg-0" action="{{ url('/') }}" method="post">
 		    	@csrf
@@ -88,11 +84,11 @@
 		            <input type="submit" class="dropdown-item" value="Logout"/>
                     </form>
 		      </li>
-		      <li class="nav-item cart-box">
-		      	<a class="cart" href="#"><i class="fas fa-cart-plus cart-icon"><span class="badge badge-danger quantity-product">1</span></i></a>
-		      </li>
 
 		      @endguest
+		      <li class="nav-item cart-box">
+		      	<a class="cart" href="{{ route('cart') }}"><i class="fas fa-cart-plus cart-icon"><span class="badge badge-danger quantity-product">1</span></i></a>
+		      </li>
 		  </div>
 	</div>
 </nav>

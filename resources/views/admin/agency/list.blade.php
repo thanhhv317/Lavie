@@ -1,13 +1,11 @@
-@extends('admin.master')
+@extends('admin.dashboard')
 
 @section('content')
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-    	<div class="col-auto btn-add">
-    		<a href="{{ route('seller.agency.new') }}" class="btn btn-primary">Add Agency</a>
-    	</div>
-    </ol>
-</nav>
+<div class="breadcrumb container">
+	<div class="col-auto btn-add">
+		<a href="{{ route('seller.agency.new') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Agency</a>
+	</div>
+</div>
 
 <div class="container">
 	<div class="row">
@@ -24,10 +22,10 @@
 			        <h5 class="card-title">{{ $value['name'] }}</h5>
 			        </div>
 			    <ul class="list-group list-group-flush">
-			        <li class="list-group-item">{{ $value['address'] }}</li>
+			        <li class="list-group-item box-address">{{ $value['address'] }}</li>
 			    </ul>
 			    <div class="card-body">
-			        <a href="{{ url('seller/agency/edit',$value['id']) }}" class="card-link btn btn-success">Edit</a>
+			        <a href="{{ url('seller/agency/edit',$value['id']) }}" class="card-link btn btn-success"><i class="fas fa-edit"></i> Edit</a>
 			        <input type="submit" name="submit" class="btn btn-danger" value="Delete">
 			    </div>
 			</div>

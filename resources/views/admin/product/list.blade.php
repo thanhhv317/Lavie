@@ -1,9 +1,9 @@
-@extends('admin.master')
+@extends('admin.dashboard')
 
 @section('content')
-<div class="breadcrumb">
+<div class="breadcrumb container">
     	<div class="col-auto btn-add">
-    		<a href="{{ route('seller.product.new') }}" class="btn btn-primary">Add Product</a>
+    		<a href="{{ route('seller.product.new') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Product</a>
     	</div>
 </div>
 
@@ -36,7 +36,7 @@
 			        </b>{{ $value['base_price'] - ($value['base_price'] * $max) / 100 }} USD</li>
 			    </ul>
 			    <div class="card-body">
-			        <a href="{{ url('seller/product/edit',$value['product_id']) }}" class="card-link btn btn-success">Edit</a>
+			        <a href="{{ url('seller/product/edit',$value['product_id']) }}" class="card-link btn btn-success"><i class="fas fa-edit"></i> Edit</a>
 			        <input type="submit" name="submit" class="btn btn-danger" value="Delete">
 			    </div>
 			</div>

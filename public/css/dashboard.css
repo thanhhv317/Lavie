@@ -26,6 +26,7 @@ a, a:hover, a:focus {
   border-radius: 0;
   margin-bottom: 40px;
   box-shadow: 1px 1px 3px rgba(0,0,0,0,1);
+  background-color: #f5f5f5 !important;
 }
 
 .navbar-btn {
@@ -48,16 +49,19 @@ a, a:hover, a:focus {
 }
 
 #sidebar {
-  min-width: 250px;
-  max-width: 250px;
+  min-width: 200px;
+  max-width: 200px;
   background-color: #7386D5;
   color: #fff;
   transition: all 0.3s;
-  
+}
+
+.box-sidebar {
+  position: fixed;
 }
 
 #sidebar.active {
-  margin-left: -250px;
+  margin-left: -200px;
 }
 
 #sidebar .sidebar-header {
@@ -80,6 +84,7 @@ a, a:hover, a:focus {
   padding: 10px;
   font-size: 1.1em;
   display: block;
+  width: 200px;
 
 }
 
@@ -112,9 +117,6 @@ ul ul a{
   background: #6d7fcc;
 }
 
-ul.CTAs {
-  padding: 20px;
-}
 
 ul.CTAs a {
   text-align: center;
@@ -142,7 +144,7 @@ a.article, a.article:hover {
 }
 
 @media (max-width: 768px) {
-  #sidebar {margin-left: -250px;}
+  #sidebar {margin-left: -200px;}
 
   #sidebar.active {
   	margin-left: 0px;
