@@ -14,7 +14,7 @@
 Route::get('/', 'HomePageController@index')->name('homePage');
 Route::post('/', 'HomePageController@searchByNameProduct')->name('searchByNameProduct');
 
-Route::group(['prefix' => 'seller', 'middleware'=>'auth'], function() {
+Route::group(['prefix' => 'seller', 'middleware' => 'leveluser'], function() {
 	Route::group(['prefix' => 'product'], function() {
 		Route::get('/', ['as' => 'seller.product', 'uses' => 'ProductController@index']);
 		Route::get('/new', ['as' => 'seller.product.new', 'uses' => 'ProductController@getAddProduct']);
@@ -40,9 +40,10 @@ Route::group(['prefix' => 'seller', 'middleware'=>'auth'], function() {
 
 Route::group(['prefix' => 'buyer'], function() {
 	Route::get('signin', ['as' => 'buyer.signin', 'uses' => 'BuyerController@getLogin']);
-	Route::get('payment', ['as' => 'buyer.payment', 'uses' => 'BuyerController@getPayment']);
+	Route::get('payment', ['as' => 'buyer.payment', 'uses' => 'BuyerController@getPayment'])->middleware('buyer');
 });
 
+Route::get('getDataCart', 'CartController@getDataCart')->name('getDataCart');
 
 Route::get('auth/{provider}', 'BuyerController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'BuyerController@handleProviderCallback');
@@ -50,6 +51,7 @@ Route::get('auth/{provider}/callback', 'BuyerController@handleProviderCallback')
 
 Route::get('/products/{slug}/{productId}', 'SingleProductController@getData')->name('singleProductList');
 Route::get('/cart', 'CartController@index')->name('cart');
+Route::post('/payment', 'CartController@orderProduct')->name('order');
 
 Auth::routes();
 

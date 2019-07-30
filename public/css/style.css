@@ -187,3 +187,18 @@
   color:#f6931f;
   font-weight:bold;"
 }
+
+/*payment page*/
+
+h2.title-right {
+  color: #17a2b8 !important;
+  text-align: center;
+}
+
+.img-payment {
+  max-height: 10em;
+}
+
+.box-payment {
+  width: 100%;
+}

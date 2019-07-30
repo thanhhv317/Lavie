@@ -14,7 +14,7 @@
 		@endif
 		@foreach( $agency as $value)
 		<div class="col-lg-4 col-md-6 col-12 mt-3">
-			<form method="POST" action="{{ url('seller/agency/delete',$value['id']) }}">
+			<form method="POST" action="{{ url('seller/agency/delete', $value['id']) }}">
 			@csrf
 			<div class="card" style="width: 18rem;">
 			    <img class="card-img-top img-content" src="{{ asset('uploads/agency/').'/'.$value['image'][0]['image'] }}" alt="Card image cap">

@@ -97,9 +97,9 @@
     	<div class="row container-fluid text-left">
     		<div class="col-lg-2 col-md-3 col-12 nav flex-column nav-pills slidebar-box fixed " >
     			<div class="sidebar sidenav">
-				  <a href="{{ route('seller.product') }}"><i class="fa fa-fw fa-database"></i>Product</a>
-				  <a href="{{ route('seller.agency') }}"><i class="fa fa-fw fa-user"></i>Agency</a>
-				  <a href="{{ url('/') }}"><i class="fa fa-fw fa-home"></i>Home Page</a>
+				    <a href="{{ route('seller.product') }}"><i class="fa fa-fw fa-database"></i>Product  </a>
+				    <a href="{{ route('seller.agency') }}"><i class="fa fa-fw fa-user"></i>Agency</a>
+				    <a href="{{ url('/') }}"><i class="fa fa-fw fa-home"></i>Home Page</a>
 				</div>
     		</div>
     		<div class="col-lg-10 col-md-9 col-12"> 

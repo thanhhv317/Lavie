@@ -23,7 +23,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.js"></script>
 
-     <!-- sweetalert -->
+    <!-- sweetalert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
 
@@ -34,7 +34,6 @@
 	<!-- end bootstrap -->
 
 	<script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/cart.js') }}"></script>
 
 	
 </head>
@@ -47,30 +46,30 @@
 			  <img class="rounded" src="{{ asset('uploads/logo/logo.png') }}"  alt="...">
 		  	</a>
 		</div>
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
-		  </button>
+		</button>
 
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    <ul class="navbar-nav mr-auto">
-		  	  <li class="nav-item nav-text-menu">
-		        <a class="nav-link" href="#">Blog <span class="sr-only">(current)</span></a>
-		      </li>
-		      <li class="nav-item nav-text-menu">
-		        <a class="nav-link" href="#">About</a>
-		      </li>
-		       <li class="nav-item nav-text-menu">
-		        <a class="nav-link" href="#">Contact</a>
-		      </li>
+			  	<li class="nav-item nav-text-menu">
+			        <a class="nav-link" href="#">Blog <span class="sr-only">(current)</span></a>
+			    </li>
+			    <li class="nav-item nav-text-menu">
+			        <a class="nav-link" href="#">About</a>
+			    </li>
+			    <li class="nav-item nav-text-menu">
+			        <a class="nav-link" href="#">Contact</a>
+			    </li>
 		    </ul>
 		    <form class="form-inline my-2 my-lg-0" action="{{ url('/') }}" method="post">
 		    	@csrf
-		      <input class="form-control mr-sm-2" name="name" type="search" title="Search by name product, category, agency" placeholder="Search" aria-label="Search">
-		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		        <input class="form-control mr-sm-2" name="name" type="search" title="Search by name product, category, agency" placeholder="Search" aria-label="Search">
+		        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		    </form>
 		    <li class="nav-item dropdown">
 		    	@guest
-		    	<a class="nav-link" href="{{ route('login') }}" id="navbarDropdown">
+		    	<a class="nav-link" href="{{ route('buyer.signin') }}" id="navbarDropdown">
 		          Login
 		        </a>
 		      	@else
@@ -78,17 +77,18 @@
 		          {{ Auth::user()->name }}
 		        </a>
 		        <div class="dropdown-content">
-		          <a class="dropdown-item" href="{{ route('seller.product') }}">View dashboard</a>
+		        	@if(Auth::user()->level == 1)
+		          	<a class="dropdown-item" href="{{ route('seller.product') }}">View dashboard</a>
+		            @endif
 		          	<form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
 		            <input type="submit" class="dropdown-item" value="Logout"/>
                     </form>
-		      </li>
-
-		      @endguest
-		      <li class="nav-item cart-box">
-		      	<a class="cart" href="{{ route('cart') }}"><i class="fas fa-cart-plus cart-icon"><span class="badge badge-danger quantity-product">1</span></i></a>
-		      </li>
+		        </li>
+		        @endguest
+		    <li class="nav-item cart-box">
+		      	<a class="cart" href="{{ route('cart') }}"><i class="fas fa-cart-plus cart-icon"><span class="badge badge-danger quantity-product">0</span></i></a>
+		    </li>
 		  </div>
 	</div>
 </nav>

@@ -174,21 +174,7 @@
  <!-- agency -->
   <script src="{{ asset('js/agency.js') }}" defer></script>
 
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#sidebarCollapse').on('click', function(){
-      $('#sidebar').toggleClass('active');
-    });
-
-    $('.list-unstyled li').click(function(event) {
-      // event.preventDefault();
-      $(this).parent().find('li.active').removeClass('active');
-      $(this).attr('class', "active");
-    });
-  });
-</script>
-
+  <script src="{{ asset('js/dashboard.js') }}" defer></script>
 
 </body>
 </html>

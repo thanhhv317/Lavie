@@ -1,7 +1,7 @@
 function searchByPrice() {
 
-	let priceFrom = ($( "#slider-range" ).slider( "values", 0 ) );
-	let priceTo = ($( "#slider-range" ).slider( "values", 1 ) );
+	let priceFrom = ($("#slider-range").slider("values", 0));
+	let priceTo = ($("#slider-range").slider("values", 1));
 	
 	window.location = `/search/${priceFrom}/${priceTo} `;
 }
@@ -14,11 +14,11 @@ $( function() {
     max: 500,
     values: [ 75, 300 ],
     slide: function( event, ui ) {
-      $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
     }
   });
-  $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-    " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+  $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+    " - $" + $("#slider-range").slider("values", 1));
 });
 
 
@@ -69,28 +69,28 @@ $(document).ready(function() {
 
 function subQuantity(){
   let tmp = $('.box-quantity').val();
-  if(tmp <=1){
+  if (tmp <= 1) {
     return;
   }
   else {
-    $('.box-quantity').val(tmp-1);
+    $('.box-quantity').val(tmp - 1);
   }
 }
 
 function addQuantity(){
   let tmp = $('.box-quantity').val();
   let max = $('.sum-quantity').text();
-  if(tmp >= Number(max)){
+  if (tmp >= Number(max)){
     return
   }
   else {
-    $('.box-quantity').val(Number(tmp)+1);
+    $('.box-quantity').val(Number(tmp) + 1);
   }
 }
 
 // add to cart
 function addToCart(id, name, price, quantity, img){
-  if( getTotalQuantity() < 1){
+  if (getTotalQuantity() < 1){
     $('.quantity-product').show();
   }
   obj = {
@@ -101,24 +101,26 @@ function addToCart(id, name, price, quantity, img){
     image     : img
   }
   obj = JSON.stringify(obj);
-  var count_obj =0;
+  var count_obj = 0;
 
   let max = localStorage.length;
-  for(let i =0; i< max; ++i){
+  for(let i =0; i < max; ++i){
     var key = localStorage.key(i);
-    if(key == ('ca-'+id)) {
+    if(key == ('ca-' + id)) {
       count_obj ++;
     }
   }
 
-  if(count_obj<1){
-    localStorage.setItem('ca-'+id, obj);
-  } else {
-    editQuantityProduct('ca-'+id, quantity);
+  if (count_obj < 1){
+    localStorage.setItem('ca-' + id, obj);
+  } 
+  else {
+    editQuantityProduct('ca-' + id, quantity);
   }
-  if(getTotalQuantity() >9){
+  if (getTotalQuantity() > 9){
     $('.quantity-product').text('9+');
-  }else {
+  }
+  else {
     $('.quantity-product').text(getTotalQuantity());
   }
   Swal.fire(
@@ -138,23 +140,23 @@ function editQuantityProduct(pkey, quantity = 1)
 
 function getTotalQuantity()
 {
-  var result =0;
+  var result = 0;
   let max = localStorage.length;
-  for(let i =0; i< max; ++i){
+  for(let i = 0; i < max; ++i){
     var key = localStorage.key(i);
     if(key.charAt(0) == 'c' && key.charAt(1) == 'a'){
       let obj = JSON.parse(localStorage.getItem(key));
       result += obj.quantity;
     }
   }
-  return result;
+  return Number(result);
 }
 
 function getTotalPrice()
 {
-  var result =0;
+  var result = 0;
   let max = localStorage.length;
-  for(let i =0; i< max; ++i){
+  for(let i =0; i < max; ++i){
     var key = localStorage.key(i);
     if(key.charAt(0) == 'c' && key.charAt(1) == 'a'){
       let obj = JSON.parse(localStorage.getItem(key));
@@ -167,4 +169,29 @@ function getTotalPrice()
 //get quantity product - product detail page
 function getQuantityProduct(){
   return Number($('.box-quantity').val());
+}
+
+function checkStatusCartIcon(){
+  let quantity = getTotalQuantity();
+  if (quantity < 1){
+    $('.quantity-product').hide();
+  } 
+  else if (quantity >9){
+    $('.quantity-product').text('9+');
+  }
+  else {
+    $('.quantity-product').text(quantity);
+  }
+}
+
+function getDeliveryCost(){
+  var result = 0;
+  let cost = getTotalPrice();
+  if ( cost < 20 && cost > 0){
+    result = cost * 0.1;
+  }
+  else if (cost > 20 && cost < 50){
+    result = cost * 0.05;
+  }
+  return Math.round(result * 100) / 100; 
 }

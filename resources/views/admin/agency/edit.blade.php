@@ -15,18 +15,18 @@
 	@csrf
 	<div class="row">
 		<div class="col-12 col-md-6">
-		  <div class="form-group">
-		    <label for="formGroupExampleInput">Agency name:</label>
-		    <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="Name" value="{{ $agency['name'] }}" required="">
-		  </div>
-		  <div class="form-group">
-		    <label for="formGroupExampleInput2">Address:</label>
-		    <label for="formGroupExampleInput2">Address:</label>
-		    <textarea class="form-control" required="" name="address" placeholder="Address" rows="5">{{ $agency['address'] }}</textarea>
-		  </div>
-		  <div class="form-group">
-			 <button class="btn btn-success">OKE</button>
-		  </div>
+			<div class="form-group">
+			    <label for="formGroupExampleInput">Agency name:</label>
+			    <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="Name" value="{{ $agency['name'] }}" required="">
+		 	</div>
+			<div class="form-group">
+			    <label for="formGroupExampleInput2">Address:</label>
+			    <label for="formGroupExampleInput2">Address:</label>
+			    <textarea class="form-control" required="" name="address" placeholder="Address" rows="5">{{ $agency['address'] }}</textarea>
+			</div>
+			<div class="form-group">
+				 <button class="btn btn-success">OKE</button>
+			</div>
 		</div>
 		<div class="col-12 col-md-6">
 			<div class="form-group item row">
@@ -44,7 +44,6 @@
 			</div>
 		</div>
 	</div>
-	
 </form>
 </div>
 	

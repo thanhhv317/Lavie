@@ -7,7 +7,7 @@
   margin:10px auto;
 }
 
-label .error {
+label.error {
   display: inline-block;
   color:red;
   width: 200px;

@@ -122,8 +122,9 @@ class Product extends Model
         $this->joinSub($calculate_rate, 'calculate_rate', function ($join){
             $join->on('calculate_rate.product_id', '=', 'products.id');
         })->groupBy('id', 'product_id', 'name', 'base_price', 'sum_quantity', 'discount_rate')
-        ->havingRaw('base_price - (base_price * discount_rate) / 100 < ?', [$to])
-        ->havingRaw('base_price - (base_price * discount_rate)/100 > ?', [$from])
+        ->havingRaw('base_price - (base_price * discount_rate) / 100 <= ?', [$to])
+        ->havingRaw('base_price - (base_price * discount_rate)/100 >= ?', [$from])
+        ->select('*', 'products.name as pname')
         ->paginate(12);
     }
 
@@ -183,5 +184,15 @@ class Product extends Model
     public function getUserId($product_id)
     {
         return $this->select('user_id')->where('id', $product_id)->get();
+    }
+
+    public function getRealPriceAndQuantityById($product_id)
+    {
+        return $this->join('agency_products', 'products.id', '=', 'agency_products.product_id')
+                 ->select('product_id', 'base_price', DB::raw('SUM(quantity) as sum_quantity'), DB::raw('MAX(agency_products.discount_rate) as discount_rate'))
+                 ->where('products.id', $product_id)
+                 ->groupBy('product_id')
+                 ->first()
+                 ->toArray();
     }
 }

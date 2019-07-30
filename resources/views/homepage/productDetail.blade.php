@@ -4,23 +4,14 @@
 
 <!-- slide -->
 <div id="carouselExampleIndicators" class="carousel slide mt-2" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100" src="{{ asset('uploads/banners/banner6.jpg') }}" alt="First slide">
-      <div class="carousel-caption d-none d-md-block">
-	    <h1>Product Detail</h1>
-	    <p>Welcome to store !!! </p>
-	  </div>
+    <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      	<img class="d-block w-100" src="{{ asset('uploads/banners/banner6.jpg') }}" alt="First slide">
+	      	<div class="carousel-caption d-none d-md-block">
+		    	<h1>Product Detail</h1>
+		  	</div>
+	    </div>
     </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
 </div>
 <!-- end slide -->
 
@@ -105,7 +96,7 @@
 						<a href="{{ url('/') }}"><i class="fas fa-sign-out-alt"></i> Get out</a>
 					</div>
 					@else
-					<button class="btn btn-outline-primary" onclick='addToCart( {{ $product["id"] }}, "{{ $product["pname"] }}", {{ $price }}, getQuantityProduct(), `{{ asset("uploads/products"). "/" . $product["image"][0]["image"] }}` )' ><i class="fas fa-cart-arrow-down"></i> Add to cart</button>
+					<button class="btn btn-outline-primary" onclick='addToCart( {{ $product["product_id"] }}, "{{ $product["pname"] }}", {{ $price }}, getQuantityProduct(), `{{ asset("uploads/products"). "/" . $product["image"][0]["image"] }}` )' ><i class="fas fa-cart-arrow-down"></i> Add to cart</button>
 					@endif
 				</div>
 			</div>
@@ -123,65 +114,69 @@
 		<div class="col-md-3 col-sm-12 col-12">
 			<!-- Grid row -->
 			<div class="row">
-			  <div class="col-md-12">
-			    <!-- same category -->
-			    <h4 id="section1"><strong>Same category</strong></h4>
-			    <div class="card example-1 square scrollbar-dusty-grass square thin">
-			      <div class="card-body">
-			        @foreach($product_same as $value)
-			        <p>
+			  	<div class="col-md-12">
+				    <!-- same category -->
+				    <h4 id="section1"><strong>Same category</strong></h4>
+				    <div class="card example-1 square scrollbar-dusty-grass square thin">
+				      	<div class="card-body">
+				        @foreach($product_same as $value)
+				        <p>
 			        	<div class=" product-boder">
-						<div class="card card-product mb-3">
-						  <img class="card-img-top img-content" src="{{ asset('uploads/products/'). '/' . $value['image'][0]['image'] }}" alt="Card image cap">
-						  <div class="card-body">
-						    <h5 class="card-title product-title">{{ $value['name'] }}</h5>
-						    <div class="card-text">
-						    	<h4 class="sale-sticky">{{ $value['discount_rate'] }}%</h4>
-						    	<?php $price = $value['base_price'] - (($value['base_price'] * $value['discount_rate']) / 100); ?>
-						    	<span class="price">{{ $price }} USD </span>
-						    </div>
-						    <div class="box-same-product">
-					    	<a class="btn btn-info" onclick='addToCart( {{ $value["id"] }}, "{{ $value["name"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $value["image"][0]["image"] }}` )'><i class="fas fa-shopping-cart"></i></a>
-					    	<a class="btn btn-outline-info" href="{{ url('products/'.$value['slug'].'/'.$value['product_id']) }}">View</a>
-					    	</div>
-						  </div>
+							<div class="card card-product mb-3">
+							  	<img class="card-img-top img-content" src="{{ asset('uploads/products/'). '/' . $value['image'][0]['image'] }}" alt="Card image cap">
+							  	<div class="card-body">
+							    	<h5 class="card-title product-title">{{ $value['name'] }}</h5>
+							    	<div class="card-text">
+							    		<h4 class="sale-sticky">{{ $value['discount_rate'] }}%</h4>
+							    		<?php $price = $value['base_price'] - (($value['base_price'] * $value['discount_rate']) / 100); ?>
+							    		<span class="price">{{ $price }} USD </span>
+							    	</div>
+							    	<div class="box-same-product">
+							    		@if ($value['sum_quantity'] > 0)
+						    			<a class="btn btn-info" onclick='addToCart( {{ $value["id"] }}, "{{ $value["name"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $value["image"][0]["image"] }}` )'><i class="fas fa-shopping-cart"></i></a>
+						    			@endif
+						    			<a class="btn btn-outline-info" href="{{ url('products/'.$value['slug'].'/'.$value['product_id']) }}">View</a>
+						    		</div>
+							  	</div>
+							</div>
 						</div>
-					</div>
-			        </p>
-			        @endforeach
-			      </div>
-			    </div>
-			    <!-- end same category -->
+				        </p>
+				        @endforeach
+				      	</div>
+				    </div>
+				    <!-- end same category -->
 
-			    <!-- seller product-->
-		    	<h4 class="mt-5" id="section1"><strong>Same seller</strong></h4>
-			    <div class="card example-1 square scrollbar-dusty-grass square thin">
-			      <div class="card-body">
-			        @foreach($seller_product as $value)
-			        <p>
-			        	<div class=" product-boder">
-						<div class="card card-product mb-3">
-						  <img class="card-img-top img-content" src="{{ asset('uploads/products/'). '/' . $value['image'][0]['image'] }}" alt="Card image cap">
-						  <div class="card-body">
-						    <h5 class="card-title product-title">{{ $value['pname'] }}</h5>
-						    <div class="card-text">
-						    	<h4 class="sale-sticky">{{ $value['discount_rate'] }}%</h4>
-						    	<?php $price = $value['base_price'] - (($value['base_price'] * $value['discount_rate']) / 100); ?>
-						    	<span class="price">{{ $price }} USD </span>
-						    </div>
-						    <div class="box-same-product">
-					    	<a class="btn btn-info"><i class="fas fa-shopping-cart"  onclick='addToCart( {{ $value["product_id"] }}, "{{ $value["pname"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $value["image"][0]["image"] }}` )'></i></a>
-					    	<a class="btn btn-outline-info" href="{{ url('products/'.$value['slug'].'/'.$value['product_id']) }}">View</a>
-					    	</div>
-						  </div>
-						</div>
-					</div>
-			        </p>
-			        @endforeach
-			      </div>
-			    </div>
-			    <!-- end seller product -->
-			  </div>
+				    <!-- seller product-->
+			    	<h4 class="mt-5" id="section1"><strong>Same seller</strong></h4>
+				    <div class="card example-1 square scrollbar-dusty-grass square thin">
+				      	<div class="card-body">
+					        @foreach($seller_product as $value)
+					        <p>
+				        	<div class=" product-boder">
+								<div class="card card-product mb-3">
+								  	<img class="card-img-top img-content" src="{{ asset('uploads/products/'). '/' . $value['image'][0]['image'] }}" alt="Card image cap">
+								  	<div class="card-body">
+									    <h5 class="card-title product-title">{{ $value['pname'] }}</h5>
+									    <div class="card-text">
+									    	<h4 class="sale-sticky">{{ $value['discount_rate'] }}%</h4>
+									    	<?php $price = $value['base_price'] - (($value['base_price'] * $value['discount_rate']) / 100); ?>
+									    	<span class="price">{{ $price }} USD </span>
+									    </div>
+									    <div class="box-same-product">
+									    	@if ($value['sum_quantity'] > 0)
+								    		<a class="btn btn-info"><i class="fas fa-shopping-cart"  onclick='addToCart( {{ $value["product_id"] }}, "{{ $value["pname"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $value["image"][0]["image"] }}` )'></i></a>
+								    		@endif
+								    		<a class="btn btn-outline-info" href="{{ url('products/'.$value['slug'].'/'.$value['product_id']) }}">View</a>
+								    	</div>
+								  	</div>
+								</div>
+							</div>
+					        </p>
+					        @endforeach
+				      	</div>
+				    </div>
+				    <!-- end seller product -->
+			  	</div>
 			</div>
 		</div>
 </div>

@@ -13,6 +13,12 @@ class BuyerController extends Controller
     {
         return Socialite::driver($socialite)->redirect();
     }
+
+    // public function __construct()
+    // {
+    //     //redirect to homepage if go to signin url while signined
+    //     $this->middleware('guest')->except('logout');
+    // }
  
     /**
      * Obtain the user information from facebook.
@@ -26,7 +32,7 @@ class BuyerController extends Controller
         $authUser = $this->findOrCreateUser($user);
         
         Auth::login($authUser, true);
- 
+    
         return redirect()->route('buyer.payment');
     }
  
@@ -40,9 +46,10 @@ class BuyerController extends Controller
  
         return User::create([
             'name' => $socialiteUser->name,
+            'level' => 0,
             'password' => $socialiteUser->token,
             'email' => $socialiteUser->email,
-            'phone' => '032938942',
+            'phone' => '032222222',
             'provider' => $socialiteUser->id,
             'provider_id' => $socialiteUser->id,
             'image' => $socialiteUser->avatar,
@@ -51,6 +58,7 @@ class BuyerController extends Controller
 
     public function getLogin()
     {
+        if(Auth::check()) return redirect()->back();
         return view('homepage.buyerSignin');
     }
 

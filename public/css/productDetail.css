@@ -1,6 +1,7 @@
 .carousel-caption h1 {
   font-size: 4rem !important;
-  color: #f5f5f5 !important;
+  color: black !important;
+  font-weight: bold;
 }
 
 a.thumb-link {
