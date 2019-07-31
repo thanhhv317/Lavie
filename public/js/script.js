@@ -89,11 +89,12 @@ function addQuantity(){
 }
 
 // add to cart
-function addToCart(id, name, price, quantity, img){
+function addToCart(seller_id, id, name, price, quantity, img){
   if (getTotalQuantity() < 1){
     $('.quantity-product').show();
   }
   obj = {
+    seller_id  : seller_id,
     id        : id,
     name      : name,
     price     : price,
@@ -163,7 +164,7 @@ function getTotalPrice()
       result += (obj.quantity * obj.price);
     }
   }
-  return Math.round(result * 100)/100;
+  return Math.round(result * 100) / 100;
 }
 
 //get quantity product - product detail page
@@ -194,4 +195,17 @@ function getDeliveryCost(){
     result = cost * 0.05;
   }
   return Math.round(result * 100) / 100; 
+}
+
+function groupCart()
+{
+  var result = [];
+  let max = localStorage.length;
+  for(let i =0; i < max; ++i){
+      var key = localStorage.key(i);
+      if(key.charAt(0) == 'c' && key.charAt(1) == 'a'){
+      result.push(localStorage.getItem(key));
+      }
+  }
+  return result;
 }

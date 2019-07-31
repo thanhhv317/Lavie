@@ -96,7 +96,7 @@
 						<a href="{{ url('/') }}"><i class="fas fa-sign-out-alt"></i> Get out</a>
 					</div>
 					@else
-					<button class="btn btn-outline-primary" onclick='addToCart( {{ $product["product_id"] }}, "{{ $product["pname"] }}", {{ $price }}, getQuantityProduct(), `{{ asset("uploads/products"). "/" . $product["image"][0]["image"] }}` )' ><i class="fas fa-cart-arrow-down"></i> Add to cart</button>
+					<button class="btn btn-outline-primary" onclick='addToCart({{ $product["user_id"] }}, {{ $product["product_id"] }}, "{{ $product["pname"] }}", {{ $price }}, getQuantityProduct(), `{{ asset("uploads/products"). "/" . $product["image"][0]["image"] }}` )' ><i class="fas fa-cart-arrow-down"></i> Add to cart</button>
 					@endif
 				</div>
 			</div>
@@ -133,7 +133,7 @@
 							    	</div>
 							    	<div class="box-same-product">
 							    		@if ($value['sum_quantity'] > 0)
-						    			<a class="btn btn-info" onclick='addToCart( {{ $value["id"] }}, "{{ $value["name"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $value["image"][0]["image"] }}` )'><i class="fas fa-shopping-cart"></i></a>
+						    			<a class="btn btn-info" onclick='addToCart( {{ $value["user_id"] }}, {{ $value["id"] }}, "{{ $value["name"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $value["image"][0]["image"] }}` )'><i class="fas fa-shopping-cart"></i></a>
 						    			@endif
 						    			<a class="btn btn-outline-info" href="{{ url('products/'.$value['slug'].'/'.$value['product_id']) }}">View</a>
 						    		</div>
@@ -164,7 +164,7 @@
 									    </div>
 									    <div class="box-same-product">
 									    	@if ($value['sum_quantity'] > 0)
-								    		<a class="btn btn-info"><i class="fas fa-shopping-cart"  onclick='addToCart( {{ $value["product_id"] }}, "{{ $value["pname"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $value["image"][0]["image"] }}` )'></i></a>
+								    		<a class="btn btn-info"><i class="fas fa-shopping-cart"  onclick='addToCart( {{ $value["user_id"] }}, {{ $value["product_id"] }}, "{{ $value["pname"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $value["image"][0]["image"] }}` )'></i></a>
 								    		@endif
 								    		<a class="btn btn-outline-info" href="{{ url('products/'.$value['slug'].'/'.$value['product_id']) }}">View</a>
 								    	</div>

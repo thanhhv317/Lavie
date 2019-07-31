@@ -36,6 +36,12 @@ Route::group(['prefix' => 'seller', 'middleware' => 'leveluser'], function() {
 		Route::post('edit/{id}', ['as' => 'seller.agency.postEdit', 'uses' => 'AgencyController@postEditAgency']);
 		Route::post('/delImg', ['as' => 'seller.agency.delImg', 'uses' => 'AgencyController@delImgAgency']);
 	});
+	Route::group(['prefix' =>'order'], function() {
+		Route::get('/', ['as' => 'seller.order', 'uses' => 'OrderController@index']);
+		Route::get('/orderDetail/{id}', 'OrderController@orderDetail');
+		Route::post('/setStatus', 'OrderController@setStatus');
+		
+	});
 });
 
 Route::group(['prefix' => 'buyer'], function() {

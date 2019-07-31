@@ -61,18 +61,6 @@ $(document).ready(function() {
     });
 });
 
-function groupCart()
-{
-	var result = [];
-	let max = localStorage.length;
-	for(let i =0; i < max; ++i){
-	    var key = localStorage.key(i);
-	    if(key.charAt(0) == 'c' && key.charAt(1) == 'a'){
-	 		result.push(localStorage.getItem(key));
-	    }
-	}
-	return result;
-}
 
 function checkStatusCartIcon(){
 	let quantity = getTotalQuantity();

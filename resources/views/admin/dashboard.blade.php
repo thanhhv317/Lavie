@@ -65,7 +65,7 @@
         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-copy"></i> Order</a>
         <ul class="collapse list-unstyled" id="pageSubmenu">
           <li>
-            <a href="#">page 1</a>
+            <a href="{{ route('seller.order') }}">All</a>
           </li>
           <li>
             <a href="#">page 2</a>

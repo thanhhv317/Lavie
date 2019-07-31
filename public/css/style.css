@@ -202,3 +202,7 @@ h2.title-right {
 .box-payment {
   width: 100%;
 }
+
+#total {
+  color: red;
+}

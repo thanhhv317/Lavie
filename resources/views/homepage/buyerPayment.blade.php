@@ -36,37 +36,31 @@
 				<div class="form-group row">
 				    <label for="inputPassword" class="col-sm-2 col-form-label">Name</label>
 				    <div class="col-sm-10">
-				      	<input type="text" class="form-control" id="inputName" placeholder="Your name" value="{{ Auth::user()->name }}" required="">
+				    	<input type="text" class="form-control" id="b_id" placeholder="Your name" hidden="" value="{{ Auth::user()->id }}" name="b_id" required="">
+				      	<input type="text" class="form-control" id="inputName" placeholder="Your name" value="{{ Auth::user()->name }}" name="b_name" required="">
 				    </div>
 			  	</div>
 			  	<div class="form-group row">
 				    <label for="inputPassword" class="col-sm-2 col-form-label">Phone</label>
 				    <div class="col-sm-10">
-				      	<input type="text" class="form-control" id="inputPhone" placeholder="Your phone number" value="{{ Auth::user()->phone }}" required="">
-				    </div>
-			  	</div>
-			  	<div class="form-group row">
-				    <label for="inputPassword" class="col-sm-2 col-form-label">Email</label>
-				    <div class="col-sm-10">
-				      	<input type="text" class="form-control" id="inputEmail" placeholder="Your email" value="{{ Auth::user()->email }}" required="">
+				      	<input type="text" class="form-control" id="inputPhone" placeholder="Your phone number" value="{{ Auth::user()->phone }}" name="phone" required="">
 				    </div>
 			  	</div>
 			  	<div class="form-group row">
 				    <label for="inputPassword" class="col-sm-2 col-form-label">Address</label>
 				    <div class="col-sm-10">
-				      	<input type="text" class="form-control" id="inputAddress" placeholder="Your address" required="">
+				      	<input type="text" class="form-control" id="inputAddress" name="address" placeholder="Your address" required="">
 				    </div>
 			  	</div>
 			  	<div class="form-group">
 				  	<div class="form-check mb-2">
-					  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-					  <label class="form-check-label" for="exampleRadios1"><i class="fas fa-money-bill-wave-alt"></i>
-					     Pay = Money
+					  <input class="form-check-input" type="radio" name="pay" id="exampleRadios1" value="0" checked>
+					  <label class="form-check-label" for="exampleRadios1"><i class="fas fa-money-bill-wave-alt"></i> Pay with cash upon delivery
 					  </label>
 					</div>
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-					  <label class="form-check-label" for="exampleRadios2"><i class="fab fa-cc-paypal"></i> Pay = Paypal 
+					  <input class="form-check-input" type="radio" name="pay" id="exampleRadios2" value="1">
+					  <label class="form-check-label" for="exampleRadios2"><i class="fab fa-cc-paypal"></i> Pay with Paypal 
 					  </label>
 					</div>
 				</div>
@@ -81,6 +75,7 @@
 		      <th scope="col">Total quantity</th>
 		      <th scope="col">Total Price</th>
 		      <th scope="col">Delivery cost</th>
+		      <th scope="col">Total</th>
 		      <th scope="col">Action</th>
 		    </tr>
 		  </thead>

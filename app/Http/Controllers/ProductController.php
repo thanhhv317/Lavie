@@ -16,7 +16,7 @@ use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
-    public function getUserId()
+    private function getUserId()
     {
         return Auth::user()->id;
     }
