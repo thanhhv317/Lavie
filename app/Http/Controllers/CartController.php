@@ -60,7 +60,7 @@ class CartController extends Controller
                     foreach ($cart as $key1 => $value1) {
                         $item  = json_decode($value1);
                         if($item->seller_id == $value){
-                            $price += $item->price;
+                            $price += $item->price * $item->quantity;
                             $quantity += $item->quantity;
                         }
                     }

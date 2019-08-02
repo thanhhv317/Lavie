@@ -21,7 +21,7 @@
             <div class="modal-body">
             
             <div class="container">
-            	<form class="order-detail-body">
+            	<form class="order-detail-body" method="POST">
             	
             	</form>
             </div>
@@ -29,7 +29,6 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
@@ -51,11 +50,11 @@
     	<form>
 		@csrf
 	    @foreach ($order as $key => $value)
-	    <tr>
+	    <tr class="order-body-{{ $value['id'] }}">
 	   		<th scope="row">{{ $key+1 }}</th>
 			<td>{{ $value['name'] }}</td>
 			<td>{{ $value['quantity'] }}</td>
-			<td>{{ $value['price'] }}</td>
+			<td>{{ $value['total_price'] }}</td>
 			<td>
 				<div class="row select-status">
 					<select class="" id="status-content-{{ $value['id'] }}">
@@ -65,13 +64,13 @@
 				        <option value="2" {{ ($value['status'] == 2) ? "selected" : "" }}>Processed</option>
 				        <option value="3" {{ ($value['status'] == 3) ? "selected" : "" }}>Expires</option>
 			      	</select>
-			      	<button type="button" class="btn btn-success" onclick="setStatus({{ $value['id'] }})">OK</button>
+			      	<button type="button" class="btn btn-success ml-1" onclick="setStatus({{ $value['id'] }})">OK</button>
 				</div>
 			</td>
 			<td>
-				<div class="row justify-content-center">
-					<a href="" ><i class="fas fa-times-circle mr-1"></i></a>
-					<a href="" onclick="getDetailOrder({{ $value['id'] }})" data-toggle="modal" data-target="#exampleModal"><i class="far fa-edit"></i></a>
+				<div class="row ">
+					<a class="btn-cusort-point btn btn-outline-danger" onclick="deleteOrder({{ $value['id'] }})"><i class="fas fa-times-circle mr-1"></i></a>
+					<a class="btn-cusort-point btn btn-outline-success ml-1" onclick="getDetailOrder({{ $value['id'] }})" data-toggle="modal" data-target="#exampleModal"><i class="far fa-edit"></i> </a>
 				</div>
 			</td>
 	    </tr>

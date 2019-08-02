@@ -38,11 +38,14 @@ Route::group(['prefix' => 'seller', 'middleware' => 'leveluser'], function() {
 	});
 	Route::group(['prefix' =>'order'], function() {
 		Route::get('/', ['as' => 'seller.order', 'uses' => 'OrderController@index']);
-		Route::get('/orderDetail/{id}', 'OrderController@orderDetail');
-		Route::post('/setStatus', 'OrderController@setStatus');
-		
+		Route::get('/viewOrderDetail/{id}', 'OrderController@viewOrderDetail');
+		Route::post('/setStatus', ['as' => 'seller.order.setStatus', 'uses' => 'OrderController@setStatus']);
+		Route::post('/editOrderDetail', ['as' => 'seller.order.editOrderDetail', 'uses' => 'OrderController@editOrderDetail']);
+		Route::post('/deleteOrderDetail', ['as' => 'seller.order.deleteOrderDetail', 'uses' => 'OrderController@deleteOrderDetail']);
+		Route::post('/deleteOrder', ['as' => 'seller.order.deleteOrder', 'uses' => 'OrderController@deleteOrder']);
 	});
 });
+
 
 Route::group(['prefix' => 'buyer'], function() {
 	Route::get('signin', ['as' => 'buyer.signin', 'uses' => 'BuyerController@getLogin']);

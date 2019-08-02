@@ -49,4 +49,36 @@ class Order extends Model
     {
         $this->where('id', $id)->update(['status' => $status]);
     }
+
+    public function updateDataById($data, $new_quantity)
+    {
+        $content = $this->select('price', 'total_price', 'cost', 'quantity')
+            ->where('id', $data['order_id'])->first()->toArray();
+        $new_price = ($content['price'] - (($data['quantity'] - $new_quantity) * $data['price']));
+
+        $cost = ($new_price <= 20) ? ($new_price*0.1) : (($new_price > 50) ? 0 : $new_price*0.05);
+
+        $quantity = $content['quantity'] - ($data['quantity'] - $new_quantity);
+
+
+        $this->where('id', $data['order_id'])
+             ->update([
+                'price' => $new_price, 
+                'cost' => $cost, 
+                'total_price' => $new_price + $cost, 
+                'quantity' => $quantity
+             ]);
+
+        // return $new_price . " - ". $content['price']. " - ". $new_quantity. " - " .$data['quantity']. " - " . $data['price'] . "cost-" . $cost. " quantity" . $quantity;
+
+        // if new_price = 0 <=> order = null => delete
+        return $new_price;
+
+    }
+
+    public function deleteOrderById($id)
+    {
+        return $this->find($id)->delete();
+    }
+
 }
