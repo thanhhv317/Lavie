@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'level', 'email', 'password', 'address', 'phone', 'provider', 'provider_id',
+        'name', 'level', 'email', 'password', 'address', 'phone', 'address', 'provider', 'provider_id',
     ];
 
     /**
@@ -41,4 +41,22 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Agency');
     }
+
+    public function getDataById($id)
+    {
+        return $this->find($id)->toArray();
+    }
+
+    public function editDataById($id, $data)
+    {
+        $this->find($id)
+             ->update(['name' => $data[0], 'phone' => $data[1], 'address' => $data[2]]);
+    }
+
+    public function editPassword($id, $new_pass)
+    {
+        $this->where('id', $id)->update(['password' => $new_pass]);
+    }
+
+
 }

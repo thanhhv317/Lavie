@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Order;
+use App\User;
 use App\OrderDetail;
 use DB;
 
@@ -46,6 +47,11 @@ class CartController extends Controller
             try {
                 $arr = [];
                 $cart = $request->cart;
+
+                $user_data = [$request->name,  $request->phone, $request->address];
+
+                $user = new User;
+                $user = $user->editDataById($request->buyer_id, $user_data);
                 
                 foreach ($cart as $key => $value) {
                     $item  = json_decode($value);
@@ -92,7 +98,7 @@ class CartController extends Controller
                     }
                     
                 }
-
+                
                 DB::commit();
                 return 1;
             }

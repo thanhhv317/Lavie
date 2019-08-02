@@ -50,6 +50,11 @@ Route::group(['prefix' => 'seller', 'middleware' => 'leveluser'], function() {
 Route::group(['prefix' => 'buyer'], function() {
 	Route::get('signin', ['as' => 'buyer.signin', 'uses' => 'BuyerController@getLogin']);
 	Route::get('payment', ['as' => 'buyer.payment', 'uses' => 'BuyerController@getPayment'])->middleware('buyer');
+	Route::get('profile', ['as' => 'buyer.profile', 'uses' => 'BuyerController@getProfile'])->middleware('buyer');
+	Route::post('profile', ['as' => 'buyer.profile', 'uses' => 'BuyerController@postProfile'])->middleware('buyer');
+	Route::post('profile/changePass', ['as' => 'buyer.profile.changePass', 'uses' => 'BuyerController@postChangePassword'])->middleware('buyer');
+	Route::post('profile/listOrder', ['as' => 'buyer.profile.listOrder', 'uses' => 'BuyerController@listOrder'])->middleware('buyer');
+	Route::post('profile/account', ['as' => 'buyer.profile.account', 'uses' => 'BuyerController@getInfoAccount'])->middleware('buyer');
 });
 
 Route::get('getDataCart', 'CartController@getDataCart')->name('getDataCart');

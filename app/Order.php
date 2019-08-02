@@ -45,6 +45,11 @@ class Order extends Model
         return $buyer;
     }
 
+    public function getAllOrderByBuyerId($buyer_id)
+    {
+        return $this->where('buyer_id', $buyer_id)->get()->toArray();
+    }
+
     public function setStatusById($id, $status)
     {
         $this->where('id', $id)->update(['status' => $status]);

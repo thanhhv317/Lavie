@@ -20,6 +20,9 @@ $(document).ready(function() {
                 required : true,
                 minlength : 9,
                 maxlength : 16
+            },
+            address : {
+                required : true
             }
         },
         messages: {
@@ -27,12 +30,12 @@ $(document).ready(function() {
             email : {
                 required : "Please fill out this field",
                 minlength : "Your mail must be at least 8 characters long",
-                email : "Your mail"
+                email : "The email must be in the correct format"
             },
             password : {
                 required : "Please fill out this field",
                 minlength : "Your mail must be at least 8 characters long",
-                pattent : "invalid"
+                pattent : "The password must be in the correct format"
             },
             password_confirmation : {
                 required : "Please fill out this field",
@@ -43,6 +46,9 @@ $(document).ready(function() {
                 required : "Please fill out this field",
                 minlength : "Your phone must be at least 9 characters long",
                 maxlength : "Max is 16 characters long"
+            },
+            address : {
+                required : "Please fill out this field"
             }
         }
     }); 

@@ -49,7 +49,7 @@
 			  	<div class="form-group row">
 				    <label for="inputPassword" class="col-sm-2 col-form-label">Address</label>
 				    <div class="col-sm-10">
-				      	<input type="text" class="form-control" id="inputAddress" name="address" placeholder="Your address" required="">
+				      	<input type="text" class="form-control" id="inputAddress" name="address" placeholder="Your address" value="{{ Auth::user()->address }}" required="">
 				    </div>
 			  	</div>
 			  	<div class="form-group">

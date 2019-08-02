@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Order;
 use App\User;
+use Hash;
 use Socialite;
 
 class BuyerController extends Controller
@@ -14,14 +16,8 @@ class BuyerController extends Controller
         return Socialite::driver($socialite)->redirect();
     }
 
-    // public function __construct()
-    // {
-    //     //redirect to homepage if go to signin url while signined
-    //     $this->middleware('guest')->except('logout');
-    // }
- 
     /**
-     * Obtain the user information from facebook.
+     * Obtain the user information from facebook, google.
      *
      * @return \Illuminate\Http\Response
      */
@@ -65,6 +61,79 @@ class BuyerController extends Controller
     public function getPayment()
     {
         return view('homepage.buyerPayment');
+    }
+
+    public function getProfile()
+    {
+        if(Auth::check())
+        {
+            return view('homepage.userProfile');
+        }
+    }
+
+    public function postProfile(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->arr;
+            $id = Auth::user()->id;
+            $user = new User;
+            $user = $user->editDataById($id, $data);
+            return 1;
+        }
+        else
+        {
+            return "not found";
+        }
+    }
+
+    public function postChangePassword(Request $request)
+    {
+        if($request->ajax())
+        {
+            $newPass     = $request->newPass;
+            $confirmPass = $request->confirmPass;
+
+            if($newPass == $confirmPass) {
+                $newPass = Hash::make($newPass);
+                $user = new User;
+                $user = $user->editPassword(Auth::user()->id, $newPass);
+            }
+            return 1;
+        }
+        else
+        {
+            return "not found";
+        }
+    }
+
+    public function listOrder(Request $request)
+    {
+        if($request->ajax())
+        {
+            $order = new Order;
+            $order = $order->getAllOrderByBuyerId(Auth::user()->id);
+
+            return $order;
+        }
+        else
+        {
+            return "not found";
+        }
+    }
+
+    public function getInfoAccount(Request $request)
+    {
+        if($request->ajax())
+        {
+            $user = new User;
+            $user = $user->getDataById(Auth::user()->id);
+            return $user;
+        }
+        else
+        {
+            return "not found";
+        }
     }
 
 }

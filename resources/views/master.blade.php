@@ -23,6 +23,13 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.js"></script>
 
+    <!-- jquery validate -->
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+	<!-- validate form register jquery -->
+	<script src="{{ asset('js/register.js') }}"></script>
+
+
     <!-- sweetalert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
@@ -78,7 +85,9 @@
 		        </a>
 		        <div class="dropdown-content">
 		        	@if(Auth::user()->level == 1)
-		          	<a class="dropdown-item" href="{{ route('seller.product') }}">View dashboard</a>
+		          	<a class="dropdown-item" href="{{ route('seller.product') }}"><i class="fas fa-tachometer-alt"></i> View dashboard</a>
+		          	@elseif (Auth::user()->level == 0)
+		          	<a class="dropdown-item" href="{{ route('buyer.profile') }}"><i class="fas fa-user-alt"></i> View profile</a>
 		            @endif
 		          	<form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
