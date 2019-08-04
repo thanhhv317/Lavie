@@ -22,7 +22,9 @@ $(document).ready(function() {
 							<div>
 							<img src="${obj.image}" alt="..." class="img-thumbnail cart-product-image">
 							</div>
+							<a href="/products/${convertToSlug(obj.name)}/${obj.id}">
 							${obj.name}
+							</a>
 						</td>
 						<td>${obj.price} USD</td>
 						<td>
@@ -115,9 +117,17 @@ function deleteProduct(id){
     );
 }
 
-
 function showText(){
 	$('.total-quantity-all-product').text(getTotalQuantity());
   	$('.total-price-all-product').text(getTotalPrice());
     $('.delivery-cost').text(getDeliveryCost());
+}
+
+function convertToSlug(Text)
+{
+    return Text
+        .toLowerCase()
+        .replace(/ /g,'-')
+        .replace(/[^\w-]+/g,'')
+        ;
 }

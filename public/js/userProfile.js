@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
-	loadMyProfile();
-	
+	loadMyProfile(); 
+
 	$('#change-password').click(function(event) {
 		let newPass 	= $('#newPassword').val();
 		let confirmPass = $('#confirmPassword').val();
@@ -36,6 +36,7 @@ $(document).ready(function() {
 	});
 
 	$('#list-order').click(function(event) {
+		var status ="";
 		$(this).parent().parent().find('a.active').removeClass('active');
 		$(this).attr('class', "active list-group-item list-group-item-action btn-cusort-pointer")
 		var _token = $('input[name="_token"]').val();
@@ -50,7 +51,7 @@ $(document).ready(function() {
 					`<table class="table table-striped">
 					  <thead>
 					    <tr>
-					      <th scope="col">#</th>
+					      <th scope="col">#ID</th>
 					      <th scope="col">Date</th>
 					      <th scope="col">Quantity</th>
 					      <th scope="col">Price</th>
@@ -61,7 +62,6 @@ $(document).ready(function() {
 					  </thead>
 					  <tbody>`;
 				for (var i = 0; i < data.length; i++) {
-					let status ;
 					switch (Number(data[i].status)) {
 						case 1:
 							status = "Processing";
@@ -77,15 +77,16 @@ $(document).ready(function() {
 							break;
 					} 
 
+					let utc = convertToUTC(data[i].created_at);
 					views += `<tr>
-				      <th scope="row">${i+1}</th>
-				      <td title="${data[i].created_at}">${jQuery.timeago(data[i].created_at)}</td>
+				      <th scope="row">${data[i].id}</th>
+				      <td title="${data[i].created_at}">${jQuery.timeago(utc)}</td>
 				      <td>${data[i].quantity}</td>
 				      <td>${data[i].price} <small>USD</small></td>
 				      <td>${data[i].cost} <small>USD</small></td>
 				      <td>${status}</td>
 				      <td>
-				      <a class="btn btn-outline-primary" onclick="viewOrderDetail(${data[i].id})"><i class="fas fa-info-circle"></i> detail</a>
+				      <a class="btn btn-outline-primary"  data-toggle="modal" data-target="#viewDetail" onclick="viewOrderDetail(${data[i].id}, '${status}')"><i class="fas fa-info-circle"></i> detail</a>
 				      </td>
 				    </tr>`;
 				}
@@ -145,8 +146,87 @@ $(document).ready(function() {
 
 });
 
-function viewOrderDetail(id) {
-	alert(id);
+function viewOrderDetail(id, status) {
+	$.ajax({
+		url: '/buyer/profile/orderDetail/' + id,
+		data: {
+			id: id,
+		},
+		success: function(data) {
+			var arr = data[0];
+			var link = data[1];
+			var totalPrice = 0;
+
+			//handle data[0];
+			var tmp =[];
+			for (var i = 0; i < arr.length; i++) {
+				tmp.push(arr[i].product_id);
+			}
+
+			function unique(value, index, self){
+				return self.indexOf(value) == index;
+			}
+			tmp = tmp.filter(unique);
+
+			var item = [];
+			for (var i = 0; i < tmp.length; i++) {
+				for (var j = 0; j < arr.length; j++) {
+					if(arr[j].product_id == tmp[i]){
+						item.push(arr[j]);
+						break;
+					}
+				}
+			}
+			
+			arr = item;
+
+			var views = '';
+			for (var i = 0; i < arr.length; i++) {
+				totalPrice += arr[i].price * arr[i].quantity;
+				views += `<div class="row box-order-detai-${arr[i].o_id} mt-1">
+					<hr>
+            		<div class="col-3">
+            			<img src="${link + '/' + arr[i].image}" alt="..." class="img-thumbnail">
+            		</div>
+            		<div class="col-9">
+            		  <div class="form-group">
+					    <label>Name product: <b>${arr[i].name}</b>
+				    	</label>
+				    	<br>
+					    <label>Price: <b class="order-detail-price-${arr[i].o_id}">${rounding(arr[i].price * arr[i].quantity)}</b> USD</label>
+					    <br>
+					    <label class="col-form-label">Quantity: <b>${arr[i].quantity}</b></label>
+					    
+					  </div>
+					  </div>
+            		</div>`;
+			}
+
+
+			views += `<hr><div class="d-flex justify-content-center">
+					<h5>Total Price: ${rounding(totalPrice)} <small> USD</small></h5>
+				</div>
+				<div class="d-flex justify-content-center">
+					<h6>Order date: ${arr[0].created_at} </h6>
+				</div>
+				<div class="d-flex justify-content-center">
+					<h6>Order status: ${status}</h6>
+				</div>`;
+
+			$('.order-detail-body').html(views);
+
+			if (status == 'No process') {
+				$('.footer-order-detail').html(`
+					<button type="button" class="btn btn-danger" onclick="cancelOrder(${id})" data-dismiss="modal">Cancel order</button>
+				`);
+			}
+			else {
+				$('.footer-order-detail').html("");
+			}
+
+		}
+	});
+	
 }
 
 function updateProfile(){
@@ -187,4 +267,43 @@ var checkArr = (arr) => {
 
 var checkPass = (newPass, confirmPass) => {
 	return (newPass === confirmPass);
+}
+
+var cancelOrder = (id) => {
+	Swal.fire({
+		title: 'Are you sure?',
+		text: "Do you want to delete",
+		type: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Yes, delete it!'
+	}).then((result) => {
+		if (result.value) {
+			var _token = $('input[name="_token"]').val();
+			$.ajax({
+				url: '/buyer/profile/deleteOrder',
+				type: 'POST',
+				data: {
+					_token: _token,
+					id: id
+				},
+				success: function(data) {
+					if(data == 1) {
+						Swal.fire('success!','Cancel order completed','success');
+					}
+				}
+			});
+		}
+	})
+}
+
+function convertToUTC(orderDate){
+	var orderDate = new Date(orderDate);
+	var utc = new Date(orderDate.getTime() + orderDate.getTimezoneOffset() +25200000 );
+	return utc;
+}
+
+function rounding(n) {
+	return Math.round(n * 100) / 100;
 }

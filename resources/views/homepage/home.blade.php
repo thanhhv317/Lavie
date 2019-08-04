@@ -104,7 +104,7 @@
 						    <div class="box-null"></div>
 						    <div class="box-button">
 						    	@if ($qmax > 0)
-						    	<a class="btn btn-info mr-2 btn-add-to-card" onclick='addToCart({{ $item["user_id"] }}, {{ $item["id"] }}, "{{ $item["pname"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $item["image"][0]["image"] }}` )'><i class="fas fa-shopping-cart"></i></a>
+						    	<a class="btn btn-info mr-2 btn-add-to-card" onclick='addToCart({{ $item["user_id"] }}, {{ $item["product_id"] }}, "{{ $item["pname"] }}", {{ $price }}, 1, `{{ asset("uploads/products"). "/" . $item["image"][0]["image"] }}` )'><i class="fas fa-shopping-cart"></i></a>
 						    	@endif
 						    	<a class="btn btn-outline-info" href="{{ url('products/'.$item['slug'].'/'.$item['product_id']) }}"><i class="fas fa-search"></i> View </a>
 					    	</div>
