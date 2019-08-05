@@ -65,7 +65,7 @@ $(document).ready(function() {
 					if(data == 1) {
 						Swal.fire(
 						    'Success!',
-						    'Order complete.',
+						    'Order complete, view detail at profile.',
 						    'success'
 					  	);
 					  	localStorage.clear();

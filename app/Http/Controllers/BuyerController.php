@@ -8,6 +8,7 @@ use App\Order;
 use App\User;
 use Hash;
 use Socialite;
+use App\Http\Requests\BuyerRequest;
 
 class BuyerController extends Controller
 {
@@ -56,6 +57,21 @@ class BuyerController extends Controller
     {
         if(Auth::check()) return redirect()->back();
         return view('homepage.buyerSignin');
+    }
+
+    public function postLogin(BuyerRequest $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
+        $credentials = [ 'email' => $request->email , 'password' => $password ];
+
+        
+        if(Auth::attempt($credentials, $request->remember)){
+            //login successful, redirect the user to your preferred url/route...
+            return redirect()->route('homePage');
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function getPayment()
@@ -112,7 +128,7 @@ class BuyerController extends Controller
         if($request->ajax())
         {
             $order = new Order;
-            $order = $order->getAllOrderByBuyerId(Auth::user()->id);
+            $order = $order->getAllOrderByBuyerId(Auth::user()->id, $request->skip);
 
             return $order;
         }

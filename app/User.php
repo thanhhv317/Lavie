@@ -58,5 +58,4 @@ class User extends Authenticatable
         $this->where('id', $id)->update(['password' => $new_pass]);
     }
 
-
 }

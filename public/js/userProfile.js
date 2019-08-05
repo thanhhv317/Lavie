@@ -36,7 +36,7 @@ $(document).ready(function() {
 	});
 
 	$('#list-order').click(function(event) {
-		var status ="";
+		skip = 2;
 		$(this).parent().parent().find('a.active').removeClass('active');
 		$(this).attr('class', "active list-group-item list-group-item-action btn-cusort-pointer")
 		var _token = $('input[name="_token"]').val();
@@ -44,7 +44,8 @@ $(document).ready(function() {
 			url: '/buyer/profile/listOrder',
 			type: 'POST',
 			data: {
-				_token: _token
+				_token: _token,
+				skip: 0
 			},
 			success: function(data) {
 				var views = 
@@ -60,37 +61,16 @@ $(document).ready(function() {
 					      <th scope="col">Action</th>
 					    </tr>
 					  </thead>
-					  <tbody>`;
+					  <tbody id="body-table-order-detail">`;
 				for (var i = 0; i < data.length; i++) {
-					switch (Number(data[i].status)) {
-						case 1:
-							status = "Processing";
-							break;
-						case 2:
-							status = "Finish";
-							break;
-						case 3:
-							status = "Expires";
-							break;
-						case 0:
-							status = "No process";
-							break;
-					} 
-
-					let utc = convertToUTC(data[i].created_at);
-					views += `<tr>
-				      <th scope="row">${data[i].id}</th>
-				      <td title="${data[i].created_at}">${jQuery.timeago(utc)}</td>
-				      <td>${data[i].quantity}</td>
-				      <td>${data[i].price} <small>USD</small></td>
-				      <td>${data[i].cost} <small>USD</small></td>
-				      <td>${status}</td>
-				      <td>
-				      <a class="btn btn-outline-primary"  data-toggle="modal" data-target="#viewDetail" onclick="viewOrderDetail(${data[i].id}, '${status}')"><i class="fas fa-info-circle"></i> detail</a>
-				      </td>
-				    </tr>`;
+					status = getStatus(data[i].status);
+					views += createTableBody(data[i].id, data[i].created_at, data[i].quantity, data[i].price, data[i].cost, status);
+					
 				}
-			    views += `</tbody></table>`;
+			    views += `</tbody></table><hr>
+			    <div class="d-flex justify-content-center">
+				    <button type="button" class="btn btn-outline-success" onclick="loadMore()">Load more</button>
+				    </div>`;
 				$('.box-profile').html(views);
 			}
 		});
@@ -196,12 +176,10 @@ function viewOrderDetail(id, status) {
 					    <label>Price: <b class="order-detail-price-${arr[i].o_id}">${rounding(arr[i].price * arr[i].quantity)}</b> USD</label>
 					    <br>
 					    <label class="col-form-label">Quantity: <b>${arr[i].quantity}</b></label>
-					    
 					  </div>
 					  </div>
             		</div>`;
 			}
-
 
 			views += `<hr><div class="d-flex justify-content-center">
 					<h5>Total Price: ${rounding(totalPrice)} <small> USD</small></h5>
@@ -291,6 +269,7 @@ var cancelOrder = (id) => {
 				success: function(data) {
 					if(data == 1) {
 						Swal.fire('success!','Cancel order completed','success');
+						$('.order-detail-' + id).hide(1000);
 					}
 				}
 			});
@@ -306,4 +285,64 @@ function convertToUTC(orderDate){
 
 function rounding(n) {
 	return Math.round(n * 100) / 100;
+}
+
+var skip = 2;
+
+function loadMore() {
+	var _token = $('input[name="_token"]').val();
+	$.ajax({
+		url: '/buyer/profile/listOrder',
+		type: 'POST',
+		data: {
+			_token: _token,
+			skip: skip
+		},
+		success: function(data) {
+			var views = "";
+			for (var i = 0; i < data.length; i++) {
+				status = getStatus(data[i].status);
+				views += createTableBody(data[i].id, data[i].created_at, data[i].quantity, data[i].price, data[i].cost, status);
+			}
+			$('#body-table-order-detail').append(views);
+		}
+	});
+	skip += 2;
+}
+
+function getStatus(x) {
+	var status;
+	switch (Number(x)) {
+		case 1:
+			status = "Processing";
+			break;
+		case 2:
+			status = "Finish";
+			break;
+		case 3:
+			status = "Expires";
+			break;
+		case 0:
+			status = "No process";
+			break;
+	}
+	return status;
+}
+
+function createTableBody(id, created_at, quantity, price, cost, status) {
+	var views;
+	let utc = convertToUTC(created_at);
+	views = `<tr class="order-detail-${id}">
+				<th scope="row">${id}</th>
+				<td title="${created_at}">${jQuery.timeago(utc)}</td>
+				<td>${quantity}</td>
+				<td>${price} <small>USD</small></td>
+				<td>${cost} <small>USD</small></td>
+				<td>${status}</td>
+				<td>
+				<a class="btn btn-outline-primary"  data-toggle="modal" data-target="#viewDetail" 
+				onclick="viewOrderDetail(${id}, '${status}')"><i class="fas fa-info-circle"></i> detail</a>
+				</td>
+		    </tr>`;
+    return views;
 }

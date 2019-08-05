@@ -4,7 +4,7 @@
 @section('content')
 <div class="breadcrumb container">
     	<div class="col-auto">
-    		<h1>List all order</h1>
+    		<h1><a href="{{ route('seller.order') }}">List all order</a></h1>
     	</div>
 </div>
 
