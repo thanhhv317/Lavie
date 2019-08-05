@@ -1,26 +1,47 @@
+
 function searchByPrice() {
 
 	let priceFrom = ($("#slider-range").slider("values", 0));
 	let priceTo = ($("#slider-range").slider("values", 1));
-	
 	window.location = `/search/${priceFrom}/${priceTo} `;
+  
 }
 
-// get value for price slider
-$( function() {
-  $( "#slider-range" ).slider({
-    range: true,
-    min: 0,
-    max: 500,
-    values: [ 75, 300 ],
-    slide: function( event, ui ) {
-      $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-    }
-  });
-  $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-    " - $" + $("#slider-range").slider("values", 1));
+$(document).ready(function() {
+  if($('.min-price').text()){
+    let minPrice = Number($('.min-price').text());
+    let maxPrice = Number($('.max-price').text());
+    $(function() {
+      $("#slider-range").slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [minPrice, maxPrice],
+        slide: function( event, ui ) {
+          $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+        }
+      });
+      $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+        " - $" + $("#slider-range").slider("values", 1));
+    });
+  }
+  else
+  {
+    $(function() {
+      $("#slider-range").slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [0, 300],
+        slide: function( event, ui ) {
+          $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+        }
+      });
+      $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+        " - $" + $("#slider-range").slider("values", 1));
+    });
+  }
 });
-
 
 // back to top button
 $(document).ready(function() {
