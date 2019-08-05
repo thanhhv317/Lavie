@@ -1,38 +1,29 @@
 
 function searchByPrice() {
-
 	let priceFrom = ($("#slider-range").slider("values", 0));
 	let priceTo = ($("#slider-range").slider("values", 1));
 	window.location = `/search/${priceFrom}/${priceTo} `;
-  
 }
 
 $(document).ready(function() {
   if($('.min-price').text()){
     let minPrice = Number($('.min-price').text());
     let maxPrice = Number($('.max-price').text());
-    $(function() {
-      $("#slider-range").slider({
-        range: true,
-        min: 0,
-        max: 500,
-        values: [minPrice, maxPrice],
-        slide: function( event, ui ) {
-          $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-        }
-      });
-      $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-        " - $" + $("#slider-range").slider("values", 1));
-    });
+    priceSlider(minPrice, maxPrice);
   }
   else
   {
-    $(function() {
+    priceSlider(0,300);
+  }
+});
+
+var priceSlider = (min, max) => {
+   $(function() {
       $("#slider-range").slider({
         range: true,
         min: 0,
         max: 500,
-        values: [0, 300],
+        values: [min, max],
         slide: function( event, ui ) {
           $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
         }
@@ -40,8 +31,7 @@ $(document).ready(function() {
       $("#amount").val("$" + $("#slider-range").slider("values", 0) +
         " - $" + $("#slider-range").slider("values", 1));
     });
-  }
-});
+}
 
 // back to top button
 $(document).ready(function() {
@@ -52,9 +42,9 @@ $(document).ready(function() {
         $('#top').fadeOut();
       }
    });
- $('#top').click(function() {
-   $('html, body').animate({scrollTop:0},500);
- });
+  $('#top').click(function() {
+    $('html, body').animate({scrollTop:0},500);
+  });
 });
 
 //zoom image 
@@ -88,7 +78,7 @@ $(document).ready(function() {
 
 // quantity product
 
-function subQuantity(){
+function subQuantity() {
   let tmp = $('.box-quantity').val();
   if (tmp <= 1) {
     return;
@@ -98,7 +88,7 @@ function subQuantity(){
   }
 }
 
-function addQuantity(){
+function addQuantity() {
   let tmp = $('.box-quantity').val();
   let max = $('.sum-quantity').text();
   if (tmp >= Number(max)){
@@ -110,7 +100,7 @@ function addQuantity(){
 }
 
 // add to cart
-function addToCart(seller_id, id, name, price, quantity, img){
+function addToCart(seller_id, id, name, price, quantity, img) {
   if (getTotalQuantity() < 1){
     $('.quantity-product').show();
   }
@@ -133,40 +123,34 @@ function addToCart(seller_id, id, name, price, quantity, img){
     }
   }
 
-  if (count_obj < 1){
+  if(count_obj < 1) {
     localStorage.setItem('ca-' + id, obj);
   } 
   else {
     editQuantityProduct('ca-' + id, quantity);
   }
-  if (getTotalQuantity() > 9){
+  if(getTotalQuantity() > 9) {
     $('.quantity-product').text('9+');
   }
   else {
     $('.quantity-product').text(getTotalQuantity());
   }
-  Swal.fire(
-      'Success!',
-      'added item.',
-      'success'
-  );
+  Swal.fire('Success!','added item.','success');
 }
 
-function editQuantityProduct(pkey, quantity = 1)
-{
+function editQuantityProduct(pkey, quantity = 1) {
   let obj = JSON.parse(localStorage.getItem(pkey));
   obj.quantity += quantity;
   obj = JSON.stringify(obj);
   localStorage.setItem(pkey, obj);
 }
 
-function getTotalQuantity()
-{
+function getTotalQuantity() {
   var result = 0;
   let max = localStorage.length;
   for(let i = 0; i < max; ++i){
     var key = localStorage.key(i);
-    if(key.charAt(0) == 'c' && key.charAt(1) == 'a'){
+    if(key.charAt(0) == 'c' && key.charAt(1) == 'a') {
       let obj = JSON.parse(localStorage.getItem(key));
       result += obj.quantity;
     }
@@ -174,13 +158,12 @@ function getTotalQuantity()
   return Number(result);
 }
 
-function getTotalPrice()
-{
+function getTotalPrice() {
   var result = 0;
   let max = localStorage.length;
   for(let i =0; i < max; ++i){
     var key = localStorage.key(i);
-    if(key.charAt(0) == 'c' && key.charAt(1) == 'a'){
+    if(key.charAt(0) == 'c' && key.charAt(1) == 'a') {
       let obj = JSON.parse(localStorage.getItem(key));
       result += (obj.quantity * obj.price);
     }
@@ -189,11 +172,11 @@ function getTotalPrice()
 }
 
 //get quantity product - product detail page
-function getQuantityProduct(){
+function getQuantityProduct() {
   return Number($('.box-quantity').val());
 }
 
-function checkStatusCartIcon(){
+function checkStatusCartIcon() {
   let quantity = getTotalQuantity();
   if (quantity < 1){
     $('.quantity-product').hide();
