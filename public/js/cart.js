@@ -8,6 +8,7 @@ $(document).ready(function() {
 				cart: groupCart(),
 			},
 			success: function(data) {
+				console.log(data);
 				var i;
 				for (i = 0; i < data.length; ++i) {
 
