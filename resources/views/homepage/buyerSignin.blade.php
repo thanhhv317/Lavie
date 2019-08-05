@@ -38,6 +38,7 @@
 
 			  
 			  <button type="submit" class="btn btn-primary">Sign in</button>
+			  <a href="{{ route('buyer.signup') }}">You still do not have an account</a>
 			</form>
 		</div>
 

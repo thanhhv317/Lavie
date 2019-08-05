@@ -37,7 +37,8 @@ class BuyerController extends Controller
     {
         $authUser = User::where('provider_id', $socialiteUser->id)->first();
  
-        if ($authUser) {
+        if ($authUser) 
+        {
             return $authUser;
         }
  
@@ -66,10 +67,13 @@ class BuyerController extends Controller
         $credentials = [ 'email' => $request->email , 'password' => $password ];
 
         
-        if(Auth::attempt($credentials, $request->remember)){
+        if(Auth::attempt($credentials, $request->remember))
+        {
             //login successful, redirect the user to your preferred url/route...
             return redirect()->route('homePage');
-        } else {
+        }
+        else 
+        {
             return redirect()->back();
         }
     }
@@ -110,7 +114,8 @@ class BuyerController extends Controller
             $newPass     = $request->newPass;
             $confirmPass = $request->confirmPass;
 
-            if($newPass == $confirmPass) {
+            if($newPass == $confirmPass) 
+            {
                 $newPass = Hash::make($newPass);
                 $user = new User;
                 $user = $user->editPassword(Auth::user()->id, $newPass);
@@ -129,7 +134,6 @@ class BuyerController extends Controller
         {
             $order = new Order;
             $order = $order->getAllOrderByBuyerId(Auth::user()->id, $request->skip);
-
             return $order;
         }
         else
@@ -149,6 +153,23 @@ class BuyerController extends Controller
         else
         {
             return "not found";
+        }
+    }
+
+    public function getRegister()
+    {
+        return view('homepage.buyerSignUp');
+    }
+
+    public function postRegister(BuyerRequest $request)
+    {
+        $user = new User();
+        $user = $user->createBuyer($request);
+
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->route('homePage');
         }
     }
 

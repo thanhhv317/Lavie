@@ -24,8 +24,11 @@ class BuyerRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required'
+            'email' => 'required|email|unique:users',
+            'name' => 'required',
+            'phone' => 'required|max:16|digits_between:9,15',
+            'password' => 'required',
+            'address' => 'required'
         ];
     }
 
@@ -34,7 +37,13 @@ class BuyerRequest extends FormRequest
         return [
             'email.required' => 'email not null',
             'email.email' => 'email invalid',
-            'password.required' => 'password must be not null'
+            'email.unique' => 'email is already exist',
+            'name.required' => 'name must be not null',
+            'phone.required' => 'phone must be not null',
+            'phone.max' => 'phone must be large 8 character',
+            'phone.digits_between' => 'phone must be number',
+            'password.required' => 'password must be not null',
+            'address.required' => 'address must be not null' 
         ];
     }
 }
