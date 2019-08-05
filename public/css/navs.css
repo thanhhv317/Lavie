@@ -1,0 +1,114 @@
+/*dashboard*/
+
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 14rem;
+  background-color: #f1f1f1;
+  height: 100%;
+  overflow: auto;
+  position: fixed;
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 1em;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: #6cb2eb;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+.breadcrumb .btn-add {
+/*	left: 80%;	*/
+}
+
+
+@media only screen and (max-width: 765px) {
+  .sidebar {;
+    width: 100%;
+    height: auto;
+    position: relative ;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media only screen and (max-width: 435px) {
+  .sidebar a {
+    width: 100%;
+    text-align: center;
+    float: none;
+  }
+}
+
+/*edit product file*/
+
+.add-to-agency {
+  color: white !important;
+  background-color: #212529;
+  padding: 10px;
+}
+
+.add-to-agency:hover {
+  background-color: #f3742a;
+}
+
+.delete-agency {
+  color: red !important;
+  padding: 0.1rem;
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+.delete-agency:hover {
+  color: blue !important;
+}
+
+.gallery {
+  overflow: hidden;
+  height: 100%;
+}
+
+.gallery img {
+  overflow: hidden;
+  height: 8rem;
+  width: auto;
+  margin: 5px;
+}
+
+.img-content {
+  overflow: hidden;
+  height: 10rem !important;
+  width: auto;
+}
+
+
+/*list product*/
+
+.product-boder {
+  display: flex;
+  align-items: stretch;
+}
+
+.card-title {
+  text-align: center;
+  height: 30px;
+}
+
+.box-address {
+  height: 70px;
+}
