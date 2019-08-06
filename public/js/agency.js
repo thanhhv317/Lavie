@@ -1,4 +1,3 @@
-
 function ajaxFunction(id, url, action = 0, product_id) {
 	var _token = $('input[name="_token"]').val();
 	var confirmButtonText, text, confirmButtonColor;

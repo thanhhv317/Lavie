@@ -15,8 +15,6 @@
 </div>
 <!-- end slide -->
 
-
-
 <div class="container">
 	<div class="row justify-content-center mt-3">
 		<h1>LOGIN</h1>
@@ -36,7 +34,6 @@
 			    <input type="password" class="form-control" name="password" id="inputAddress2" placeholder="" required="">
 			  </div>
 
-			  
 			  <button type="submit" class="btn btn-primary">Sign in</button>
 			  <a href="{{ route('buyer.signup') }}">You still do not have an account</a>
 			</form>
@@ -52,7 +49,6 @@
 		</div>
 	</div>
 </div>
-
 </div>
 
 @endsection

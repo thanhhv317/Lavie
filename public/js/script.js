@@ -1,4 +1,3 @@
-
 function searchByPrice() {
 	let priceFrom = ($("#slider-range").slider("values", 0));
 	let priceTo = ($("#slider-range").slider("values", 1));
