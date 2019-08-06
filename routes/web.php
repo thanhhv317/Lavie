@@ -49,6 +49,11 @@ Route::group(['prefix' => 'seller', 'middleware' => 'leveluser'], function() {
 
 Route::group(['prefix' => 'buyer'], function() {
 	Route::get('signin', ['as' => 'buyer.signin', 'uses' => 'BuyerController@getLogin']);
+	Route::post('signin', ['as' => 'buyer.signin', 'uses' => 'BuyerController@postLogin']);
+
+	Route::get('signup', ['as' => 'buyer.signup', 'uses' => 'BuyerController@getRegister']);
+	Route::post('signup', ['as' => 'buyer.signup', 'uses' => 'BuyerController@postRegister']);
+
 	Route::get('payment', ['as' => 'buyer.payment', 'uses' => 'BuyerController@getPayment'])->middleware('buyer');
 
 	Route::group(['prefix' => 'profile'], function() {

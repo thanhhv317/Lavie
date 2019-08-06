@@ -8,6 +8,7 @@ use App\Order;
 use App\User;
 use Hash;
 use Socialite;
+use App\Http\Requests\BuyerRequest;
 
 class BuyerController extends Controller
 {
@@ -36,7 +37,8 @@ class BuyerController extends Controller
     {
         $authUser = User::where('provider_id', $socialiteUser->id)->first();
  
-        if ($authUser) {
+        if ($authUser) 
+        {
             return $authUser;
         }
  
@@ -56,6 +58,24 @@ class BuyerController extends Controller
     {
         if(Auth::check()) return redirect()->back();
         return view('homepage.buyerSignin');
+    }
+
+    public function postLogin(BuyerRequest $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
+        $credentials = [ 'email' => $request->email , 'password' => $password ];
+
+        
+        if(Auth::attempt($credentials, $request->remember))
+        {
+            //login successful, redirect the user to your preferred url/route...
+            return redirect()->route('homePage');
+        }
+        else 
+        {
+            return redirect()->back();
+        }
     }
 
     public function getPayment()
@@ -94,7 +114,8 @@ class BuyerController extends Controller
             $newPass     = $request->newPass;
             $confirmPass = $request->confirmPass;
 
-            if($newPass == $confirmPass) {
+            if($newPass == $confirmPass) 
+            {
                 $newPass = Hash::make($newPass);
                 $user = new User;
                 $user = $user->editPassword(Auth::user()->id, $newPass);
@@ -112,8 +133,7 @@ class BuyerController extends Controller
         if($request->ajax())
         {
             $order = new Order;
-            $order = $order->getAllOrderByBuyerId(Auth::user()->id);
-
+            $order = $order->getAllOrderByBuyerId(Auth::user()->id, $request->skip);
             return $order;
         }
         else
@@ -133,6 +153,23 @@ class BuyerController extends Controller
         else
         {
             return "not found";
+        }
+    }
+
+    public function getRegister()
+    {
+        return view('homepage.buyerSignUp');
+    }
+
+    public function postRegister(BuyerRequest $request)
+    {
+        $user = new User();
+        $user = $user->createBuyer($request);
+
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->route('homePage');
         }
     }
 

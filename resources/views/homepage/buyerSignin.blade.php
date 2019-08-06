@@ -15,25 +15,30 @@
 </div>
 <!-- end slide -->
 
+
+
 <div class="container">
 	<div class="row justify-content-center mt-3">
 		<h1>LOGIN</h1>
 	</div>
+	@include('admin.blocks.error')
 	<div class="row mt-3">
 		<div class="col-12 col-md-6">
-			<form>
+			<form method="post" action="#">
+				@csrf
 			  <div class="form-group">
 			    <label for="inputAddress">Email</label>
-			    <input type="email" class="form-control" id="inputAddress" placeholder="1234@gmail.com">
+			    <input type="email" class="form-control" id="inputAddress" name="email" placeholder="1234@gmail.com" required="">
 			  </div>
 
 			  <div class="form-group">
 			    <label for="inputAddress2">Password</label>
-			    <input type="password" class="form-control" id="inputAddress2" placeholder="">
+			    <input type="password" class="form-control" name="password" id="inputAddress2" placeholder="" required="">
 			  </div>
 
 			  
 			  <button type="submit" class="btn btn-primary">Sign in</button>
+			  <a href="{{ route('buyer.signup') }}">You still do not have an account</a>
 			</form>
 		</div>
 

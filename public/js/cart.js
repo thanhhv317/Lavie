@@ -110,11 +110,7 @@ function deleteProduct(id){
   	showText();
     checkStatusCartIcon();
 	$('.product-' + id).hide(1000);
-	Swal.fire(
-      'Success!',
-      'delete item.',
-      'success'
-    );
+	Swal.fire('Success!','delete item.','success');
 }
 
 function showText(){
@@ -128,6 +124,5 @@ function convertToSlug(Text)
     return Text
         .toLowerCase()
         .replace(/ /g,'-')
-        .replace(/[^\w-]+/g,'')
-        ;
+        .replace(/[^\w-]+/g,'');
 }

@@ -191,7 +191,7 @@ class Product extends Model
         return $this->join('agency_products', 'products.id', '=', 'agency_products.product_id')
                  ->select('product_id', 'base_price', DB::raw('SUM(quantity) as sum_quantity'), DB::raw('MAX(agency_products.discount_rate) as discount_rate'))
                  ->where('products.id', $product_id)
-                 ->groupBy('product_id')
+                 ->groupBy('product_id', 'base_price')
                  ->first()
                  ->toArray();
     }

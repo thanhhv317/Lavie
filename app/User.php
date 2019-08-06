@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Hash;
 
 class User extends Authenticatable
 {
@@ -58,5 +59,16 @@ class User extends Authenticatable
         $this->where('id', $id)->update(['password' => $new_pass]);
     }
 
+    public function createBuyer($data)
+    {
+        $this->create([
+            'name' => $data['name'],
+            'level' => 0,
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
+            'address' => $data['address']
+        ]);
+    }
 
 }

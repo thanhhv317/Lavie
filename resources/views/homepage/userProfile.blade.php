@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
@@ -58,26 +59,25 @@
 </div>
 
 
-<div class="container">
+<div class="container mt-5">
 	<div class="row mt-1">
 		<div class="col-3">
 			<div class="list-group">
-				<a class="list-group-item list-group-item-action list-group-item-info ">
+				<a class="list-group-item list-group-item-action list-group-item-info "><i class="fas fa-user-tie"></i> 
 					My account
 				</a>
-				<a class="list-group-item list-group-item-action btn-cusort-pointer active" id="profile">Profile</a>
-				<a class="list-group-item list-group-item-action btn-cusort-pointer" data-toggle="modal" data-target="#exampleModal" id="profile-change-password">Change password</a>
+				<a class="list-group-item list-group-item-action btn-cusort-pointer active" id="profile"><i class="fas fa-address-card"></i> Profile</a>
+				<a class="list-group-item list-group-item-action btn-cusort-pointer" data-toggle="modal" data-target="#exampleModal" id="profile-change-password"><i class="fas fa-lock"></i> Change password</a>
 			</div>
 			<div class="list-group">
-				<a class="list-group-item list-group-item-action list-group-item-dark ">
-					Order
-				</a>
-				<a class="list-group-item list-group-item-action btn-cusort-pointer" id="list-order">List order</a>
+				<a class="list-group-item list-group-item-action list-group-item-dark "><i class="fas fa-money-bill"></i> Order</a>
+				<a class="list-group-item list-group-item-action btn-cusort-pointer" id="list-order"><i class="fas fa-file-invoice"></i> List order</a>
 			</div>
 		</div>
 
 
-		<div class="col-9 mt-4" id="profile-content">
+		<div class="col-9 mt-1 mb-4" id="profile-content">
+			<h1 class="mt-5">MY ACCOUNT</h1>
 			<form id="formRegister">
 				@csrf
 				<div class="box-profile">

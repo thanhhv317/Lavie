@@ -86,9 +86,8 @@
 		        <div class="dropdown-content">
 		        	@if(Auth::user()->level == 1)
 		          	<a class="dropdown-item" href="{{ route('seller.product') }}"><i class="fas fa-tachometer-alt"></i> View dashboard</a>
-		          	@elseif (Auth::user()->level == 0)
-		          	<a class="dropdown-item" href="{{ route('buyer.profile') }}"><i class="fas fa-user-alt"></i> View profile</a>
 		            @endif
+		          	<a class="dropdown-item" href="{{ route('buyer.profile') }}"><i class="fas fa-user-alt"></i> View profile</a>
 		          	<form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
 		            <input type="submit" class="dropdown-item" value="Logout"/>
