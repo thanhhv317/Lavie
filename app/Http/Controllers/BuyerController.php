@@ -60,7 +60,7 @@ class BuyerController extends Controller
         return view('homepage.buyerSignin');
     }
 
-    public function postLogin(BuyerRequest $request)
+    public function postLogin(Request $request)
     {
         $email = $request->email;
         $password = $request->password;

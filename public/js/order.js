@@ -62,14 +62,10 @@ function getDetailOrder(id)
             		</div>
             	</div>`;
 			}
-
 			$('.order-detail-body').html(views);
-
 		}
 	});
-	
 }
-
 
 function setStatus(id){
 	var _token = $('input[name="_token"]').val();

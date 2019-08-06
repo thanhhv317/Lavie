@@ -56,7 +56,7 @@
 @if(isset($maxPrice))
 <div class="container">
 	<div class="row justify-content-center mb-4">
-		<h4 class="filter-price">Product filter from ${{ $minPrice}} to ${{ $maxPrice}}</h4>
+		<h4 class="filter-price">Product filter from $<b class="min-price">{{ $minPrice}}</b> to $<b class="max-price">{{ $maxPrice}}</b></h4>
 	</div>
 </div>
 @endif
@@ -172,4 +172,5 @@
 	</div>
 </div>
 <!-- end list best sales product -->
+
 @endsection()

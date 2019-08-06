@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	
 	let max = localStorage.length;
 	for(let i =0; i < max; ++i){
 	    var key = localStorage.key(i);
@@ -32,12 +31,11 @@ $(document).ready(function() {
 		      <td><b id="delivery-cost">${getDeliveryCost()}</b> usd</td>
 		      <td><b id="total">${ Math.round((getTotalPrice() + getDeliveryCost()) * 100) / 100 }</b> usd</td>
 		      <td><a id="btn-continues-shopping" href="/" class="btn btn-outline-success"><i class="fas fa-shopping-basket"></i>  Continue shopping </a>`;
-  		if(getTotalQuantity() > 0) {
-	  	views += `<a id="order"  class="btn btn-outline-primary"><i class="far fa-money-bill-alt"></i>  Order </a></td>
-	`;
-}
+	if(getTotalQuantity() > 0) {
+  		views += `<a id="order"  class="btn btn-outline-primary"><i class="far fa-money-bill-alt"></i>  Order </a></td>
+		`;
+	}
 	$('.total-order').append(views);
-
 
 	$('#order').click(function(event) {
 		if ($('input[name="address"]').val() != "" ) {
