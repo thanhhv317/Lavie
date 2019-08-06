@@ -36,7 +36,7 @@ $(document).ready(function() {
 	});
 
 	$('#list-order').click(function(event) {
-		skip = 2;
+		skip = 5;
 		$(this).parent().parent().find('a.active').removeClass('active');
 		$(this).attr('class', "active list-group-item list-group-item-action btn-cusort-pointer")
 		var _token = $('input[name="_token"]').val();
@@ -287,7 +287,7 @@ function rounding(n) {
 	return Math.round(n * 100) / 100;
 }
 
-var skip = 2;
+var skip = 5;
 
 function loadMore() {
 	var _token = $('input[name="_token"]').val();
@@ -307,7 +307,7 @@ function loadMore() {
 			$('#body-table-order-detail').append(views);
 		}
 	});
-	skip += 2;
+	skip += 5;
 }
 
 function getStatus(x) {

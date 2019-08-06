@@ -8,6 +8,9 @@ use App\Order;
 use App\User;
 use App\OrderDetail;
 use DB;
+use App\Mail\OrderShipped;
+use Mail;
+use Auth;
 
 class CartController extends Controller
 {
@@ -60,6 +63,8 @@ class CartController extends Controller
 
                 $arr = array_unique($arr);
 
+                $order_id_arr = [];
+
                 foreach ($arr as $key => $value) {
                     $price = 0;
                     $quantity = 0;
@@ -82,6 +87,7 @@ class CartController extends Controller
 
                     $order = new Order;
                     $order = $order->createOrder($order_data);
+                    $order_id_arr[] = $order;
 
                     foreach ($cart as $key1 => $value1) {
                         $item  = json_decode($value1);
@@ -95,12 +101,11 @@ class CartController extends Controller
                             $order_detail = new OrderDetail;
                             $order_detail = $order_detail->createOrderDetail($order_detail_data);
                         }
-                    }
-                    
+                    }  
                 }
                 
                 DB::commit();
-                return 1;
+                return $order_id_arr;
             }
             catch (Exception $e) {
                 DB::rollBack();
@@ -111,4 +116,18 @@ class CartController extends Controller
             return "not found";
         }
     }
+
+    public function postSendMail(Request $request)
+    {
+        $to = Auth::user()->email;
+        $content = 'who i am';
+        $arr = $request->arr;
+       
+        $order_detail = new OrderDetail;
+        $order_detail = $order_detail->getDataByArrayOrderId($arr);
+
+        Mail::to($to)->send(new OrderShipped($order_detail));
+        
+    }
+
 }
