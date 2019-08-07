@@ -23,7 +23,6 @@ class OrderDetail extends Model
 
     public function getDataByOrderId($order_id)
     {
-
         return $this->join('products', 'order_details.product_id', 'products.id')
         ->join('product_images', 'product_images.product_id', 'order_details.product_id')
         ->where([['order_id', $order_id], ['product_images.status', 1]])
@@ -59,6 +58,14 @@ class OrderDetail extends Model
     public function deleteDataByOrderId($order_id)
     {
         $this->where('order_id', $order_id)->delete();
+    }
+
+    public function getDataByArrayOrderId($arr_id)
+    {
+        return $this->join('products', 'order_details.product_id', 'products.id')
+        ->whereIn('order_id', $arr_id)
+        ->select('products.name', 'order_details.price', 'order_details.quantity')
+        ->get()->toArray();
     }
 
 }

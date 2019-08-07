@@ -88,3 +88,5 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('regi
 Route::post('signup', 'Auth\RegisterController@register');
 
 Route::get('search/{min}/{max}', 'HomePageController@searchByPriceSlide')->name('searchPrice');
+
+Route::post('sendMail', 'CartController@postSendMail');

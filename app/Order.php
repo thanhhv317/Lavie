@@ -47,7 +47,7 @@ class Order extends Model
 
     public function getAllOrderByBuyerId($buyer_id, $skip)
     {
-        return $this->where('buyer_id', $buyer_id)->skip($skip)->take(2)->get()->toArray();
+        return $this->where('buyer_id', $buyer_id)->skip($skip)->take(5)->get()->toArray();
     }
 
     public function setStatusById($id, $status)
