@@ -17,8 +17,6 @@
 
 	<!-- validate form register jquery -->
 	<script src="{{ asset('js/register.js') }}"></script>
-
-
 </head>
 <body>
 	<div id="app">

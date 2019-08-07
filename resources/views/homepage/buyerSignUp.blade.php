@@ -15,8 +15,6 @@
 </div>
 <!-- end slide -->
 
-
-
 <div class="container">
 	@include('admin.blocks.error')
     <div class="row justify-content-center mt-2">

@@ -63,7 +63,6 @@
 					  	</a>
 					</div>
 											
-
 					</div>
 				</div>
 				<div class="col-md-5 col-sm-5 col-12">

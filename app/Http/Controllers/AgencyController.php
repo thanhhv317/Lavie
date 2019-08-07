@@ -13,7 +13,6 @@ use DB;
 
 class AgencyController extends Controller
 {
-
     public function getUserId()
     {
         return Auth::user()->id;
@@ -58,8 +57,7 @@ class AgencyController extends Controller
             }
             DB::commit();
             return redirect()->route('seller.agency');
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
         }
     }
@@ -91,8 +89,7 @@ class AgencyController extends Controller
             DB::commit();
             return redirect()->route('seller.agency');
 
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
         }
     }
@@ -112,13 +109,9 @@ class AgencyController extends Controller
             $agency_img = $agency_img->deleteDataById($id); // result is Image
 
             $img = $agency_img;
-            $image_path = public_path('/uploads/agency/') . $img;
-            if(File::exists($image_path)) {
-                File::delete($image_path);
-            }
+            $this->delImageAtHost($img);
             return 1;
-        }
-        else {
+        } else {
             return "not found";
         }
     }
@@ -132,11 +125,8 @@ class AgencyController extends Controller
             $agency_img = $agency_img->getDataByAgencyId($id, false);
 
             foreach ($agency_img as $key => $value) {
-                $image_path = public_path('/uploads/agency/') . $value->image;
                 $value->deleteDataById($id, false);
-                if(File::exists($image_path)) {
-                    File::delete($image_path);
-                }
+                $this->delImageAtHost($value->image);
             }
             //delete agency product
             $agency_product = new AgencyProduct;
@@ -147,9 +137,16 @@ class AgencyController extends Controller
 
             DB::commit();
             return redirect()->route('seller.agency');
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
+        }
+    }
+
+    public function delImageAtHost($image)
+    {
+        $image_path = public_path('/uploads/agency/') . $image;
+        if(File::exists($image_path)) {
+            File::delete($image_path);
         }
     }
 

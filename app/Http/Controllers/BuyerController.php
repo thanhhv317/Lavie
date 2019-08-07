@@ -37,8 +37,7 @@ class BuyerController extends Controller
     {
         $authUser = User::where('provider_id', $socialiteUser->id)->first();
  
-        if ($authUser) 
-        {
+        if ($authUser) {
             return $authUser;
         }
  
@@ -56,7 +55,7 @@ class BuyerController extends Controller
 
     public function getLogin()
     {
-        if(Auth::check()) return redirect()->back();
+        if (Auth::check()) return redirect()->back();
         return view('homepage.buyerSignin');
     }
 
@@ -67,13 +66,10 @@ class BuyerController extends Controller
         $credentials = [ 'email' => $request->email , 'password' => $password ];
 
         
-        if(Auth::attempt($credentials, $request->remember))
-        {
+        if(Auth::attempt($credentials, $request->remember)) {
             //login successful, redirect the user to your preferred url/route...
             return redirect()->route('homePage');
-        }
-        else 
-        {
+        } else {
             return redirect()->back();
         }
     }
@@ -85,72 +81,59 @@ class BuyerController extends Controller
 
     public function getProfile()
     {
-        if(Auth::check())
-        {
+        if(Auth::check()) {
             return view('homepage.userProfile');
         }
     }
 
     public function postProfile(Request $request)
     {
-        if($request->ajax())
-        {
+        if($request->ajax()) {
             $data = $request->arr;
             $id = Auth::user()->id;
             $user = new User;
             $user = $user->editDataById($id, $data);
             return 1;
-        }
-        else
-        {
+        } else {
             return "not found";
         }
     }
 
     public function postChangePassword(Request $request)
     {
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             $newPass     = $request->newPass;
             $confirmPass = $request->confirmPass;
 
-            if($newPass == $confirmPass) 
-            {
+            if ($newPass == $confirmPass) {
                 $newPass = Hash::make($newPass);
                 $user = new User;
                 $user = $user->editPassword(Auth::user()->id, $newPass);
             }
             return 1;
-        }
-        else
-        {
+        } else {
             return "not found";
         }
     }
 
     public function listOrder(Request $request)
     {
-        if($request->ajax())
-        {
+        if($request->ajax()) {
             $order = new Order;
             $order = $order->getAllOrderByBuyerId(Auth::user()->id, $request->skip);
             return $order;
-        }
-        else
-        {
+        } else {
             return "not found";
         }
     }
 
     public function getInfoAccount(Request $request)
     {
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             $user = new User;
             $user = $user->getDataById(Auth::user()->id);
             return $user;
-        }
-        else
+        } else
         {
             return "not found";
         }

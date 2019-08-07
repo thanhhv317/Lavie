@@ -13,7 +13,7 @@ use DB;
 
 class Product extends Model
 {
-    protected $table = 'products';
+    protected $table    = 'products';
     protected $fillable = ['id', 'name', 'slug', 'base_price', 'user_id', 'description'];
 
     public function productImage()

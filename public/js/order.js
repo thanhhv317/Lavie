@@ -1,21 +1,20 @@
 var foo_order_id;
 
-function getDetailOrder(id)
-{
+function getDetailOrder(id) {
 	foo_order_id = id;
 	$.ajax({
 		url: '/seller/order/viewOrderDetail' +`/${id}`,
 		success: function(data) {
-			var arr = data[0];
+			var arr  = data[0];
 			var link = data[1];
 
 			//handle data[0];
-			var tmp =[];
+			var tmp = [];
 			for (var i = 0; i < arr.length; i++) {
 				tmp.push(arr[i].product_id);
 			}
 
-			function unique(value, index, self){
+			function unique(value, index, self) {
 				return self.indexOf(value) == index;
 			}
 			tmp = tmp.filter(unique);
@@ -23,7 +22,7 @@ function getDetailOrder(id)
 			var item = [];
 			for (var i = 0; i < tmp.length; i++) {
 				for (var j = 0; j < arr.length; j++) {
-					if(arr[j].product_id == tmp[i]){
+					if (arr[j].product_id == tmp[i]) {
 						item.push(arr[j]);
 						break;
 					}
@@ -80,14 +79,14 @@ function setStatus(id){
 		},
 		success: function(data) {
 			if (data == 1) {
-				Swal.fire('OK!','','success');
+				Swal.fire('OK!', '', 'success');
 			}
 		}
 	});	
 }
 
 editOrderDetail = (id) => {
-	var _token = $('input[name="_token"]').val();
+	var _token 	 = $('input[name="_token"]').val();
 	let quantity = $('.order-detail-quantity-' + id).val();
 	$.ajax({
 		url: '/seller/order/editOrderDetail',
@@ -99,8 +98,8 @@ editOrderDetail = (id) => {
 		},
 		success: function(data) {
 			console.log(data);
-			$('.order-detail-price-'+id).text(data);
-			Swal.fire('OK!','','success');
+			$('.order-detail-price-' + id).text(data);
+			Swal.fire('OK!', '', 'success');
 		}
 	});
 }
@@ -128,9 +127,9 @@ deleteOrderDetail = (id) => {
 				},
 				success: function(data) {
 					console.log(data);
-					$('.box-order-detai-'+id).hide(1000);
-					if(data == 1) {
-						$('.order-body-'+foo_order_id).hide(1000);
+					$('.box-order-detai-' + id).hide(1000);
+					if (data == 1) {
+						$('.order-body-' + foo_order_id).hide(1000);
 					}
 				}
 			});
@@ -150,7 +149,7 @@ deleteOrder = (id) => {
 		confirmButtonText: 'Yes, delete it!'
 	}).then((result) => {
 		if (result.value) {
-			var _token = $('input[name="_token"]').val();
+			var _token 	 = $('input[name="_token"]').val();
 			let quantity = $('.order-detail-quantity-' + id).val();
 			$.ajax({
 				url: '/seller/order/deleteOrder',
@@ -160,8 +159,8 @@ deleteOrder = (id) => {
 					id: id
 				},
 				success: function(data) {
-					if(data == 1) {
-						$('.order-body-'+id).hide(1000);
+					if (data == 1) {
+						$('.order-body-' + id).hide(1000);
 					}
 				}
 			});

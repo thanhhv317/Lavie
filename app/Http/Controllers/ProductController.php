@@ -77,8 +77,7 @@ class ProductController extends Controller
             }
             DB::commit();
             return redirect()->route('seller.product');
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
         }
     }
@@ -156,17 +155,16 @@ class ProductController extends Controller
 
             // store product_image
             $file = $request->file('fImage');
-            if (isset($file)){
+            if (isset($file)) {
                 $this->uploadFile($file, $id);
             }
 
             //store agency
             $agency = $request->agency;
             print_r($agency);
-            if(!isset($agency)){
+            if (!isset($agency)) {
 
-            }
-            else {
+            } else {
                 $quantity = $request->quantity;
                 $discount_rate = $request->discount_rate;
                 $size = count($agency);
@@ -187,8 +185,7 @@ class ProductController extends Controller
                 $product_cate = new ProductCategory;
                 if (($product_cate = $product_cate->getDataByProIdAndCateId($id, $category[$i]))) {
                     // isset product_category;
-                }
-                else {
+                } else {
                     $product_cate = new ProductCategory;
                     // add product_category
                      $product_cate = $product_cate->addData($id, $category[$i]);
@@ -197,8 +194,6 @@ class ProductController extends Controller
 
             $product_cate = new ProductCategory;
             $product_cate = $product_cate->deleteNotIn($id, $category);
-
-            // DB::table('product_categories')->where('product_id', $id)->whereNotIn('category_id', $category)->delete();
 
             //add agency for product
             if ($request->has('new_agency')){
@@ -211,8 +206,7 @@ class ProductController extends Controller
                     $agency_product = new AgencyProduct;
                     if (($agency_product = $agency_product->getDataByProIdAndAgenId($id, $new_agency[$i]))) {
                         // isset agency_product;
-                    }
-                    else {
+                    } else {
                         // add agency_product
                         $agency_product = new AgencyProduct;
                         $agency_product = $agency_product->addData($new_agency[$i], $id, $new_quantity[$i], $new_discount_rate[$i]);
@@ -222,23 +216,21 @@ class ProductController extends Controller
 
             DB::commit();
             return redirect()->back();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
         }
     }
 
     public function delImgProduct(Request $request)
     {
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             $id = $request->id;
             $product_image = new ProductImage;
             $product_image = $product_image->getDataById($id);
             $image_path = public_path('/uploads/products/') . $product_image->image;
             $product_image = $product_image->deleteData();
             
-            if(File::exists($image_path)) {
+            if (File::exists($image_path)) {
                 File::delete($image_path);
             }
             return 1;
@@ -250,29 +242,25 @@ class ProductController extends Controller
 
     public function setDefaultImg(Request $request)
     {
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             $id         = $request->id;
             $product_id = $request->product_id;
             $product_img = new ProductImage;
             $product_img = $product_img->setDefaultImg($id, $product_id);
             return 1;
-        }
-        else {
+        } else {
             return "not found";
         }
     }
 
     public function delAgencyProduct(Request $request)
     {
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             $id = $request->id;
             $agency_product = new AgencyProduct;
             $agency_product = $agency_product->deleteDataById($id);
             return 1;
-        }
-        else{
+        } else{
             return "not found";
         } 
     }
@@ -287,7 +275,7 @@ class ProductController extends Controller
             foreach ($product_image as $key => $value) {
                 $image_path = public_path('/uploads/products/') . $value->image;
                 $value->deleteData();
-                if(File::exists($image_path)) {
+                if (File::exists($image_path)) {
                     File::delete($image_path);
                 }
             }
@@ -307,8 +295,7 @@ class ProductController extends Controller
 
             DB::commit();
             return redirect()->back();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
         }
     }

@@ -31,8 +31,8 @@ class CartController extends Controller
     		$item->quantity = ($item->quantity > $product['sum_quantity']) ? $product['sum_quantity'] : $item->quantity;
     		$item->price = $this->caculateRealPrice($product['base_price'], $product['discount_rate']);
             $item->max = $product['sum_quantity'];
-    		$item = json_encode($item);
-    		$result[] = $item;
+    		$item      = json_encode($item);
+    		$result[]  = $item;
     	}
     	return $result;
     }
@@ -48,7 +48,7 @@ class CartController extends Controller
         {
             DB::beginTransaction();
             try {
-                $arr = [];
+                $arr  = [];
                 $cart = $request->cart;
 
                 $user_data = [$request->name,  $request->phone, $request->address];
@@ -91,7 +91,7 @@ class CartController extends Controller
 
                     foreach ($cart as $key1 => $value1) {
                         $item  = json_decode($value1);
-                        if($item->seller_id == $value){
+                        if ($item->seller_id == $value) {
                             $order_detail_data = [];
                             $order_detail_data['order_id'] = $order;
                             $order_detail_data['product_id'] = $item->id;
@@ -103,16 +103,12 @@ class CartController extends Controller
                         }
                     }  
                 }
-                
                 DB::commit();
                 return $order_id_arr;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 DB::rollBack();
             }
-        }
-        else
-        {
+        } else {
             return "not found";
         }
     }
@@ -120,14 +116,12 @@ class CartController extends Controller
     public function postSendMail(Request $request)
     {
         $to = Auth::user()->email;
-        $content = 'who i am';
         $arr = $request->arr;
        
         $order_detail = new OrderDetail;
         $order_detail = $order_detail->getDataByArrayOrderId($arr);
 
-        Mail::to($to)->send(new OrderShipped($order_detail));
-        
+        Mail::to($to)->send(new OrderShipped($order_detail));  
     }
 
 }

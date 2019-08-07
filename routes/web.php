@@ -79,8 +79,6 @@ Route::post('/payment', 'CartController@orderProduct')->name('order');
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('signin', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('signin', 'Auth\LoginController@login');
 

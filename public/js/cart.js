@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	var status = Number($('.quantity-product').text());
-	if (status > 0 || isNaN(status)){
+	if (status > 0 || isNaN(status)) {
 		$.ajax({
 			url: '/getDataCart',
 			data: {
@@ -55,40 +55,32 @@ $(document).ready(function() {
 	    $('.total-price-all-product').text(0);
 	    $('.delivery-cost').text(0);
 	    checkStatusCartIcon();
-	    Swal.fire(
-	      'Success!',
-	      'deleted all item.',
-	      'success'
-	    );
+	    Swal.fire('Success!','deleted all item.','success');
     });
 });
 
-
-function checkStatusCartIcon(){
+function checkStatusCartIcon() {
 	let quantity = getTotalQuantity();
 	if (quantity < 1){
 		$('.quantity-product').hide();
-	} 
-	else if (quantity > 9){
+	} else if (quantity > 9){
 		$('.quantity-product').text('9+');
-	}
-	else {
+	} else {
 		$('.quantity-product').text(quantity);
 	}
 }
 
 
-function editQuantity(id, flag = 0){
+function editQuantity(id, flag = 0) {
 	let item = localStorage.getItem('ca-' + id);
 	item = $.parseJSON(item);
-	if(flag == 0){
+	if (flag == 0) {
 		// sub
 		if(item.quantity > 1) {
 			item.quantity--;
 		}
-	}
-	else {
-		if(item.quantity < getMaxQuantityById(id)) {
+	} else {
+		if (item.quantity < getMaxQuantityById(id)) {
 			item.quantity++;
 		}
 	}
@@ -100,12 +92,12 @@ function editQuantity(id, flag = 0){
     checkStatusCartIcon();
 }
 
-function getMaxQuantityById(id){
+function getMaxQuantityById(id) {
 	let obj = JSON.parse(localStorage.getItem('ca-' + id));
 	return obj.max;
 }
 
-function deleteProduct(id){
+function deleteProduct(id) {
 	localStorage.removeItem('ca-' + id);
   	showText();
     checkStatusCartIcon();
@@ -113,14 +105,13 @@ function deleteProduct(id){
 	Swal.fire('Success!','delete item.','success');
 }
 
-function showText(){
+function showText() {
 	$('.total-quantity-all-product').text(getTotalQuantity());
   	$('.total-price-all-product').text(getTotalPrice());
     $('.delivery-cost').text(getDeliveryCost());
 }
 
-function convertToSlug(Text)
-{
+function convertToSlug(Text) {
     return Text
         .toLowerCase()
         .replace(/ /g,'-')

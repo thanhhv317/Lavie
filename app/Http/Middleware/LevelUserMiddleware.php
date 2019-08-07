@@ -15,13 +15,11 @@ class LevelUserMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user() && $request->user()->level == 1)
-        {
+        if ($request->user() && $request->user()->level == 1) {
             // Admin
             return $next($request);
         }
-        if ($request->user() && $request->user()->level == 2)
-        {
+        if ($request->user() && $request->user()->level == 2) {
             //supper admin
             return ;
         }

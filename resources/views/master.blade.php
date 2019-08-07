@@ -29,10 +29,8 @@
 	<!-- validate form register jquery -->
 	<script src="{{ asset('js/register.js') }}"></script>
 
-
     <!-- sweetalert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-
 
 	<!-- bootstrap -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -41,8 +39,6 @@
 	<!-- end bootstrap -->
 
 	<script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
-
-	
 </head>
 <body>
 <!-- menu navbar -->
@@ -142,7 +138,6 @@ s0.parentNode.insertBefore(s1,s0);
 <!-- share to facebook -->
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v4.0&appId=528982404341906&autoLogAppEvents=1"></script>
-
 
 </body>
 </html>
