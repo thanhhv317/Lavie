@@ -70,22 +70,21 @@
 	<div class="row">
 		<hr>
 		<table class="table">
-		  <thead class="thead-light">
-		    <tr>
-		      <th scope="col">Total quantity</th>
-		      <th scope="col">Total Price</th>
-		      <th scope="col">Delivery cost</th>
-		      <th scope="col">Total</th>
-		      <th scope="col">Action</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		    <tr class="total-order">
+		  	<thead class="thead-light">
+			    <tr>
+					<th scope="col">Total quantity</th>
+					<th scope="col">Total Price</th>
+					<th scope="col">Delivery cost</th>
+					<th scope="col">Total</th>
+					<th scope="col">Action</th>
+			    </tr>
+		  	</thead>
+		  	<tbody>
+			    <tr class="total-order">
 
-		    </tr>
-		  </tbody>
+			    </tr>
+		  	</tbody>
 		</table>
-	  	
 	</div>
 </div>
 

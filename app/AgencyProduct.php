@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AgencyProduct extends Model
 {
-    protected $table = 'agency_products';
+    protected $table    = 'agency_products';
     protected $fillable = ['id', 'agency_id', 'product_id', 'quantity', 'discount_rate'];
 
     public function addData($agency_id, $product_id, $quantity = 0, $discount_rate = 0)
@@ -32,7 +32,7 @@ class AgencyProduct extends Model
 
     public function updateQuantityAndDiscoundtRate($quantity, $discount_rate)
     {
-        $this->quantity = $quantity;
+        $this->quantity      = $quantity;
         $this->discount_rate = $discount_rate;
         $this->save();
     }

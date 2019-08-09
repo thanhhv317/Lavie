@@ -1,7 +1,7 @@
 function ajaxFunction(id, url, action = 0, product_id) {
 	var _token = $('input[name="_token"]').val();
 	var confirmButtonText, text, confirmButtonColor;
-	if(action == 0) {
+	if (action == 0) {
 		confirmButtonColor = '#3085d6';
 		confirmButtonText  = 'Yes, delete it!';
 		text 			   = '';
@@ -25,7 +25,7 @@ function ajaxFunction(id, url, action = 0, product_id) {
 			type : 'POST',
 			data : {id : id, _token : _token, product_id: product_id},
 			success : function(data) {
-				if(action == 0){
+				if (action == 0) {
 					tmp--;
 					Swal.fire(
 					    'Deleted!',
@@ -33,19 +33,16 @@ function ajaxFunction(id, url, action = 0, product_id) {
 					    'success'
 					);
 					$('#'+id).hide();
-					if(tmp == 1){
+					if (tmp == 1) {
 						$('.delete-me').hide(1000);
 					}
-				}
-				else {
+				} else {
 					Swal.fire(
 					    'Complete!',
 					    'Your file has been set default.',
 					    'success'
 					);
 				}
-				
-				
 			}
 		});
 	}
@@ -57,7 +54,6 @@ $(document).ready(function() {
 	  allowClear: true
 	});
 });
-
 
 function addAgency(category) {
 	var i, cate_size = category.length;
@@ -72,8 +68,8 @@ function addAgency(category) {
 	    <select class="form-control" name="new_agency[]">
 	    	${content}
 	    </select>
-	  </div>
-	  <div class="row">
+	  	</div>
+ 	 	<div class="row">
 	  	<div class="col">
 		  <div class="form-group">
 		    <label for="formGroupExampleInput2">Quantity:</label>
@@ -98,7 +94,7 @@ function deleteAgency(id) {
 		type: 'POST',
 		data: {id : id, _token: _token},
 		success: function(data) {
-			if(data == 1) {
+			if (data == 1) {
 				Swal.fire(
 				    'Deleted!',
 				    'Your file has been deleted.',
@@ -106,7 +102,7 @@ function deleteAgency(id) {
 				);
 				$(".agency-content-"+id).hide(1000);
 				agen_tmp--;
-				if (agen_tmp <= 1){
+				if (agen_tmp <= 1) {
 					$('.delete-agency').hide();
 				}
 			}

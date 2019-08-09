@@ -65,18 +65,14 @@ class Order extends Model
 
         $quantity = $content['quantity'] - ($data['quantity'] - $new_quantity);
 
-
         $this->where('id', $data['order_id'])
              ->update([
-                'price' => $new_price, 
-                'cost' => $cost, 
+                'price'       => $new_price, 
+                'cost'        => $cost, 
                 'total_price' => $new_price + $cost, 
-                'quantity' => $quantity
+                'quantity'    => $quantity
              ]);
 
-        // return $new_price . " - ". $content['price']. " - ". $new_quantity. " - " .$data['quantity']. " - " . $data['price'] . "cost-" . $cost. " quantity" . $quantity;
-
-        // if new_price = 0 <=> order = null => delete
         return $new_price;
 
     }

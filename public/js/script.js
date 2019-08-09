@@ -1,17 +1,15 @@
 function searchByPrice() {
 	let priceFrom = ($("#slider-range").slider("values", 0));
-	let priceTo = ($("#slider-range").slider("values", 1));
+	let priceTo   = ($("#slider-range").slider("values", 1));
 	window.location = `/search/${priceFrom}/${priceTo} `;
 }
 
 $(document).ready(function() {
-  if($('.min-price').text()){
+  if ($('.min-price').text()) {
     let minPrice = Number($('.min-price').text());
     let maxPrice = Number($('.max-price').text());
     priceSlider(minPrice, maxPrice);
-  }
-  else
-  {
+  } else {
     priceSlider(0,300);
   }
 });
@@ -47,7 +45,7 @@ $(document).ready(function() {
 });
 
 //zoom image 
-$(document).ready(function(){
+$(document).ready(function() {
    $('.zoom').hover(function() {
       $(this).addClass('transition');
    }, function() {
@@ -56,7 +54,7 @@ $(document).ready(function(){
 });
 
 $(function() {
-  $('.zoom-image').each(function(){
+  $('.zoom-image').each(function() {
     var originalImagePath = $(this).find('img').data('original-image');
     $(this).zoom({
       url: originalImagePath,
@@ -81,8 +79,7 @@ function subQuantity() {
   let tmp = $('.box-quantity').val();
   if (tmp <= 1) {
     return;
-  }
-  else {
+  } else {
     $('.box-quantity').val(tmp - 1);
   }
 }
@@ -90,17 +87,16 @@ function subQuantity() {
 function addQuantity() {
   let tmp = $('.box-quantity').val();
   let max = $('.sum-quantity').text();
-  if (tmp >= Number(max)){
+  if (tmp >= Number(max)) {
     return
-  }
-  else {
+  } else {
     $('.box-quantity').val(Number(tmp) + 1);
   }
 }
 
 // add to cart
 function addToCart(seller_id, id, name, price, quantity, img) {
-  if (getTotalQuantity() < 1){
+  if (getTotalQuantity() < 1) {
     $('.quantity-product').show();
   }
   obj = {
@@ -115,23 +111,21 @@ function addToCart(seller_id, id, name, price, quantity, img) {
   var count_obj = 0;
 
   let max = localStorage.length;
-  for(let i =0; i < max; ++i){
+  for (let i =0; i < max; ++i) {
     var key = localStorage.key(i);
-    if(key == ('ca-' + id)) {
+    if (key == ('ca-' + id)) {
       count_obj ++;
     }
   }
 
-  if(count_obj < 1) {
+  if (count_obj < 1) {
     localStorage.setItem('ca-' + id, obj);
-  } 
-  else {
+  } else {
     editQuantityProduct('ca-' + id, quantity);
   }
-  if(getTotalQuantity() > 9) {
+  if (getTotalQuantity() > 9) {
     $('.quantity-product').text('9+');
-  }
-  else {
+  } else {
     $('.quantity-product').text(getTotalQuantity());
   }
   Swal.fire('Success!','added item.','success');
@@ -147,9 +141,9 @@ function editQuantityProduct(pkey, quantity = 1) {
 function getTotalQuantity() {
   var result = 0;
   let max = localStorage.length;
-  for(let i = 0; i < max; ++i){
+  for (let i = 0; i < max; ++i) {
     var key = localStorage.key(i);
-    if(key.charAt(0) == 'c' && key.charAt(1) == 'a') {
+    if (key.charAt(0) == 'c' && key.charAt(1) == 'a') {
       let obj = JSON.parse(localStorage.getItem(key));
       result += obj.quantity;
     }
@@ -160,9 +154,9 @@ function getTotalQuantity() {
 function getTotalPrice() {
   var result = 0;
   let max = localStorage.length;
-  for(let i =0; i < max; ++i){
+  for (let i =0; i < max; ++i) {
     var key = localStorage.key(i);
-    if(key.charAt(0) == 'c' && key.charAt(1) == 'a') {
+    if (key.charAt(0) == 'c' && key.charAt(1) == 'a') {
       let obj = JSON.parse(localStorage.getItem(key));
       result += (obj.quantity * obj.price);
     }
@@ -188,25 +182,23 @@ function checkStatusCartIcon() {
   }
 }
 
-function getDeliveryCost(){
+function getDeliveryCost() {
   var result = 0;
   let cost = getTotalPrice();
   if ( cost < 20 && cost > 0){
     result = cost * 0.1;
-  }
-  else if (cost > 20 && cost < 50){
+  } else if (cost > 20 && cost < 50){
     result = cost * 0.05;
   }
   return Math.round(result * 100) / 100; 
 }
 
-function groupCart()
-{
+function groupCart() {
   var result = [];
   let max = localStorage.length;
-  for(let i =0; i < max; ++i){
+  for (let i =0; i < max; ++i) {
       var key = localStorage.key(i);
-      if(key.charAt(0) == 'c' && key.charAt(1) == 'a'){
+      if (key.charAt(0) == 'c' && key.charAt(1) == 'a') {
       result.push(localStorage.getItem(key));
       }
   }

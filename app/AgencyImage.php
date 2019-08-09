@@ -30,9 +30,8 @@ class AgencyImage extends Model
 
     public function deleteDataById($id, $hasId = true)
     {
-    	if ($hasId == true)
-    	{
-			$img = $this->find($id);
+    	if ($hasId == true) {
+			$image  = $this->find($id);
 			$result = $img->image;
 			$img->delete();
 			return $result;

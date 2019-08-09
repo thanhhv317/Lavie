@@ -52,6 +52,7 @@ class SingleProductController extends Controller
         foreach ($product_same_cate as $key => $value) {
         	$product_id_arr[] = $value['product_id'];
         }
+        
         $product_id_arr = array_unique($product_id_arr); // array store product_ids.
         foreach ($product_id_arr as $key => $value) {
         	if($value == $product_id) unset($product_id_arr[$key]);
@@ -69,7 +70,6 @@ class SingleProductController extends Controller
     	// complete same product by category
     	$product_same = $product_same->toArray();
 
-
     	$user_id = new Product;
     	$user_id = $user_id->getUserId($product_id);
     	$user_id = $user_id[0]->user_id;
@@ -85,12 +85,6 @@ class SingleProductController extends Controller
     	}
     	// complete same product by category
     	$seller_product = $seller_product->toArray();
-
-
-
-    	// echo "<pre>";
-    	// print_r($product);
-    	// echo "</pre>";
 
     	return view('homepage.productDetail')->with([
     		'product'	  	 => $product,

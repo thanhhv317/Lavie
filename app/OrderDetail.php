@@ -32,18 +32,19 @@ class OrderDetail extends Model
 
     public function updateQuantityById($data)
     {
-        $current_quantity = $this->select('quantity', 'price', 'order_id')->where('id', $data->order_id)->first()->toArray();
+        $current_quantity = $this->select('quantity', 'price', 'order_id')
+                                 ->where('id', $data->order_id)->first()->toArray();
         $this->where('id', $data->order_id)->update(['quantity' => $data->quantity]);
         return $current_quantity;
     }
 
     public function deleteData($id)
     {
-        $item = $this->find($id);
+        $item     = $this->find($id);
         $quantity = $item->quantity;
-        $price = $item->price;
+        $price    = $item->price;
         $order_id = $item->order_id;
-        $detail = ['order_id' => $order_id ,'quantity' => $quantity, 'price' => $price];
+        $detail   = ['order_id' => $order_id ,'quantity' => $quantity, 'price' => $price];
 
         $item->delete();
 

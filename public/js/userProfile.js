@@ -9,10 +9,9 @@ $(document).ready(function() {
 		var checkval = pattern.test($("#newPassword").val());
 		let arr = [newPass, confirmPass];
 		if (checkArr(arr) && checkPass(newPass, confirmPass)) {
-			if(!checkval) {
+			if (!checkval) {
 		        Swal.fire('error!','password must be at least 8 characters with uppercase letters and numbers.','error');
-		    }
-		    else {
+		    } else {
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: '/buyer/profile/changePass',
@@ -23,14 +22,13 @@ $(document).ready(function() {
 						confirmPass: confirmPass
 					},
 					success: function(data) {
-						if(data == 1) {
+						if (data == 1) {
 							Swal.fire('success!','change password completed.','success');
 						}
 					}
 				});
 			}
-		}
-		else {
+		} else {
 			Swal.fire('error!','Review the password section.','error');
 		}
 	});
@@ -138,7 +136,7 @@ function viewOrderDetail(id, status) {
 			var totalPrice = 0;
 
 			//handle data[0];
-			var tmp =[];
+			var tmp = [];
 			for (var i = 0; i < arr.length; i++) {
 				tmp.push(arr[i].product_id);
 			}
@@ -151,7 +149,7 @@ function viewOrderDetail(id, status) {
 			var item = [];
 			for (var i = 0; i < tmp.length; i++) {
 				for (var j = 0; j < arr.length; j++) {
-					if(arr[j].product_id == tmp[i]){
+					if (arr[j].product_id == tmp[i]) {
 						item.push(arr[j]);
 						break;
 					}
@@ -197,8 +195,7 @@ function viewOrderDetail(id, status) {
 				$('.footer-order-detail').html(`
 					<button type="button" class="btn btn-danger" onclick="cancelOrder(${id})" data-dismiss="modal">Cancel order</button>
 				`);
-			}
-			else {
+			} else {
 				$('.footer-order-detail').html("");
 			}
 
@@ -207,10 +204,10 @@ function viewOrderDetail(id, status) {
 	
 }
 
-function updateProfile(){
-	var _token = $('input[name="_token"]').val();
-	let name = $('#inputName').val();
-	let phone = $('#inputPhone').val();
+function updateProfile() {
+	var _token  = $('input[name="_token"]').val();
+	let name 	= $('#inputName').val();
+	let phone 	= $('#inputPhone').val();
 	let address = $('#inputAddress').val();
 
 	//check value is null
@@ -230,8 +227,7 @@ function updateProfile(){
 				}
 			}
 		});
-	}
-	else {
+	} else {
 		Swal.fire('warning!','Please fill out this field.','error');
 	}
 }
@@ -267,7 +263,7 @@ var cancelOrder = (id) => {
 					id: id
 				},
 				success: function(data) {
-					if(data == 1) {
+					if (data == 1) {
 						Swal.fire('success!','Cancel order completed','success');
 						$('.order-detail-' + id).hide(1000);
 					}
@@ -277,7 +273,7 @@ var cancelOrder = (id) => {
 	})
 }
 
-function convertToUTC(orderDate){
+function convertToUTC(orderDate) {
 	var orderDate = new Date(orderDate);
 	var utc = new Date(orderDate.getTime() + orderDate.getTimezoneOffset() +25200000 );
 	return utc;
@@ -299,7 +295,7 @@ function loadMore() {
 			skip: skip
 		},
 		success: function(data) {
-			var views = "";
+			var views  = "";
 			for (var i = 0; i < data.length; i++) {
 				status = getStatus(data[i].status);
 				views += createTableBody(data[i].id, data[i].created_at, data[i].quantity, data[i].price, data[i].cost, status);
@@ -332,7 +328,7 @@ function getStatus(x) {
 function createTableBody(id, created_at, quantity, price, cost, status) {
 	var views;
 	let utc = convertToUTC(created_at);
-	views = `<tr class="order-detail-${id}">
+	views 	= `<tr class="order-detail-${id}">
 				<th scope="row">${id}</th>
 				<td title="${created_at}">${jQuery.timeago(utc)}</td>
 				<td>${quantity}</td>

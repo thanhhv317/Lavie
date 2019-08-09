@@ -76,7 +76,6 @@
         </ul>
       </li>
     </ul>
-
     <!-- <ul class="list-unstyled CTAs">
       <li>
         <a href="#" class="download">User manager</a>
@@ -136,7 +135,6 @@
     </nav>
   <!-- end navbar -->
 
-
   <!-- content -->
 
   <div class="container">
@@ -145,15 +143,10 @@
     </div>
   </div>
 
-
   <!-- end content -->
 
   </div>
 </div>
-
-
-
- 
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -170,10 +163,8 @@
  <!-- sweetalert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-
  <!-- agency -->
   <script src="{{ asset('js/agency.js') }}" defer></script>
-
   <script src="{{ asset('js/dashboard.js') }}" defer></script>
 
 </body>

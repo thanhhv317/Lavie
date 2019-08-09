@@ -63,8 +63,7 @@ class HomePageController extends Controller
 
     	$size = count($product);
 
-    	for ($i=0; $i < $size; $i++) 
-    	{ 
+    	for ($i=0; $i < $size; $i++) { 
     		$this->groupImg($product, $i);
    			$this->groupAgency($product, $i);
     	}
@@ -98,8 +97,7 @@ class HomePageController extends Controller
         $product = $product->getAllDataByName($request->name);
 
      	$size = count($product);
-    	for ($i=0; $i < $size; $i++) 
-    	{ 
+    	for ($i=0; $i < $size; $i++) { 
     		$this->groupImg($product, $i);
    			$this->groupAgency($product, $i);
     	}

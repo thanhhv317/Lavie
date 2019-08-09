@@ -44,22 +44,18 @@ class OrderController extends Controller
 
     public function setStatus(Request $request)
     {
-    	if($request->ajax())
-    	{
+    	if ($request->ajax()) {
     		$order = new Order;
     		$order = $order->setStatusById($request->id, $request->status);
     		return 1;
-    	}
-    	else 
-    	{
+    	} else {
     		return "file not found";
     	}
     }
 
     public function editOrderDetail(Request $request)
     {
-    	if($request->ajax())
-    	{
+    	if ($request->ajax()) {
             DB::beginTransaction();
             try {
         		$order_detail = new OrderDetail;
@@ -72,21 +68,17 @@ class OrderController extends Controller
 
                 DB::commit();
                 return $order;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 DB::rollBack();
             }
-    	}
-    	else 
-    	{
+    	} else {
     		return "not found !";
     	}
     }
 
     public function deleteOrderDetail(Request $request)
     {
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             DB::beginTransaction();
             try {
                 $order_detail = new OrderDetail;
@@ -97,27 +89,23 @@ class OrderController extends Controller
                 $order = new Order;
                 $order = $order->updateDataById($order_detail, 0);
                 
-                if($order <= 0 ){
+                if ($order <= 0 ) {
                     // order is null
                     $this->_delOrder($order_id);
                     echo 1;
                 }
                 DB::commit();
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 DB::rollBack();
             }
-        }
-        else
-        {
-            return "<script>alert('not found');</script>";
+        } else {
+            return "not found";
         }
     }
 
     public function deleteOrder(Request $request)
     {
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             DB::beginTransaction();
             try {
                 $order_detail = new OrderDetail;
@@ -126,13 +114,10 @@ class OrderController extends Controller
                 $this->_delOrder($request->id);
                 DB::commit();
                 return 1;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 DB::rollBack();
             }
-        }
-        else
-        {
+        } else {
             return "not found !";
         }
     }

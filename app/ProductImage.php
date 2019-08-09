@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductImage extends Model
 {
-    protected $table = 'product_images';
+    protected $table    = 'product_images';
     protected $fillable = ['id', 'product_id', 'image', 'status'];
 
     public function product()
@@ -23,16 +23,18 @@ class ProductImage extends Model
     public function addData($product_id, $name)
     {
         $this->product_id = $product_id;
-        $this->image = $name;
-        $this->status = 1;
+        $this->image      = $name;
+        $this->status     = 1;
         $this->save();
     }
 
     public function getDataByProductId($id, $flag = true)
     {
         if ($flag ==true )
-            return $this->select('id', 'image', 'status')->where('product_id', $id)->orderby('status', 'DESC')->get()->toArray();
-        return $this->select('id', 'image', 'status')->where('product_id', $id)->orderby('status', 'DESC')->get();
+            return $this->select('id', 'image', 'status')
+                        ->where('product_id', $id)->orderby('status', 'DESC')->get()->toArray();
+        return $this->select('id', 'image', 'status')
+                    ->where('product_id', $id)->orderby('status', 'DESC')->get();
     }
 
     public function getDataById($id)

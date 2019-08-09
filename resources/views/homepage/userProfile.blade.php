@@ -33,7 +33,6 @@
 	</div>
 </div>
 
-
 <div class="modal fade" id="viewDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -58,7 +57,6 @@
 	</div>
 </div>
 
-
 <div class="container mt-5">
 	<div class="row mt-1">
 		<div class="col-3">
@@ -74,7 +72,6 @@
 				<a class="list-group-item list-group-item-action btn-cusort-pointer" id="list-order"><i class="fas fa-file-invoice"></i> List order</a>
 			</div>
 		</div>
-
 
 		<div class="col-9 mt-1 mb-4" id="profile-content">
 			<h1 class="mt-5">MY ACCOUNT</h1>

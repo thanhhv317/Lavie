@@ -9,7 +9,6 @@
 </div>
 @include('admin.blocks.error')
 
-
 <div class="container">
 <form  action="{{ route('seller.agency.postEdit',$agency['id']) }}" method="post" enctype="multipart/form-data">
 	@csrf
