@@ -107,7 +107,7 @@ function sendMail(arr) {
 let buyerOrder = async () => {
 	try {
 		let p1 = await orderProduct();
-		let p2 = await sendMail(p1);
+		// let p2 = await sendMail(p1);
 		return Promise.resolve(successOrder());
 	}
 	catch (e){
